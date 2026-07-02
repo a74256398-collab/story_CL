@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>故事屋 · 數位互動表達培訓平台</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
+<!-- 手寫風中文字型（漸進增強，載入失敗則回退 Noto Sans TC） -->
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.7.0/style.css" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#FBF4E6;
+  --paper-2:#F6E9D2;
+  --paper-card:#FEFBF2;
+  --ink:#4A3526;
+  --ink-soft:#846247;
+  --orange:#E58234;
+  --orange-deep:#C7611D;
+  --yellow:#F3C34E;
+  --brown:#B67B4E;
+  --brown-line:#9A6438;
+  --red:#D4593F;
+
+  --spring:#E0836B;  --spring-2:#8FA95E;
+  --summer:#EE9E2E;  --summer-2:#F3C959;
+  --autumn:#C4622D;  --autumn-2:#D99A3D;
+  --winter:#6E97A6;  --winter-2:#C7583F;
+
+  --blk1:#F7DC94;    --blk1-line:#CE9E2C;   --blk1-ink:#7A5B12;
+  --blk2:#F3B99C;    --blk2-line:#D06A3E;   --blk2-ink:#8A3B1B;
+  --blk3:#CDCF90;    --blk3-line:#8B9843;   --blk3-ink:#4E561B;
+
+  --sketch:255px 15px 225px 15px/15px 225px 15px 255px;
+  --sketch-2:15px 225px 15px 255px/225px 15px 255px 15px;
+  --shadow:0 6px 0 rgba(154,100,56,.18), 0 14px 26px -14px rgba(74,53,38,.45);
+
+  --serif:"LXGW WenKai TC","Noto Sans TC",system-ui,sans-serif;
+  --sans:"Noto Sans TC",system-ui,sans-serif;
+  --hand:"Patrick Hand","Fredoka",sans-serif;
+  --round:"Fredoka","Noto Sans TC",sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(243,195,78,.14), transparent 40%),
+    radial-gradient(circle at 88% 8%, rgba(229,130,52,.12), transparent 42%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+
+/* ---------- Navbar ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:8px;
+  padding:12px clamp(14px,4vw,40px);
+  background:rgba(251,244,230,.93);
+  backdrop-filter:blur(6px);
+  border-bottom:3px solid var(--brown-line);
+  border-image:repeating-linear-gradient(90deg,var(--brown-line) 0 14px, transparent 14px 22px) 3;
+}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;cursor:pointer;}
+.brand svg{width:40px;height:40px;flex:none;}
+.brand b{font-family:var(--serif);font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1;}
+.brand small{display:block;font-family:var(--hand);font-size:.7rem;color:var(--orange-deep);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.nav-links a{
+  font-family:var(--serif);font-weight:700;font-size:1rem;
+  padding:6px 14px;border-radius:20px;position:relative;transition:.18s;
+  border:2px solid transparent;
+}
+.nav-links a:hover{background:var(--paper-2);}
+.nav-links a.active{background:#fff;border:2px solid var(--brown);border-radius:var(--sketch);box-shadow:0 3px 0 rgba(154,100,56,.2);}
+.nav-links a[data-season="spring"].active{color:var(--spring);}
+.nav-links a[data-season="summer"].active{color:var(--summer);}
+.nav-links a[data-season="autumn"].active{color:var(--autumn);}
+.nav-links a[data-season="winter"].active{color:var(--winter);}
+.search-btn{
+  width:44px;height:44px;flex:none;margin-left:6px;
+  border:2px solid var(--brown);background:#fff;color:var(--ink);
+  border-radius:var(--sketch);cursor:pointer;display:grid;place-items:center;
+  box-shadow:0 3px 0 rgba(154,100,56,.2);transition:.15s;
+}
+.search-btn:hover{transform:rotate(-6deg) scale(1.05);background:var(--yellow);}
+.search-btn svg{width:22px;height:22px;}
+
+/* ---------- Search overlay ---------- */
+.search-wrap{
+  position:sticky;top:70px;z-index:40;
+  max-height:0;overflow:hidden;transition:max-height .28s ease;
+  padding:0 clamp(14px,4vw,40px);
+}
+.search-wrap.open{max-height:60vh;overflow:auto;}
+.search-inner{
+  margin:0 auto;max-width:720px;background:var(--paper-card);
+  border:2.5px solid var(--brown-line);border-radius:var(--sketch);
+  box-shadow:var(--shadow);padding:14px 16px 6px;margin-top:12px;
+}
+.search-inner input{
+  width:100%;border:none;background:transparent;font-family:var(--serif);
+  font-size:1.3rem;color:var(--ink);padding:6px 4px;outline:none;
+  border-bottom:2.5px dashed var(--brown);
+}
+.search-inner input::placeholder{color:var(--ink-soft);}
+.search-results{list-style:none;margin:10px 0 6px;padding:0;}
+.search-results li{
+  padding:9px 10px;border-radius:12px;cursor:pointer;display:flex;gap:10px;align-items:baseline;
+}
+.search-results li:hover{background:var(--paper-2);}
+.search-results .ep{font-family:var(--hand);color:var(--orange-deep);font-size:.85rem;flex:none;}
+.search-results .nm{font-family:var(--serif);font-weight:700;}
+.search-results .se{margin-left:auto;font-size:.75rem;color:var(--ink-soft);flex:none;}
+.search-empty{color:var(--ink-soft);padding:8px 10px 14px;font-size:.95rem;}
+
+/* ---------- App container ---------- */
+main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,40px) 80px;}
+
+/* ---------- Home ---------- */
+.hero{position:relative;text-align:center;padding:26px 0 8px;}
+.hero .eyebrow{font-family:var(--hand);letter-spacing:3px;color:var(--orange-deep);font-size:1rem;text-transform:uppercase;}
+.hero h1{
+  font-family:var(--serif);font-weight:900;line-height:1.05;margin:.1em 0 .15em;
+  font-size:clamp(2.6rem,7vw,4.6rem);color:var(--ink);
+  text-shadow:3px 3px 0 var(--yellow), 6px 6px 0 rgba(229,130,52,.35);
+}
+.hero .sub{font-family:var(--serif);font-size:clamp(1.05rem,2.4vw,1.4rem);color:var(--ink-soft);max-width:640px;margin:0 auto;}
+.hero-scene{display:flex;justify-content:center;gap:clamp(6px,2vw,26px);margin:18px 0 6px;flex-wrap:wrap;}
+.hero-scene svg{width:clamp(52px,11vw,84px);height:clamp(52px,11vw,84px);filter:drop-shadow(2px 4px 0 rgba(154,100,56,.18));}
+.hero-scene svg:nth-child(odd){transform:rotate(-4deg);}
+.hero-scene svg:nth-child(even){transform:rotate(5deg);}
+
+.outcomes{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 8px;
+}
+.oc{
+  background:var(--paper-card);border:2.5px solid var(--brown-line);
+  border-radius:var(--sketch);padding:18px 15px;text-align:center;box-shadow:var(--shadow);
+  position:relative;
+}
+.oc:nth-child(2){border-radius:var(--sketch-2);}
+.oc:nth-child(4){border-radius:var(--sketch-2);}
+.oc .num{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;
+  font-family:var(--round);font-weight:700;display:grid;place-items:center;
+  border:2px solid var(--paper);box-shadow:0 3px 0 rgba(154,100,56,.3);
+}
+.oc svg{width:46px;height:46px;margin:8px 0 6px;}
+.oc h3{font-family:var(--serif);font-size:1.02rem;margin:.2em 0 .3em;font-weight:700;}
+.oc p{font-size:.86rem;color:var(--ink-soft);margin:0;line-height:1.5;}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:40px 0 10px;}
+.btn{
+  font-family:var(--serif);font-weight:700;font-size:1.05rem;cursor:pointer;
+  padding:13px 24px;border-radius:var(--sketch);border:2.5px solid var(--brown-line);
+  background:var(--paper-card);color:var(--ink);box-shadow:var(--shadow);
+  transition:transform .14s, box-shadow .14s;display:inline-flex;align-items:center;gap:9px;
+}
+.btn svg{width:22px;height:22px;}
+.btn:hover{transform:translateY(-3px) rotate(-1deg);}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(154,100,56,.2);}
+.btn.primary{background:var(--orange);color:#fff;border-color:var(--orange-deep);}
+.btn.sun{background:var(--yellow);border-color:#cf9c2c;}
+.home-foot{text-align:center;margin-top:38px;color:var(--ink-soft);font-family:var(--hand);letter-spacing:1px;}
+
+/* ---------- Season banner ---------- */
+.crumb{font-family:var(--hand);color:var(--ink-soft);margin-bottom:16px;font-size:1rem;}
+.crumb a:hover{color:var(--orange-deep);text-decoration:underline wavy;}
+.crumb b{color:var(--ink);}
+
+.season-banner{
+  position:relative;overflow:hidden;border-radius:var(--sketch);
+  border:3px solid var(--brown-line);box-shadow:var(--shadow);
+  padding:30px clamp(20px,4vw,46px);margin-bottom:26px;display:flex;align-items:center;gap:22px;
+}
+.season-banner .txt{position:relative;z-index:2;}
+.season-banner h2{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5vw,3rem);margin:0;}
+.season-banner p{margin:.3em 0 0;font-family:var(--serif);color:var(--ink-soft);font-size:1.05rem;}
+.season-banner .count{font-family:var(--hand);font-size:.95rem;color:var(--ink);opacity:.75;}
+.season-banner .art{margin-left:auto;display:flex;gap:6px;z-index:2;}
+.season-banner .art svg{width:clamp(58px,13vw,104px);height:clamp(58px,13vw,104px);filter:drop-shadow(2px 4px 0 rgba(154,100,56,.2));}
+.season-banner.spring{background:linear-gradient(120deg,#FBEBE2,#F3E5CD);}
+.season-banner.summer{background:linear-gradient(120deg,#FCEFC8,#F8E4B0);}
+.season-banner.autumn{background:linear-gradient(120deg,#F7E2C4,#F1D2A6);}
+.season-banner.winter{background:linear-gradient(120deg,#E4EAEA,#EFE4D0);}
+.season-banner.all{background:linear-gradient(120deg,#FBEEDA,#F5E2C6);}
+
+/* ---------- Story list ---------- */
+.list-head{
+  display:grid;grid-template-columns:64px 1fr 210px;gap:14px;align-items:center;
+  padding:6px 18px;font-family:var(--hand);color:var(--ink-soft);font-size:.9rem;letter-spacing:1px;
+}
+.story-group-title{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin:26px 0 8px;color:var(--orange-deep);}
+.story-row{
+  display:grid;grid-template-columns:64px 1fr 210px;gap:14px;align-items:center;
+  background:var(--paper-card);border:2.5px solid var(--brown);border-radius:16px;
+  padding:14px 18px;margin-bottom:12px;cursor:pointer;transition:.15s;
+  box-shadow:0 4px 0 rgba(154,100,56,.15);
+}
+.story-row:hover{transform:translateX(4px);border-color:var(--orange);box-shadow:0 4px 0 rgba(229,130,52,.35);}
+.story-row .ep{
+  font-family:var(--round);font-weight:700;font-size:1.15rem;color:#fff;background:var(--orange);
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  border:2px solid var(--paper);box-shadow:0 2px 0 rgba(154,100,56,.3);
+}
+.story-row .body .nm{font-family:var(--serif);font-weight:700;font-size:1.18rem;}
+.story-row .body .intro{font-size:.9rem;color:var(--ink-soft);margin-top:1px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{
+  font-family:var(--sans);font-size:.72rem;font-weight:500;padding:3px 9px;border-radius:20px;
+  border:1.5px solid;white-space:nowrap;
+}
+.tag.lp{color:var(--blk1-ink);border-color:var(--blk1-line);background:#FBEFC7;}
+.tag.tm{color:var(--blk2-ink);border-color:var(--blk2-line);background:#FADFCF;}
+.tag.qa{color:var(--blk3-ink);border-color:var(--blk3-line);background:#EDEFC9;}
+.tag.ws{color:var(--orange-deep);border-color:var(--brown);background:#FBE6CE;}
+
+/* ---------- Story detail ---------- */
+.story-hero{margin-bottom:18px;}
+.story-hero .epbig{font-family:var(--hand);color:var(--orange-deep);letter-spacing:2px;}
+.story-hero h2{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5vw,2.9rem);margin:.05em 0 .2em;}
+.story-hero .intro{font-family:var(--serif);font-size:1.15rem;color:var(--ink-soft);max-width:680px;}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;position:relative;z-index:2;}
+.tab{
+  font-family:var(--serif);font-weight:700;font-size:1rem;cursor:pointer;
+  padding:11px 18px;border:2.5px solid var(--brown);border-bottom:none;
+  border-radius:16px 16px 0 0;background:var(--paper-2);color:var(--ink-soft);
+  transition:.15s;display:flex;align-items:center;gap:7px;
+}
+.tab small{font-family:var(--hand);font-size:.72rem;opacity:.8;}
+.tab:hover{background:#fff;color:var(--ink);}
+.tab.active{background:var(--paper-card);color:var(--ink);border-color:var(--brown-line);transform:translateY(1px);}
+.panel{
+  background:var(--paper-card);border:2.5px solid var(--brown-line);border-radius:0 18px 18px 18px;
+  padding:clamp(20px,4vw,34px);box-shadow:var(--shadow);
+}
+.panel h3{font-family:var(--serif);font-weight:900;font-size:1.4rem;margin:0 0 4px;}
+.panel .lead{color:var(--ink-soft);margin:0 0 20px;}
+
+/* 40-min blocks */
+.blocks{display:grid;grid-template-columns:1fr;gap:16px;}
+.block{border-radius:var(--sketch);border:2.5px solid;padding:18px 20px;position:relative;}
+.block .time{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--round);font-weight:700;
+  font-size:1.05rem;padding:5px 14px;border-radius:20px;color:#fff;margin-bottom:8px;
+}
+.block h4{font-family:var(--serif);font-weight:900;font-size:1.2rem;margin:2px 0 8px;}
+.block p{margin:0 0 10px;}
+.block ul{margin:6px 0 0;padding-left:4px;list-style:none;}
+.block li{padding:3px 0 3px 26px;position:relative;}
+.block li::before{content:"✎";position:absolute;left:2px;top:2px;font-size:.95rem;}
+.block.b1{background:var(--blk1);border-color:var(--blk1-line);color:var(--blk1-ink);border-radius:var(--sketch);}
+.block.b1 .time{background:var(--blk1-line);}
+.block.b2{background:var(--blk2);border-color:var(--blk2-line);color:var(--blk2-ink);border-radius:var(--sketch-2);}
+.block.b2 .time{background:var(--blk2-line);}
+.block.b3{background:var(--blk3);border-color:var(--blk3-line);color:var(--blk3-ink);border-radius:var(--sketch);}
+.block.b3 .time{background:var(--blk3-line);}
+.block li::before{color:inherit;}
+
+.hintlist{list-style:none;margin:0;padding:0;}
+.hintlist li{
+  background:var(--paper-2);border:2px solid var(--brown);border-radius:14px;
+  padding:12px 16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;
+}
+.hintlist li .pill{
+  font-family:var(--hand);flex:none;background:var(--orange);color:#fff;
+  padding:2px 11px;border-radius:20px;font-size:.85rem;margin-top:2px;
+}
+.qa li .pill{background:var(--blk3-line);}
+.note{font-size:.85rem;color:var(--ink-soft);margin-top:14px;font-style:italic;}
+
+.ws-box{text-align:center;padding:12px 0 4px;}
+.ws-box .sheet{
+  width:150px;height:200px;margin:0 auto 18px;background:#fff;border:2.5px solid var(--brown-line);
+  border-radius:8px;box-shadow:var(--shadow);position:relative;transform:rotate(-3deg);
+  display:grid;place-items:center;
+}
+.ws-box .sheet svg{width:88px;height:88px;}
+.ws-box .sheet span{position:absolute;bottom:10px;font-family:var(--hand);color:var(--ink-soft);font-size:.8rem;}
+.ws-box p{color:var(--ink-soft);max-width:420px;margin:0 auto 18px;}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:var(--sketch);
+  font-family:var(--serif);font-weight:700;box-shadow:var(--shadow);opacity:0;pointer-events:none;
+  transition:.3s;z-index:80;border:2px solid var(--orange);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* focus */
+a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible{
+  outline:3px dashed var(--orange-deep);outline-offset:3px;
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width:760px){
+  .brand small{display:none;}
+  .nav-links a{padding:5px 10px;font-size:.92rem;}
+  .outcomes{grid-template-columns:repeat(2,1fr);gap:22px 12px;margin-top:40px;}
+  .list-head{display:none;}
+  .story-row{grid-template-columns:52px 1fr;gap:12px;}
+  .story-row .tags{grid-column:1/-1;}
+  .story-row .ep{width:40px;height:40px;font-size:1rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 隱藏 SVG 插畫符號庫（手繪蠟筆風） ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.1"/></filter>
+
+    <symbol id="i-castle" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+        <rect x="24" y="46" width="52" height="40" fill="#F3C34E"/>
+        <rect x="14" y="34" width="16" height="52" fill="#E58234"/>
+        <rect x="70" y="34" width="16" height="52" fill="#E58234"/>
+        <path d="M14 34l4-10 4 10 4-10 4 10M70 34l4-10 4 10 4-10 4 10" fill="#D4593F"/>
+        <path d="M46 86v-20h8v20" fill="#B67B4E"/>
+        <path d="M22 22l8-8 8 8v12H22z" fill="#D4593F"/>
+        <circle cx="30" cy="14" r="0" /><path d="M30 6l3 8h-6z" fill="#E58234"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-pig" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#9A5A4E" stroke-width="3" stroke-linejoin="round" fill="#F3B7C4">
+        <ellipse cx="50" cy="56" rx="30" ry="24"/>
+        <path d="M28 40l-6-12 14 6M72 40l6-12-14 6"/>
+        <ellipse cx="50" cy="62" rx="13" ry="10" fill="#EC9AAE"/>
+        <circle cx="46" cy="62" r="2.5" fill="#9A5A4E" stroke="none"/>
+        <circle cx="54" cy="62" r="2.5" fill="#9A5A4E" stroke="none"/>
+        <circle cx="40" cy="48" r="2.6" fill="#4A3526" stroke="none"/>
+        <circle cx="60" cy="48" r="2.6" fill="#4A3526" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-wolf" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#5A4A42" stroke-width="3" stroke-linejoin="round" fill="#9AA0A6">
+        <path d="M26 44l-6-16 16 8M74 44l6-16-16 8"/>
+        <ellipse cx="50" cy="54" rx="26" ry="22"/>
+        <path d="M38 62q12 12 24 0z" fill="#4A3526"/>
+        <circle cx="41" cy="46" r="3" fill="#4A3526" stroke="none"/>
+        <circle cx="59" cy="46" r="3" fill="#4A3526" stroke="none"/>
+        <path d="M50 54l-4 6h8z" fill="#4A3526" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-crown" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#B5860B" stroke-width="3" stroke-linejoin="round" fill="#F3C34E">
+        <path d="M22 68l-4-32 16 16 16-24 16 24 16-16-4 32z"/>
+        <rect x="22" y="68" width="56" height="10" fill="#E58234"/>
+        <circle cx="18" cy="34" r="4" fill="#D4593F"/><circle cx="82" cy="34" r="4" fill="#D4593F"/>
+        <circle cx="50" cy="24" r="4" fill="#D4593F"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-book" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round" fill="none">
+        <path d="M50 30q-14-8-30-4v46q16-4 30 4z" fill="#E58234"/>
+        <path d="M50 30q14-8 30-4v46q-16-4-30 4z" fill="#F3C34E"/>
+        <path d="M50 30v46"/>
+        <path d="M32 40q7-2 12 0M32 52q7-2 12 0M56 40q7-2 12 0M56 52q7-2 12 0" stroke-width="2"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-moon" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#C99A2E" stroke-width="3" fill="#F3C34E">
+        <path d="M62 20a34 34 0 1 0 0 60 26 26 0 0 1 0-60z"/>
+        <path d="M22 26l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#E58234" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-sun" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#D98A2C" stroke-width="3" stroke-linecap="round" fill="#F3C34E">
+        <circle cx="50" cy="50" r="22"/>
+        <path d="M50 12v10M50 78v10M12 50h10M78 50h10M23 23l7 7M70 70l7 7M77 23l-7 7M30 70l-7 7"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-tree" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#6E7B3A" stroke-width="3" stroke-linejoin="round">
+        <rect x="45" y="58" width="10" height="26" fill="#B67B4E" stroke="#8A5A38"/>
+        <circle cx="50" cy="42" r="24" fill="#8FA95E"/>
+        <circle cx="36" cy="50" r="14" fill="#9FB86E"/>
+        <circle cx="64" cy="50" r="14" fill="#9FB86E"/>
+        <circle cx="42" cy="38" r="3" fill="#E0836B" stroke="none"/>
+        <circle cx="60" cy="44" r="3" fill="#E0836B" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-snow" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#6E97A6" stroke-width="3" stroke-linecap="round">
+        <path d="M50 14v72M18 50h64M26 26l48 48M74 26L26 74"/>
+        <path d="M50 22l-7 6M50 22l7 6M50 78l-7-6M50 78l7-6"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-leaf" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#A8541E" stroke-width="3" stroke-linejoin="round" fill="#D99A3D">
+        <path d="M50 16C28 30 24 60 44 82c4-30 30-42 30-42S60 44 50 60c0-16 0-30 0-44z" fill="#C4622D"/>
+        <path d="M46 78L64 40" stroke="#8A3B12"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-house" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="4" stroke-linejoin="round">
+        <path d="M20 50L50 24l30 26" fill="#D4593F"/>
+        <rect x="26" y="50" width="48" height="34" fill="#F3C34E"/>
+        <rect x="44" y="62" width="12" height="22" fill="#B67B4E"/>
+        <rect x="32" y="56" width="9" height="9" fill="#FBF4E6"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===== Navbar ===== -->
+<nav class="nav">
+  <div class="brand" onclick="go('#/')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go('#/')">
+    <svg viewBox="0 0 100 100"><use href="#i-house"/></svg>
+    <div><b>故事屋</b><small>STORY HOUSE</small></div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#/" data-route="home">首頁</a>
+    <a href="#/season/spring" data-season="spring">春季</a>
+    <a href="#/season/summer" data-season="summer">夏季</a>
+    <a href="#/season/autumn" data-season="autumn">秋季</a>
+    <a href="#/season/winter" data-season="winter">冬季</a>
+  </div>
+  <button class="search-btn" id="searchBtn" aria-label="搜尋故事" onclick="toggleSearch()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  </button>
+</nav>
+
+<div class="search-wrap" id="searchWrap">
+  <div class="search-inner">
+    <input id="searchInput" type="search" placeholder="輸入故事名稱，例如：三隻小豬、白雪公主…" autocomplete="off" oninput="doSearch(this.value)" onkeydown="searchKey(event)">
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 資料庫：全四季 54 集 ================= */
+const SEASONS = {
+  spring:{name:"春季故事屋", short:"春季", tagline:"萬物甦醒，讓故事在春天發芽", arts:["#i-tree","#i-pig","#i-book"]},
+  summer:{name:"夏季故事屋", short:"夏季", tagline:"艷陽高照，冒險故事正精彩", arts:["#i-sun","#i-crown","#i-book"]},
+  autumn:{name:"秋季故事屋", short:"秋季", tagline:"秋高氣爽，收藏一則則智慧", arts:["#i-leaf","#i-moon","#i-book"]},
+  winter:{name:"冬季故事屋", short:"冬季", tagline:"圍爐夜話，聽經典童話入夢", arts:["#i-snow","#i-castle","#i-crown"]},
+};
+
+const STORIES = [
+  // 春季 13
+  ["spring","年來了","除夕夜怪獸「年」來襲，村民用紅色與爆竹嚇退牠。"],
+  ["spring","我的媽媽","孩子用稚嫩的話語，描述心中最溫暖的媽媽。"],
+  ["spring","盤古開天","巨人盤古劈開混沌，天與地從此分明。"],
+  ["spring","十二生肖","動物們渡河賽跑，爭奪生肖排名的順序。"],
+  ["spring","拇指姑娘","花朵中誕生的小女孩，展開一場奇幻冒險。"],
+  ["spring","海螃蟹傳奇","勇敢的小螃蟹橫行大海，闖出一段傳奇。"],
+  ["spring","三隻小豬","三隻小豬蓋房子，智鬥想吃掉牠們的大野狼。"],
+  ["spring","七隻小羊與大野狼","羊媽媽外出，小羊們識破偽裝的大野狼。"],
+  ["spring","醜小鴨","被嘲笑的醜小鴨，長成美麗的白天鵝。"],
+  ["spring","大蘿蔔","全家老小齊心協力，一起拔出超大的蘿蔔。"],
+  ["spring","鴿子報恩","受助的鴿子銜來禮物，報答善心的人。"],
+  ["spring","手套","雪地裡掉落的手套，成了動物們的溫暖小屋。"],
+  ["spring","老鼠相撲","窮老鼠吃了年糕力大無窮，贏得相撲比賽。"],
+  // 夏季 13
+  ["summer","愛國詩人─屈原","詩人屈原投江明志，端午節由此而來。"],
+  ["summer","鵲橋上的牛郎織女","牛郎織女七夕相會，喜鵲為他們搭起鵲橋。"],
+  ["summer","傑克與魔豆","傑克種下魔豆，爬上雲端巨人的城堡。"],
+  ["summer","阿拉丁與神燈","阿拉丁擦亮神燈，喚出實現願望的巨人。"],
+  ["summer","阿里巴巴與四十大盜","一句「芝麻開門」，揭開藏寶洞的秘密。"],
+  ["summer","勇敢的小裁縫","一次打死七隻蒼蠅，小裁縫聲名大噪。"],
+  ["summer","三個罐子","三個神奇的罐子，考驗人心的貪與足。"],
+  ["summer","包公審石頭","包公巧審石頭，替孩子找回失竊的錢。"],
+  ["summer","周處除三害","浪子周處斬蛟射虎，改過向善除三害。"],
+  ["summer","鱷魚與胡狼","狡猾的胡狼運用機智，逃出鱷魚的大口。"],
+  ["summer","國王的新衣","愛慕虛榮的國王，穿上根本不存在的新衣。"],
+  ["summer","東郭先生和大野狼","好心的東郭先生，險些被忘恩的野狼所害。"],
+  ["summer","猴蟹交戰","螃蟹與猴子鬥智，為柿子展開一場大戰。"],
+  // 秋季 14
+  ["autumn","我的老師","孩子筆下最敬愛、最難忘的一位老師。"],
+  ["autumn","我的爸爸","高大又溫柔，孩子心中最厲害的爸爸。"],
+  ["autumn","嫦娥奔月","嫦娥吞下仙藥，緩緩飛向清冷的月宮。"],
+  ["autumn","費長房求仙記","費長房拜師學仙，經歷一連串奇異考驗。"],
+  ["autumn","傑克與南瓜燈","狡猾的傑克提著南瓜燈，遊蕩在人間。"],
+  ["autumn","虎姑婆","假扮姑婆的老虎，闖進姊弟倆的家。"],
+  ["autumn","賣香屁","善良的弟弟得到寶物，貪心哥哥自食惡果。"],
+  ["autumn","宋定伯賣鬼記","膽大的宋定伯捉住了鬼，還把牠賣掉。"],
+  ["autumn","金鵝","一隻黏人的金鵝，串起一長列滑稽的隊伍。"],
+  ["autumn","稻草富翁","一根稻草輾轉交換，換來滿屋的財富。"],
+  ["autumn","約翰的蘋果籽","約翰四處播下蘋果籽，留下滿地果園。"],
+  ["autumn","小黃鼠狼","調皮的小黃鼠狼，慢慢學會誠實與友善。"],
+  ["autumn","穿長靴的貓","聰明的貓穿上長靴，替主人贏得榮華富貴。"],
+  ["autumn","烏龜與妖怪","慢吞吞的烏龜，用智慧戰勝可怕的妖怪。"],
+  // 冬季 14
+  ["winter","大紅鼻魯道夫","紅鼻子馴鹿魯道夫，在暴風雪夜大放光芒。"],
+  ["winter","睡美人","被詛咒沉睡的公主，等待真愛的親吻。"],
+  ["winter","長髮姑娘","長髮公主垂下秀髮，盼望自由早日到來。"],
+  ["winter","灰姑娘","灰姑娘穿上玻璃鞋，在午夜前奔赴舞會。"],
+  ["winter","白雪公主","白雪公主誤食毒蘋果，七矮人守護著她。"],
+  ["winter","野天鵝","妹妹編織蕁麻衣，解救變成天鵝的哥哥們。"],
+  ["winter","糖果屋","兄妹倆走進糖果屋，識破巫婆的詭計。"],
+  ["winter","人魚公主","小人魚為愛化為泡沫，換來一雙人腿。"],
+  ["winter","胡桃鉗與老鼠王","胡桃鉗王子率領玩具，大戰老鼠國王。"],
+  ["winter","布萊梅樂隊","四隻老動物結伴，一路唱到布萊梅去。"],
+  ["winter","三隻熊","女孩闖進熊的家，坐壞椅子還偷喝了粥。"],
+  ["winter","畫眉嘴國王","驕傲的公主，被畫眉嘴國王磨去了傲氣。"],
+  ["winter","三個商人買三條貓腿","三商人合買貓腿，鬧出一場趣味官司。"],
+  ["winter","霸道的禿鷹","霸道的禿鷹欺壓小鳥，終於嚐到苦果。"],
+].map((s,i)=>({season:s[0],name:s[1],intro:s[2],idx:i}));
+
+// 為每季編上集數
+(function(){const c={};STORIES.forEach(s=>{c[s.season]=(c[s.season]||0)+1;s.ep=c[s.season];s.id=s.season+"-"+s.ep;});})();
+const byId = id => STORIES.find(s=>s.id===id);
+const bySeason = k => STORIES.filter(s=>s.season===k);
+
+/* ================= 頁面渲染 ================= */
+const app = document.getElementById("app");
+
+function render(){
+  const hash = location.hash || "#/";
+  const parts = hash.replace(/^#\//,"").split("/").filter(Boolean);
+  setActiveNav(parts);
+  closeSearch();
+  window.scrollTo({top:0,behavior:"instant"});
+  if(parts.length===0){ renderHome(); }
+  else if(parts[0]==="season"){ renderSeason(parts[1]); }
+  else if(parts[0]==="story"){ renderStory(parts[1], parts[2]); }
+  else { renderHome(); }
+}
+
+function setActiveNav(parts){
+  document.querySelectorAll(".nav-links a").forEach(a=>a.classList.remove("active"));
+  if(parts.length===0){ document.querySelector('[data-route="home"]').classList.add("active"); }
+  else if(parts[0]==="season"){ const el=document.querySelector(`[data-season="${parts[1]}"]`); if(el)el.classList.add("active"); }
+  else if(parts[0]==="story"){ const s=byId(parts[1]); if(s){const el=document.querySelector(`[data-season="${s.season}"]`); if(el)el.classList.add("active");} }
+}
+
+/* ---------- 首頁 ---------- */
+function renderHome(){
+  app.innerHTML = `
+  <section class="hero">
+    <div class="eyebrow">Digital Storytelling Studio</div>
+    <h1>故事屋</h1>
+    <p class="sub">數位互動表達培訓平台 · 老師備課與課程成效專用</p>
+    <div class="hero-scene">
+      <svg viewBox="0 0 100 100"><use href="#i-pig"/></svg>
+      <svg viewBox="0 0 100 100"><use href="#i-wolf"/></svg>
+      <svg viewBox="0 0 100 100"><use href="#i-castle"/></svg>
+      <svg viewBox="0 0 100 100"><use href="#i-crown"/></svg>
+      <svg viewBox="0 0 100 100"><use href="#i-moon"/></svg>
+    </div>
+  </section>
+
+  <section class="outcomes" aria-label="課程四大核心成效">
+    <div class="oc"><div class="num">1</div><svg viewBox="0 0 100 100"><use href="#i-crown"/></svg>
+      <h3>上台發表的勇氣</h3><p>孩子親自站上台，開口說出屬於自己的完整故事。</p></div>
+    <div class="oc"><div class="num">2</div><svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
+      <h3>空間與圖像邏輯</h3><p>透過 APP 拖曳操作，鍛鍊空間感與圖像思考力。</p></div>
+    <div class="oc"><div class="num">3</div><svg viewBox="0 0 100 100"><use href="#i-house"/></svg>
+      <h3>高階語言組織力</h3><p>拒絕死背，訓練孩子即時組織與表達的能力。</p></div>
+    <div class="oc"><div class="num">4</div><svg viewBox="0 0 100 100"><use href="#i-tree"/></svg>
+      <h3>專屬故事資料夾</h3><p>畫作一一收錄，為每個孩子建立完整學習歷程。</p></div>
+  </section>
+
+  <div class="cta-row">
+    <button class="btn primary" onclick="go('#/story/spring-7/lp')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      查看 40 分鐘標準教案</button>
+    <button class="btn sun" onclick="go('#/season/spring')">
+      <svg viewBox="0 0 100 100"><use href="#i-tree"/></svg>
+      開始探索春季故事</button>
+    <button class="btn" onclick="go('#/season/all')">
+      <svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
+      瀏覽全部 54 集</button>
+  </div>
+  <p class="home-foot">✦ 春 13 · 夏 13 · 秋 14 · 冬 14 · 共 54 則故事 ✦</p>`;
+}
+
+/* ---------- 季別 / 全部列表 ---------- */
+function renderSeason(key){
+  const isAll = key==="all";
+  let banner, groups;
+  if(isAll){
+    banner = `<div class="season-banner all">
+      <div class="txt"><h2>全部故事</h2><p>四季 54 集，一次瀏覽</p><span class="count">春 13 · 夏 13 · 秋 14 · 冬 14</span></div>
+      <div class="art"><svg viewBox="0 0 100 100"><use href="#i-book"/></svg><svg viewBox="0 0 100 100"><use href="#i-castle"/></svg></div></div>`;
+    groups = Object.keys(SEASONS).map(k=>({key:k, list:bySeason(k)}));
+  }else{
+    const S = SEASONS[key];
+    if(!S){ renderHome(); return; }
+    const list = bySeason(key);
+    banner = `<div class="season-banner ${key}">
+      <div class="txt"><h2>${S.name}</h2><p>${S.tagline}</p><span class="count">共 ${list.length} 集</span></div>
+      <div class="art">${S.arts.map(a=>`<svg viewBox="0 0 100 100"><use href="#${a.slice(1)}"/></svg>`).join("")}</div></div>`;
+    groups = [{key, list}];
+  }
+
+  const rows = list => list.map(s=>`
+    <div class="story-row" role="button" tabindex="0" onclick="go('#/story/${s.id}')" onkeydown="if(event.key==='Enter')go('#/story/${s.id}')">
+      <div class="ep">${s.ep}</div>
+      <div class="body"><div class="nm">${s.name}</div><div class="intro">${s.intro}</div></div>
+      <div class="tags">
+        <span class="tag lp">教案</span><span class="tag tm">操作指導</span>
+        <span class="tag qa">練習題</span><span class="tag ws">學習單</span>
+      </div>
+    </div>`).join("");
+
+  app.innerHTML = `
+    <div class="crumb"><a href="#/">首頁</a> / <b>${isAll?"全部故事":SEASONS[key].short}</b></div>
+    ${banner}
+    <div class="list-head"><span>集數</span><span>故事名稱與簡介</span><span>資源標籤</span></div>
+    ${groups.map(g=> (isAll?`<div class="story-group-title">${SEASONS[g.key].name}</div>`:"") + rows(g.list)).join("")}
+  `;
+}
+
+/* ---------- 單集詳細內頁 ---------- */
+const TAB_META = [
+  {id:"lp", label:"完整教案", en:"LP"},
+  {id:"tm", label:"APP 操作指導", en:"TM"},
+  {id:"qa", label:"引導練習題", en:"Q&A"},
+  {id:"ws", label:"學習單下載", en:"WS"},
+];
+
+function renderStory(id, tab){
+  const s = byId(id);
+  if(!s){ renderHome(); return; }
+  const active = TAB_META.some(t=>t.id===tab) ? tab : "lp";
+  const S = SEASONS[s.season];
+
+  app.innerHTML = `
+    <div class="crumb"><a href="#/">首頁</a> / <a href="#/season/${s.season}">${S.short}</a> / <b>${s.name}</b></div>
+    <div class="story-hero">
+      <div class="epbig">${S.short} · 第 ${s.ep} 集</div>
+      <h2>${s.name}</h2>
+      <p class="intro">${s.intro}</p>
+    </div>
+    <div class="tabs" id="tabs">
+      ${TAB_META.map(t=>`<div class="tab ${t.id===active?"active":""}" role="button" tabindex="0"
+          onclick="go('#/story/${id}/${t.id}')" onkeydown="if(event.key==='Enter')go('#/story/${id}/${t.id}')">
+          ${t.label}<small>${t.en}</small></div>`).join("")}
+    </div>
+    <div class="panel">${panelHTML(active, s)}</div>
+  `;
+}
+
+function panelHTML(tab, s){
+  if(tab==="lp") return lpHTML(s);
+  if(tab==="tm") return tmHTML(s);
+  if(tab==="qa") return qaHTML(s);
+  return wsHTML(s);
+}
+
+function lpHTML(s){
+  return `
+  <h3>完整教案 · 40 分鐘標準流程</h3>
+  <p class="lead">《${s.name}》一堂課的三個階段，從老師示範、學生發表，到圖像沉澱與歸檔。</p>
+  <div class="blocks">
+    <div class="block b1">
+      <span class="time">🕒 00–15 分鐘</span>
+      <h4>老師示範引導</h4>
+      <p>搭配 APP 自動朗讀翻頁，帶領全班一起「輸入」《${s.name}》的故事。</p>
+      <ul>
+        <li>播放 APP 自動朗讀，隨頁面翻動情境畫面</li>
+        <li>老師示範語氣、表情與肢體動作</li>
+        <li>引導孩子專注聆聽，掌握故事的角色與順序</li>
+      </ul>
+    </div>
+    <div class="block b2">
+      <span class="time">🕒 15–30 分鐘</span>
+      <h4>學生全功能發表</h4>
+      <p>學生上台，自行切換《${s.name}》的 APP 場景並拖曳角色物件，同時開口說出完整故事。</p>
+      <ul>
+        <li>學生親手操作場景切換</li>
+        <li>拖曳角色與關鍵道具，重現劇情</li>
+        <li>完整口說重述，訓練語言組織力</li>
+        <li>同儕在台下聆聽並給予掌聲鼓勵</li>
+      </ul>
+    </div>
+    <div class="block b3">
+      <span class="time">🕒 30–40 分鐘</span>
+      <h4>圖像沉澱與歸檔</h4>
+      <p>畫畫時間，並將 A4 畫紙收錄進《${s.name}》的專屬故事資料夾。</p>
+      <ul>
+        <li>自由繪製印象最深刻的一幕</li>
+        <li>使用 A4 統一規格圖紙</li>
+        <li>收錄進專屬故事資料夾，累積學習歷程</li>
+      </ul>
+    </div>
+  </div>`;
+}
+
+function tmHTML(s){
+  const items = [
+    ["場景切換","《"+s.name+"》建議分為「開場 → 衝突 → 結局」三個主要場景，於劇情轉折處提醒學生切換。"],
+    ["物件拖曳","引導學生拖曳主角與關鍵道具進場，強調物件出現的先後順序與位置。"],
+    ["節奏提示","高潮片段可放慢操作節奏，讓學生一邊拖曳一邊完整敘述。"],
+  ];
+  return `
+  <h3>APP 操作指導</h3>
+  <p class="lead">提示本集的場景切換點與重要物件拖曳建議，協助老師掌握操作節奏。</p>
+  <ul class="hintlist">
+    ${items.map((it,i)=>`<li><span class="pill">${i+1}</span><div><b>${it[0]}</b><br>${it[1]}</div></li>`).join("")}
+  </ul>
+  <p class="note">※ 以上為示範內容，實際切換點與物件位置請依 APP 分鏡微調。</p>`;
+}
+
+function qaHTML(s){
+  const qs = [
+    "故事裡最先出現的角色是誰？他正在做什麼呢？",
+    "接下來發生了什麼，讓大家覺得緊張的事情？",
+    "主角遇到困難的時候，心裡可能在想些什麼？",
+    "如果換成是你，你會怎麼做？為什麼？",
+    "故事的結局是快樂還是難過？你從中學到什麼？",
+  ];
+  return `
+  <h3>引導練習題</h3>
+  <p class="lead">當學生一時詞窮、卡住不知道怎麼往下說時，老師專用的提示口袋問題。</p>
+  <ul class="hintlist qa">
+    ${qs.map((q,i)=>`<li><span class="pill">Q${i+1}</span><div>${q}</div></li>`).join("")}
+  </ul>
+  <p class="note">※ 依學生程度自由挑選，鼓勵孩子用完整句子回答。</p>`;
+}
+
+function wsHTML(s){
+  return `
+  <h3>學習單下載</h3>
+  <p class="lead">《${s.name}》A4 規格統一圖紙，供 30–40 分鐘圖像沉澱時間使用。</p>
+  <div class="ws-box">
+    <div class="sheet"><svg viewBox="0 0 100 100"><use href="#i-book"/></svg><span>A4 · ${s.name}</span></div>
+    <p>一鍵下載後印出，孩子畫完即可收錄進專屬故事資料夾。</p>
+    <button class="btn primary" onclick="downloadWS('${s.name}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
+      下載 A4 學習單</button>
+  </div>`;
+}
+
+function downloadWS(name){ toast(`《${name}》學習單（A4）準備下載中…`); }
+
+/* ================= 搜尋 ================= */
+const searchWrap = document.getElementById("searchWrap");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+let searchOpen=false;
+
+function toggleSearch(){ searchOpen ? closeSearch() : openSearch(); }
+function openSearch(){ searchOpen=true; searchWrap.classList.add("open"); setTimeout(()=>searchInput.focus(),60); doSearch(searchInput.value); }
+function closeSearch(){ searchOpen=false; searchWrap.classList.remove("open"); }
+
+function doSearch(q){
+  q=(q||"").trim();
+  const list = q==="" ? [] : STORIES.filter(s=>s.name.includes(q));
+  if(q===""){ searchResults.innerHTML=`<li class="search-empty">開始輸入故事名稱來搜尋…</li>`; return; }
+  if(list.length===0){ searchResults.innerHTML=`<li class="search-empty">找不到「${q}」，換個關鍵字試試看。</li>`; return; }
+  searchResults.innerHTML = list.map(s=>`
+    <li onclick="go('#/story/${s.id}')">
+      <span class="ep">${SEASONS[s.season].short} ${s.ep}</span>
+      <span class="nm">${hl(s.name,q)}</span>
+      <span class="se">${SEASONS[s.season].short}</span>
+    </li>`).join("");
+}
+function hl(name,q){ return name.split(q).join(`<b style="color:var(--orange-deep)">${q}</b>`); }
+function searchKey(e){
+  if(e.key==="Escape"){ closeSearch(); }
+  if(e.key==="Enter"){ const first=searchResults.querySelector("li[onclick]"); if(first)first.click(); }
+}
+
+/* ================= 導覽 / toast ================= */
+function go(hash){ if(location.hash===hash){ render(); } else { location.hash=hash; } }
+let toastT;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600);
+}
+
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
