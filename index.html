@@ -76,11 +76,25 @@ a{color:inherit;text-decoration:none;}
 .brand small{display:block;font-family:var(--hand);font-size:.7rem;color:var(--orange-deep);letter-spacing:1px;}
 .nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
 .nav-links a{
-  font-family:var(--serif);font-weight:700;font-size:1rem;
-  padding:6px 14px;border-radius:20px;position:relative;transition:.18s;
-  border:2px solid transparent;
+  font-family:var(--serif);font-weight:700;font-size:1.14rem;
+  padding:9px 18px;border-radius:20px;position:relative;transition:background .18s, color .18s;
+  border:2px solid transparent;display:inline-flex;align-items:center;
 }
+.nav-links a .ni{display:inline-flex;align-items:center;width:0;opacity:0;overflow:hidden;
+  transition:width .22s ease, opacity .2s ease, margin .22s ease;}
+.nav-links a .ni svg{width:24px;height:24px;transform-origin:center bottom;}
 .nav-links a:hover{background:var(--paper-2);}
+.nav-links a:hover .ni{width:26px;opacity:1;margin-right:7px;}
+.nav-links a[data-route="home"]:hover .ni svg{animation:navBounce .7s ease infinite;}
+.nav-links a[data-season="spring"]:hover .ni svg{animation:navGrow .9s ease-in-out infinite;transform-origin:center bottom;}
+.nav-links a[data-season="summer"]:hover .ni svg{animation:navSpin 2.4s linear infinite;transform-origin:center;}
+.nav-links a[data-season="autumn"]:hover .ni svg{animation:navSway 1.1s ease-in-out infinite;transform-origin:top center;}
+.nav-links a[data-season="winter"]:hover .ni svg{animation:navDrift 2.6s linear infinite;transform-origin:center;}
+@keyframes navBounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}55%{transform:translateY(-1px)}}
+@keyframes navGrow{0%,100%{transform:scale(.82) rotate(-5deg)}50%{transform:scale(1.06) rotate(5deg)}}
+@keyframes navSpin{to{transform:rotate(360deg)}}
+@keyframes navSway{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
+@keyframes navDrift{0%{transform:rotate(0) translateY(-2px)}50%{transform:rotate(180deg) translateY(2px)}100%{transform:rotate(360deg) translateY(-2px)}}
 .nav-links a.active{background:#fff;border:2px solid var(--brown);border-radius:var(--sketch);box-shadow:0 3px 0 rgba(154,100,56,.2);}
 .nav-links a[data-season="spring"].active{color:var(--spring);}
 .nav-links a[data-season="summer"].active{color:var(--summer);}
@@ -201,7 +215,12 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   display:grid;grid-template-columns:64px 1fr 210px;gap:14px;align-items:center;
   padding:6px 18px;font-family:var(--hand);color:var(--ink-soft);font-size:.9rem;letter-spacing:1px;
 }
-.story-group-title{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin:26px 0 8px;color:var(--orange-deep);}
+.story-group-title{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin:30px 0 12px;color:var(--orange-deep);display:inline-flex;align-items:center;gap:10px;padding-bottom:4px;border-bottom:3px dashed currentColor;}
+.story-group-title::before{content:"";width:16px;height:16px;border-radius:50%;background:currentColor;flex:none;}
+.story-group-title.spring{color:var(--spring);}
+.story-group-title.summer{color:var(--summer);}
+.story-group-title.autumn{color:var(--autumn);}
+.story-group-title.winter{color:var(--winter);}
 .story-row{
   display:grid;grid-template-columns:64px 1fr 210px;gap:14px;align-items:center;
   background:var(--paper-card);border:2.5px solid var(--brown);border-radius:16px;
@@ -214,6 +233,18 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
   border:2px solid var(--paper);box-shadow:0 2px 0 rgba(154,100,56,.3);
 }
+.story-row.spring{border-left:7px solid var(--spring);}
+.story-row.summer{border-left:7px solid var(--summer);}
+.story-row.autumn{border-left:7px solid var(--autumn);}
+.story-row.winter{border-left:7px solid var(--winter);}
+.story-row.spring .ep{background:var(--spring);}
+.story-row.summer .ep{background:var(--summer);}
+.story-row.autumn .ep{background:var(--autumn);}
+.story-row.winter .ep{background:var(--winter);}
+.story-row.spring:hover{border-color:var(--spring);box-shadow:0 4px 0 rgba(224,131,107,.4);}
+.story-row.summer:hover{border-color:var(--summer);box-shadow:0 4px 0 rgba(238,158,46,.4);}
+.story-row.autumn:hover{border-color:var(--autumn);box-shadow:0 4px 0 rgba(196,98,45,.4);}
+.story-row.winter:hover{border-color:var(--winter);box-shadow:0 4px 0 rgba(110,151,166,.4);}
 .story-row .body .nm{font-family:var(--serif);font-weight:700;font-size:1.18rem;}
 .story-row .body .intro{font-size:.9rem;color:var(--ink-soft);margin-top:1px;}
 .tags{display:flex;flex-wrap:wrap;gap:6px;}
@@ -246,7 +277,8 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   background:var(--paper-card);border:2.5px solid var(--brown-line);border-radius:0 18px 18px 18px;
   padding:clamp(20px,4vw,34px);box-shadow:var(--shadow);
 }
-.panel h3{font-family:var(--serif);font-weight:900;font-size:1.4rem;margin:0 0 4px;}
+.panel h3{font-family:var(--serif);font-weight:900;font-size:1.4rem;margin:0 0 4px;display:flex;align-items:center;gap:11px;}
+.h3-ico{width:36px;height:36px;flex:none;filter:drop-shadow(1px 2px 0 rgba(154,100,56,.16));}
 .panel .lead{color:var(--ink-soft);margin:0 0 20px;}
 
 /* 40-min blocks */
@@ -268,6 +300,10 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
 .block.b3{background:var(--blk3);border-color:var(--blk3-line);color:var(--blk3-ink);border-radius:var(--sketch);}
 .block.b3 .time{background:var(--blk3-line);}
 .block li::before{color:inherit;}
+.bhead{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.bicon{width:52px;height:52px;flex:none;filter:drop-shadow(1px 3px 0 rgba(154,100,56,.2));}
+.bhead .time{margin-bottom:4px;}
+.bhead h4{margin:0;}
 
 .hintlist{list-style:none;margin:0;padding:0;}
 .hintlist li{
@@ -279,6 +315,9 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   padding:2px 11px;border-radius:20px;font-size:.85rem;margin-top:2px;
 }
 .qa li .pill{background:var(--blk3-line);}
+.hintlist li .ico{flex:none;width:46px;height:46px;border-radius:13px;background:var(--paper-card);
+  border:2px solid var(--brown);display:grid;place-items:center;margin-top:1px;}
+.hintlist li .ico svg{width:32px;height:32px;}
 .note{font-size:.85rem;color:var(--ink-soft);margin-top:14px;font-style:italic;}
 
 .ws-box{text-align:center;padding:12px 0 4px;}
@@ -305,18 +344,73 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
   outline:3px dashed var(--orange-deep);outline-offset:3px;
 }
 
+/* ---------- Home: 平台架構 + 大看板 ---------- */
+.sec-title{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,3.4vw,2rem);margin:0 0 8px;color:var(--ink);display:flex;align-items:center;gap:12px;}
+.sec-title::before{content:"✦";color:var(--orange);font-size:.72em;}
+.sec-lead{color:var(--ink-soft);max-width:760px;margin:0 0 24px;font-size:1.02rem;}
+.arch{margin-top:56px;}
+.arch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.rescard{
+  position:relative;text-align:center;cursor:pointer;
+  background:var(--paper-card);border:2.5px solid var(--brown);border-radius:18px;
+  padding:28px 16px 18px;box-shadow:var(--shadow);overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;transition:transform .15s;
+}
+.rescard:hover{transform:translateY(-5px);}
+.rescard .bar{position:absolute;top:0;left:0;right:0;height:9px;}
+.rescard svg{width:54px;height:54px;margin:4px 0 10px;filter:drop-shadow(1px 3px 0 rgba(154,100,56,.15));}
+.rescard h3{font-family:var(--serif);font-weight:900;font-size:1.08rem;margin:0 0 8px;display:flex;gap:8px;align-items:baseline;justify-content:center;}
+.rescard h3 em{font-family:var(--hand);font-style:normal;font-size:.78rem;color:#fff;padding:1px 9px;border-radius:12px;letter-spacing:.5px;}
+.rescard p{font-size:.86rem;color:var(--ink-soft);margin:0 0 16px;line-height:1.55;flex:1;}
+.rescard .go{font-family:var(--serif);font-weight:700;font-size:.92rem;margin-top:auto;}
+.rescard:hover .go{text-decoration:underline wavy;}
+.rescard.lp .bar{background:var(--blk1-line);} .rescard.lp em{background:var(--blk1-line);} .rescard.lp .go{color:var(--blk1-ink);}
+.rescard.tm .bar{background:var(--blk2-line);} .rescard.tm em{background:var(--blk2-line);} .rescard.tm .go{color:var(--blk2-ink);}
+.rescard.qa .bar{background:var(--blk3-line);} .rescard.qa em{background:var(--blk3-line);} .rescard.qa .go{color:var(--blk3-ink);}
+.rescard.ws .bar{background:var(--orange);}     .rescard.ws em{background:var(--orange);}     .rescard.ws .go{color:var(--orange-deep);}
+
+.board-sec{margin-top:60px;}
+.board-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+.board-head .sec-title{margin:0;}
+.btn.small{padding:9px 16px;font-size:.95rem;}
+.board-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.boardcard{
+  background:var(--paper-card);border:2.5px solid;border-top-width:9px;border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.bc-top{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 4px;}
+.bc-top svg{width:48px;height:48px;filter:drop-shadow(1px 3px 0 rgba(154,100,56,.18));}
+.bc-badge{font-family:var(--round);font-weight:700;color:#fff;padding:4px 13px;border-radius:16px;font-size:.9rem;box-shadow:0 2px 0 rgba(154,100,56,.25);}
+.boardcard h3{font-family:var(--serif);font-weight:900;font-size:1.22rem;margin:4px 18px 4px;}
+.bc-theme{margin:0 18px 12px;color:var(--ink-soft);font-size:.88rem;min-height:2.6em;line-height:1.45;}
+.bc-count{margin:0 18px 16px;font-family:var(--hand);font-size:.95rem;background:var(--paper-2);border:1.5px solid var(--brown);border-radius:14px;padding:2px 13px;align-self:flex-start;}
+.bc-btn{
+  margin-top:auto;border:none;cursor:pointer;font-family:var(--serif);font-weight:700;font-size:1.02rem;
+  color:#fff;padding:13px;width:100%;transition:filter .15s;
+}
+.bc-btn:hover{filter:brightness(1.07);}
+.boardcard.spring{border-color:var(--spring);} .boardcard.spring .bc-badge,.boardcard.spring .bc-btn{background:var(--spring);}
+.boardcard.summer{border-color:var(--summer);} .boardcard.summer .bc-badge,.boardcard.summer .bc-btn{background:var(--summer);}
+.boardcard.autumn{border-color:var(--autumn);} .boardcard.autumn .bc-badge,.boardcard.autumn .bc-btn{background:var(--autumn);}
+.boardcard.winter{border-color:var(--winter);} .boardcard.winter .bc-badge,.boardcard.winter .bc-btn{background:var(--winter);}
+
 /* ---------- Responsive ---------- */
 @media(max-width:760px){
   .brand small{display:none;}
   .nav-links a{padding:5px 10px;font-size:.92rem;}
   .outcomes{grid-template-columns:repeat(2,1fr);gap:22px 12px;margin-top:40px;}
+  .arch-grid,.board-grid{grid-template-columns:repeat(2,1fr);}
   .list-head{display:none;}
   .story-row{grid-template-columns:52px 1fr;gap:12px;}
   .story-row .tags{grid-column:1/-1;}
   .story-row .ep{width:40px;height:40px;font-size:1rem;}
 }
+@media(max-width:480px){
+  .arch-grid,.board-grid{grid-template-columns:1fr;}
+  .bc-theme{min-height:0;}
+}
 @media(prefers-reduced-motion:reduce){
-  *{transition:none!important;scroll-behavior:auto!important;}
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important;}
 }
 </style>
 </head>
@@ -328,14 +422,28 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
     <filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.1"/></filter>
 
     <symbol id="i-castle" viewBox="0 0 100 100">
-      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
-        <rect x="24" y="46" width="52" height="40" fill="#F3C34E"/>
-        <rect x="14" y="34" width="16" height="52" fill="#E58234"/>
-        <rect x="70" y="34" width="16" height="52" fill="#E58234"/>
-        <path d="M14 34l4-10 4 10 4-10 4 10M70 34l4-10 4 10 4-10 4 10" fill="#D4593F"/>
-        <path d="M46 86v-20h8v20" fill="#B67B4E"/>
-        <path d="M22 22l8-8 8 8v12H22z" fill="#D4593F"/>
-        <circle cx="30" cy="14" r="0" /><path d="M30 6l3 8h-6z" fill="#E58234"/>
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <!-- 兩側塔樓 -->
+        <rect x="16" y="40" width="16" height="46" fill="#E58234"/>
+        <rect x="68" y="40" width="16" height="46" fill="#E58234"/>
+        <!-- 塔樓尖頂 -->
+        <path d="M13 40L24 24l11 16z" fill="#D4593F"/>
+        <path d="M65 40L76 24l11 16z" fill="#D4593F"/>
+        <!-- 主城牆 -->
+        <rect x="33" y="48" width="34" height="38" fill="#F3C34E"/>
+        <!-- 城垛 -->
+        <rect x="33" y="42" width="8" height="7" fill="#F3C34E"/>
+        <rect x="46" y="42" width="8" height="7" fill="#F3C34E"/>
+        <rect x="59" y="42" width="8" height="7" fill="#F3C34E"/>
+        <!-- 旗桿與旗子 -->
+        <path d="M24 24v-9M76 24v-9" stroke-width="2.5"/>
+        <path d="M24 15l8 3-8 3z" fill="#8FA95E" stroke="none"/>
+        <path d="M76 15l-8 3 8 3z" fill="#8FA95E" stroke="none"/>
+        <!-- 拱門 -->
+        <path d="M43 86V63a7 7 0 0114 0v23" fill="#B67B4E"/>
+        <!-- 小窗 -->
+        <circle cx="24" cy="58" r="3" fill="#FBF4E6"/>
+        <circle cx="76" cy="58" r="3" fill="#FBF4E6"/>
       </g>
     </symbol>
 
@@ -427,6 +535,138 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
         <rect x="32" y="56" width="9" height="9" fill="#FBF4E6"/>
       </g>
     </symbol>
+
+    <symbol id="i-duck" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#C98A2C" stroke-width="3" stroke-linejoin="round" fill="#F3D46A">
+        <ellipse cx="46" cy="60" rx="26" ry="18"/>
+        <circle cx="70" cy="42" r="13"/>
+        <path d="M82 42l11-2-4 7z" fill="#E58234"/>
+        <path d="M28 56q-12 2-18 12 12 3 20-4z" fill="#EFC44E"/>
+        <circle cx="72" cy="39" r="2.5" fill="#4A3526" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-lamp" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#B5860B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <ellipse cx="46" cy="72" rx="27" ry="6" fill="#E58234"/>
+        <path d="M20 66q0-20 26-20t24 12q0 8-24 8t-26 0z" fill="#F3C34E"/>
+        <rect x="40" y="38" width="11" height="9" rx="2" fill="#F7D98A"/>
+        <path d="M70 58q15-4 20 5-11 6-20 1z" fill="#F3C34E"/>
+        <path d="M18 60q-11 1-13 9q9 3 15-3z" fill="none"/>
+        <path d="M45 32c-3 0-3 6 0 6 4 0 2-6 0-6z" fill="#FFE9A8" stroke="#E58234" stroke-width="1.5"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-pumpkin" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#A8541E" stroke-width="3" stroke-linejoin="round" fill="#E58234">
+        <ellipse cx="50" cy="58" rx="30" ry="25"/>
+        <path d="M38 36q-6 22 0 44M62 36q6 22 0 44M30 42q-4 15 0 32M70 42q4 15 0 32" fill="none" stroke="#C4622D" stroke-width="2"/>
+        <path d="M50 33v-9q7-2 11 3" fill="none" stroke="#6E7B3A"/>
+        <path d="M39 51l9 6-9 2z" fill="#7A3B12" stroke="none"/>
+        <path d="M61 51l-9 6 9 2z" fill="#7A3B12" stroke="none"/>
+        <path d="M37 67q13 9 26 0q-6 5-13 5t-13-5z" fill="#7A3B12" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-star" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#C99A2E" stroke-width="3" stroke-linejoin="round" fill="#F3C34E">
+        <path d="M50 16l10 22 24 3-18 16 5 24-21-12-21 12 5-24-18-16 24-3z"/>
+        <circle cx="26" cy="30" r="2.4" fill="#E58234" stroke="none"/>
+        <circle cx="80" cy="70" r="2.4" fill="#E58234" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-app" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <rect x="24" y="18" width="52" height="64" rx="7" fill="#F3C34E"/>
+        <rect x="31" y="26" width="38" height="38" rx="3" fill="#FBF4E6"/>
+        <circle cx="50" cy="74" r="3" fill="#E58234" stroke="none"/>
+        <path d="M42 36l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z" fill="#E58234" stroke="#C7611D" stroke-width="1.5"/>
+        <path d="M58 48l8 5-8 5" fill="none" stroke="#D4593F" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-qa" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8B9843" stroke-width="3" stroke-linejoin="round">
+        <path d="M22 24h56a7 7 0 017 7v26a7 7 0 01-7 7H46L30 82V64h-8a7 7 0 01-7-7V31a7 7 0 017-7z" fill="#CDCF90"/>
+        <path d="M42 42a8 8 0 1114 5c-3 2-4 3-4 6" fill="none" stroke="#4E561B" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="52" cy="61" r="2.6" fill="#4E561B" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-sheet" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#9A6438" stroke-width="3" stroke-linejoin="round">
+        <rect x="28" y="16" width="44" height="64" rx="4" fill="#FBF4E6"/>
+        <path d="M36 32h28M36 42h28M36 52h16" stroke="#B67B4E" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M50 56l7 7 13-15" fill="none" stroke="#E58234" stroke-width="4.5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-speak" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <path d="M16 42h14v16H16z" fill="#B67B4E"/>
+        <path d="M30 42l30-16v48L30 58z" fill="#F3C34E"/>
+        <path d="M34 58l5 15 7-2-4-13z" fill="#E58234"/>
+        <path d="M70 40q10 10 0 20" fill="none" stroke="#E58234" stroke-linecap="round"/>
+        <path d="M79 34q15 16 0 32" fill="none" stroke="#D4593F" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-stage" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <circle cx="46" cy="30" r="11" fill="#F3D46A"/>
+        <path d="M34 72c0-13 5-22 12-22s12 9 12 22z" fill="#E58234"/>
+        <path d="M40 56L30 62M56 54L72 42" fill="none" stroke="#E58234" stroke-linecap="round"/>
+        <path d="M18 80h62" stroke="#B67B4E" stroke-width="4" stroke-linecap="round"/>
+        <path d="M74 34l3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#F3C34E" stroke="#C99A2E" stroke-width="1.5"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-paint" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <path d="M48 20C28 20 16 34 16 50s14 24 26 22c6-1 3-8 9-9 6 0 8 6 14 4 10-3 17-12 17-23 0-16-14-24-34-24z" fill="#FBF4E6"/>
+        <circle cx="33" cy="40" r="4" fill="#E0836B" stroke="none"/>
+        <circle cx="29" cy="54" r="4" fill="#F3C34E" stroke="none"/>
+        <circle cx="41" cy="63" r="4" fill="#8FA95E" stroke="none"/>
+        <circle cx="56" cy="35" r="4" fill="#6E97A6" stroke="none"/>
+        <circle cx="65" cy="49" r="4" fill="#D4593F" stroke="none"/>
+        <path d="M60 64l18 18" stroke="#B67B4E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M75 79l9 9" stroke="#E58234" stroke-width="6" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-scenes" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <rect x="16" y="28" width="40" height="30" rx="4" fill="#CDCF90"/>
+        <rect x="44" y="42" width="40" height="30" rx="4" fill="#F3C34E"/>
+        <path d="M28 78q22 11 44 0" fill="none" stroke="#E58234" stroke-linecap="round"/>
+        <path d="M66 72l7 6-3 8" fill="none" stroke="#E58234" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-clock" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <circle cx="50" cy="54" r="28" fill="#F3C34E"/>
+        <path d="M50 54V36M50 54l14 8" fill="none" stroke="#8A5A38" stroke-linecap="round"/>
+        <path d="M38 22l-8 6M62 22l8 6" stroke-linecap="round"/>
+        <circle cx="50" cy="54" r="3" fill="#E58234" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-bulb" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <path d="M50 20c-14 0-23 10-23 23 0 9 7 14 10 21h26c3-7 10-12 10-21 0-13-9-23-23-23z" fill="#F3C34E"/>
+        <path d="M40 70h20M43 78h14" stroke="#B67B4E" stroke-linecap="round"/>
+        <path d="M50 42v14M44 49h12" stroke="#E58234" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M50 8v7M20 24l5 5M80 24l-5 5" stroke="#E58234" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-hand" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#B5794A" stroke-width="3" stroke-linejoin="round" fill="#F5CB9C">
+        <path d="M38 50V32a6 6 0 0112 0v10M50 42V26a6 6 0 0112 0v16M62 44V34a6 6 0 0112 0v22c0 16-11 26-25 26-9 0-15-4-21-12L28 58a6 6 0 019-8l7 7V36a6 6 0 0112 0v14"/>
+      </g>
+    </symbol>
   </defs>
 </svg>
 
@@ -437,11 +677,11 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
     <div><b>故事屋</b><small>STORY HOUSE</small></div>
   </div>
   <div class="nav-links" id="navLinks">
-    <a href="#/" data-route="home">首頁</a>
-    <a href="#/season/spring" data-season="spring">春季</a>
-    <a href="#/season/summer" data-season="summer">夏季</a>
-    <a href="#/season/autumn" data-season="autumn">秋季</a>
-    <a href="#/season/winter" data-season="winter">冬季</a>
+    <a href="#/" data-route="home"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-house"/></svg></span>首頁</a>
+    <a href="#/season/spring" data-season="spring"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-tree"/></svg></span>春季</a>
+    <a href="#/season/summer" data-season="summer"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-sun"/></svg></span>夏季</a>
+    <a href="#/season/autumn" data-season="autumn"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-leaf"/></svg></span>秋季</a>
+    <a href="#/season/winter" data-season="winter"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-snow"/></svg></span>冬季</a>
   </div>
   <button class="search-btn" id="searchBtn" aria-label="搜尋故事" onclick="toggleSearch()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -462,10 +702,10 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
 <script>
 /* ================= 資料庫：全四季 54 集 ================= */
 const SEASONS = {
-  spring:{name:"春季故事屋", short:"春季", tagline:"萬物甦醒，讓故事在春天發芽", arts:["#i-tree","#i-pig","#i-book"]},
-  summer:{name:"夏季故事屋", short:"夏季", tagline:"艷陽高照，冒險故事正精彩", arts:["#i-sun","#i-crown","#i-book"]},
-  autumn:{name:"秋季故事屋", short:"秋季", tagline:"秋高氣爽，收藏一則則智慧", arts:["#i-leaf","#i-moon","#i-book"]},
-  winter:{name:"冬季故事屋", short:"冬季", tagline:"圍爐夜話，聽經典童話入夢", arts:["#i-snow","#i-castle","#i-crown"]},
+  spring:{name:"春季故事屋", short:"春季", theme:"節慶寓言 × 經典童話啟蒙", tagline:"萬物甦醒，讓故事在春天發芽", arts:["#i-tree","#i-pig","#i-duck"]},
+  summer:{name:"夏季故事屋", short:"夏季", theme:"民間傳說 × 冒險奇幻故事", tagline:"艷陽高照，冒險故事正精彩", arts:["#i-sun","#i-lamp","#i-crown"]},
+  autumn:{name:"秋季故事屋", short:"秋季", theme:"神話智慧 × 生活寓言", tagline:"秋高氣爽，收藏一則則智慧", arts:["#i-leaf","#i-moon","#i-pumpkin"]},
+  winter:{name:"冬季故事屋", short:"冬季", theme:"世界童話 × 公主與城堡", tagline:"圍爐夜話，聽經典童話入夢", arts:["#i-snow","#i-castle","#i-star"]},
 };
 
 const STORIES = [
@@ -583,18 +823,60 @@ function renderHome(){
       <h3>專屬故事資料夾</h3><p>畫作一一收錄，為每個孩子建立完整學習歷程。</p></div>
   </section>
 
-  <div class="cta-row">
-    <button class="btn primary" onclick="go('#/story/spring-7/lp')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      查看 40 分鐘標準教案</button>
-    <button class="btn sun" onclick="go('#/season/spring')">
-      <svg viewBox="0 0 100 100"><use href="#i-tree"/></svg>
-      開始探索春季故事</button>
-    <button class="btn" onclick="go('#/season/all')">
-      <svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
-      瀏覽全部 54 集</button>
-  </div>
-  <p class="home-foot">✦ 春 13 · 夏 13 · 秋 14 · 冬 14 · 共 54 則故事 ✦</p>`;
+  <section class="arch">
+    <h2 class="sec-title">平台架構 · 每集必備的教學資源</h2>
+    <p class="sec-lead">故事屋為老師與行政人員的備課與課程成效追蹤而設計。每一集動畫故事都對應以下四大教學資源，可線上檢視、一鍵取用，直接帶進 40 分鐘的課堂。點任一張卡片，即可看《三隻小豬》的實際範例。</p>
+    <div class="arch-grid">
+      <div class="rescard lp" role="button" tabindex="0" onclick="go('#/story/spring-7/lp')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/lp')">
+        <span class="bar"></span>
+        <svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
+        <h3>完整教案 <em>LP</em></h3>
+        <p>老師示範、學生上台發表、圖像沉澱歸檔三階段，40 分鐘流程一次到位。</p>
+        <span class="go">查看範例 →</span>
+      </div>
+      <div class="rescard tm" role="button" tabindex="0" onclick="go('#/story/spring-7/tm')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/tm')">
+        <span class="bar"></span>
+        <svg viewBox="0 0 100 100"><use href="#i-app"/></svg>
+        <h3>APP 操作指導 <em>TM</em></h3>
+        <p>標註每集場景切換點與角色物件拖曳建議，讓老師精準掌握操作節奏。</p>
+        <span class="go">查看範例 →</span>
+      </div>
+      <div class="rescard qa" role="button" tabindex="0" onclick="go('#/story/spring-7/qa')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/qa')">
+        <span class="bar"></span>
+        <svg viewBox="0 0 100 100"><use href="#i-qa"/></svg>
+        <h3>引導練習題 <em>Q&amp;A</em></h3>
+        <p>學生一時詞窮時的口袋提示問題，鼓勵孩子用完整句子開口表達。</p>
+        <span class="go">查看範例 →</span>
+      </div>
+      <div class="rescard ws" role="button" tabindex="0" onclick="go('#/story/spring-7/ws')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/ws')">
+        <span class="bar"></span>
+        <svg viewBox="0 0 100 100"><use href="#i-sheet"/></svg>
+        <h3>學習單下載 <em>WS</em></h3>
+        <p>A4 統一規格圖紙，一鍵下載印出，畫完即可收錄進專屬故事資料夾。</p>
+        <span class="go">查看範例 →</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="board-sec">
+    <div class="board-head">
+      <h2 class="sec-title">全四季 54 集 · 資源大看板</h2>
+      <button class="btn small" onclick="go('#/season/all')">瀏覽全部 54 集 →</button>
+    </div>
+    <div class="board-grid">
+      ${['spring','summer','autumn','winter'].map((k,i)=>{const S=SEASONS[k];const n=bySeason(k).length;return `
+      <div class="boardcard ${k}">
+        <div class="bc-top">
+          <svg viewBox="0 0 100 100"><use href="${S.arts[0]}"/></svg>
+          <span class="bc-badge">第 ${i+1} 季</span>
+        </div>
+        <h3>${S.name}</h3>
+        <p class="bc-theme">${S.theme}</p>
+        <span class="bc-count">共 ${n} 集</span>
+        <button class="bc-btn" onclick="go('#/season/${k}')">查看全部集數 →</button>
+      </div>`;}).join("")}
+    </div>
+  </section>`;
 }
 
 /* ---------- 季別 / 全部列表 ---------- */
@@ -604,7 +886,7 @@ function renderSeason(key){
   if(isAll){
     banner = `<div class="season-banner all">
       <div class="txt"><h2>全部故事</h2><p>四季 54 集，一次瀏覽</p><span class="count">春 13 · 夏 13 · 秋 14 · 冬 14</span></div>
-      <div class="art"><svg viewBox="0 0 100 100"><use href="#i-book"/></svg><svg viewBox="0 0 100 100"><use href="#i-castle"/></svg></div></div>`;
+      <div class="art"><svg viewBox="0 0 100 100"><use href="#i-book"/></svg><svg viewBox="0 0 100 100"><use href="#i-house"/></svg></div></div>`;
     groups = Object.keys(SEASONS).map(k=>({key:k, list:bySeason(k)}));
   }else{
     const S = SEASONS[key];
@@ -617,7 +899,7 @@ function renderSeason(key){
   }
 
   const rows = list => list.map(s=>`
-    <div class="story-row" role="button" tabindex="0" onclick="go('#/story/${s.id}')" onkeydown="if(event.key==='Enter')go('#/story/${s.id}')">
+    <div class="story-row ${s.season}" role="button" tabindex="0" onclick="go('#/story/${s.id}')" onkeydown="if(event.key==='Enter')go('#/story/${s.id}')">
       <div class="ep">${s.ep}</div>
       <div class="body"><div class="nm">${s.name}</div><div class="intro">${s.intro}</div></div>
       <div class="tags">
@@ -630,7 +912,7 @@ function renderSeason(key){
     <div class="crumb"><a href="#/">首頁</a> / <b>${isAll?"全部故事":SEASONS[key].short}</b></div>
     ${banner}
     <div class="list-head"><span>集數</span><span>故事名稱與簡介</span><span>資源標籤</span></div>
-    ${groups.map(g=> (isAll?`<div class="story-group-title">${SEASONS[g.key].name}</div>`:"") + rows(g.list)).join("")}
+    ${groups.map(g=> (isAll?`<div class="story-group-title ${g.key}">${SEASONS[g.key].name}</div>`:"") + rows(g.list)).join("")}
   `;
 }
 
@@ -673,12 +955,14 @@ function panelHTML(tab, s){
 
 function lpHTML(s){
   return `
-  <h3>完整教案 · 40 分鐘標準流程</h3>
+  <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-book"/></svg>完整教案 · 40 分鐘標準流程</h3>
   <p class="lead">《${s.name}》一堂課的三個階段，從老師示範、學生發表，到圖像沉澱與歸檔。</p>
   <div class="blocks">
     <div class="block b1">
-      <span class="time">🕒 00–15 分鐘</span>
-      <h4>老師示範引導</h4>
+      <div class="bhead">
+        <svg class="bicon" viewBox="0 0 100 100"><use href="#i-speak"/></svg>
+        <div><span class="time">🕒 00–15 分鐘</span><h4>老師示範引導</h4></div>
+      </div>
       <p>搭配 APP 自動朗讀翻頁，帶領全班一起「輸入」《${s.name}》的故事。</p>
       <ul>
         <li>播放 APP 自動朗讀，隨頁面翻動情境畫面</li>
@@ -687,8 +971,10 @@ function lpHTML(s){
       </ul>
     </div>
     <div class="block b2">
-      <span class="time">🕒 15–30 分鐘</span>
-      <h4>學生全功能發表</h4>
+      <div class="bhead">
+        <svg class="bicon" viewBox="0 0 100 100"><use href="#i-stage"/></svg>
+        <div><span class="time">🕒 15–30 分鐘</span><h4>學生全功能發表</h4></div>
+      </div>
       <p>學生上台，自行切換《${s.name}》的 APP 場景並拖曳角色物件，同時開口說出完整故事。</p>
       <ul>
         <li>學生親手操作場景切換</li>
@@ -698,8 +984,10 @@ function lpHTML(s){
       </ul>
     </div>
     <div class="block b3">
-      <span class="time">🕒 30–40 分鐘</span>
-      <h4>圖像沉澱與歸檔</h4>
+      <div class="bhead">
+        <svg class="bicon" viewBox="0 0 100 100"><use href="#i-paint"/></svg>
+        <div><span class="time">🕒 30–40 分鐘</span><h4>圖像沉澱與歸檔</h4></div>
+      </div>
       <p>畫畫時間，並將 A4 畫紙收錄進《${s.name}》的專屬故事資料夾。</p>
       <ul>
         <li>自由繪製印象最深刻的一幕</li>
@@ -712,15 +1000,15 @@ function lpHTML(s){
 
 function tmHTML(s){
   const items = [
-    ["場景切換","《"+s.name+"》建議分為「開場 → 衝突 → 結局」三個主要場景，於劇情轉折處提醒學生切換。"],
-    ["物件拖曳","引導學生拖曳主角與關鍵道具進場，強調物件出現的先後順序與位置。"],
-    ["節奏提示","高潮片段可放慢操作節奏，讓學生一邊拖曳一邊完整敘述。"],
+    ["#i-scenes","場景切換","《"+s.name+"》建議分為「開場 → 衝突 → 結局」三個主要場景，於劇情轉折處提醒學生切換。"],
+    ["#i-hand","物件拖曳","引導學生拖曳主角與關鍵道具進場，強調物件出現的先後順序與位置。"],
+    ["#i-clock","節奏提示","高潮片段可放慢操作節奏，讓學生一邊拖曳一邊完整敘述。"],
   ];
   return `
-  <h3>APP 操作指導</h3>
+  <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-app"/></svg>APP 操作指導</h3>
   <p class="lead">提示本集的場景切換點與重要物件拖曳建議，協助老師掌握操作節奏。</p>
   <ul class="hintlist">
-    ${items.map((it,i)=>`<li><span class="pill">${i+1}</span><div><b>${it[0]}</b><br>${it[1]}</div></li>`).join("")}
+    ${items.map(it=>`<li><span class="ico"><svg viewBox="0 0 100 100"><use href="${it[0]}"/></svg></span><div><b>${it[1]}</b><br>${it[2]}</div></li>`).join("")}
   </ul>
   <p class="note">※ 以上為示範內容，實際切換點與物件位置請依 APP 分鏡微調。</p>`;
 }
@@ -734,7 +1022,7 @@ function qaHTML(s){
     "故事的結局是快樂還是難過？你從中學到什麼？",
   ];
   return `
-  <h3>引導練習題</h3>
+  <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-bulb"/></svg>引導練習題</h3>
   <p class="lead">當學生一時詞窮、卡住不知道怎麼往下說時，老師專用的提示口袋問題。</p>
   <ul class="hintlist qa">
     ${qs.map((q,i)=>`<li><span class="pill">Q${i+1}</span><div>${q}</div></li>`).join("")}
@@ -744,10 +1032,10 @@ function qaHTML(s){
 
 function wsHTML(s){
   return `
-  <h3>學習單下載</h3>
+  <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-sheet"/></svg>學習單下載</h3>
   <p class="lead">《${s.name}》A4 規格統一圖紙，供 30–40 分鐘圖像沉澱時間使用。</p>
   <div class="ws-box">
-    <div class="sheet"><svg viewBox="0 0 100 100"><use href="#i-book"/></svg><span>A4 · ${s.name}</span></div>
+    <div class="sheet"><svg viewBox="0 0 100 100"><use href="#i-paint"/></svg><span>A4 · ${s.name}</span></div>
     <p>一鍵下載後印出，孩子畫完即可收錄進專屬故事資料夾。</p>
     <button class="btn primary" onclick="downloadWS('${s.name}')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
