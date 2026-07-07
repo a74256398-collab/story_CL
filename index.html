@@ -7,9 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
-<!-- 手寫風中文字型（漸進增強，載入失敗則回退 Noto Sans TC） -->
-<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.7.0/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -38,10 +36,10 @@
   --sketch-2:15px 225px 15px 255px/225px 15px 255px 15px;
   --shadow:0 6px 0 rgba(154,100,56,.18), 0 14px 26px -14px rgba(74,53,38,.45);
 
-  --serif:"LXGW WenKai TC","Noto Sans TC",system-ui,sans-serif;
-  --sans:"Noto Sans TC",system-ui,sans-serif;
-  --hand:"Patrick Hand","Fredoka",sans-serif;
-  --round:"Fredoka","Noto Sans TC",sans-serif;
+  --serif:"Fredoka","Huninn","Noto Sans TC",system-ui,sans-serif;
+  --sans:"Fredoka","Huninn","Noto Sans TC",system-ui,sans-serif;
+  --hand:"Fredoka","Huninn","Noto Sans TC",sans-serif;
+  --round:"Fredoka","Huninn","Noto Sans TC",sans-serif;
 }
 
 *{box-sizing:border-box;}
@@ -50,8 +48,11 @@ body{
   margin:0;
   font-family:var(--sans);
   color:var(--ink);
+  font-size:17px;
+  font-synthesis:none;
   background-color:var(--paper);
   background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%239A6438' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.10'%3E%3Cpath d='M45 30 L49 46 L65 50 L49 54 L45 70 L41 54 L25 50 L41 46 Z'/%3E%3Ccircle cx='235' cy='45' r='11'/%3E%3Cpath d='M150 106 V134 M136 120 H164'/%3E%3Cpath d='M40 205 q12 -14 24 0 q12 14 24 0 q12 -14 24 0'/%3E%3Cpath d='M255 212 L258 223 L269 226 L258 229 L255 240 L252 229 L241 226 L252 223 Z'/%3E%3Cpath d='M112 256 q10 -12 18 -2 q6 8 -3 12 q-8 3 -9 -6'/%3E%3C/g%3E%3Cg fill='%239A6438' opacity='0.08'%3E%3Ccircle cx='95' cy='96' r='3.2'/%3E%3Ccircle cx='200' cy='150' r='3.2'/%3E%3Ccircle cx='285' cy='122' r='3'/%3E%3Ccircle cx='30' cy='150' r='3'/%3E%3Ccircle cx='172' cy='262' r='3'/%3E%3C/g%3E%3C/svg%3E"),
     radial-gradient(circle at 12% 18%, rgba(243,195,78,.14), transparent 40%),
     radial-gradient(circle at 88% 8%, rgba(229,130,52,.12), transparent 42%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
@@ -76,10 +77,16 @@ a{color:inherit;text-decoration:none;}
 .brand small{display:block;font-family:var(--hand);font-size:.7rem;color:var(--orange-deep);letter-spacing:1px;}
 .nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
 .nav-links a{
-  font-family:var(--serif);font-weight:700;font-size:1.14rem;
-  padding:9px 18px;border-radius:20px;position:relative;transition:background .18s, color .18s;
+  font-family:var(--serif);font-weight:700;font-size:1.1rem;
+  padding:8px 14px;border-radius:20px;position:relative;transition:background .18s, color .18s;
   border:2px solid transparent;display:inline-flex;align-items:center;
 }
+.nav-links .ns{font-family:var(--hand);font-size:.7rem;font-weight:700;margin-left:5px;
+  padding:1px 6px;border-radius:9px;color:#fff;line-height:1.5;}
+.nav-links .ns.spring{background:var(--spring);}
+.nav-links .ns.summer{background:var(--summer);}
+.nav-links .ns.autumn{background:var(--autumn);}
+.nav-links .ns.winter{background:var(--winter);}
 .nav-links a .ni{display:inline-flex;align-items:center;width:0;opacity:0;overflow:hidden;
   transition:width .22s ease, opacity .2s ease, margin .22s ease;}
 .nav-links a .ni svg{width:24px;height:24px;transform-origin:center bottom;}
@@ -90,6 +97,7 @@ a{color:inherit;text-decoration:none;}
 .nav-links a[data-season="summer"]:hover .ni svg{animation:navSpin 2.4s linear infinite;transform-origin:center;}
 .nav-links a[data-season="autumn"]:hover .ni svg{animation:navSway 1.1s ease-in-out infinite;transform-origin:top center;}
 .nav-links a[data-season="winter"]:hover .ni svg{animation:navDrift 2.6s linear infinite;transform-origin:center;}
+.nav-links a[data-route="qa"]:hover .ni svg{animation:navBounce .7s ease infinite;}
 @keyframes navBounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}55%{transform:translateY(-1px)}}
 @keyframes navGrow{0%,100%{transform:scale(.82) rotate(-5deg)}50%{transform:scale(1.06) rotate(5deg)}}
 @keyframes navSpin{to{transform:rotate(360deg)}}
@@ -100,6 +108,7 @@ a{color:inherit;text-decoration:none;}
 .nav-links a[data-season="summer"].active{color:var(--summer);}
 .nav-links a[data-season="autumn"].active{color:var(--autumn);}
 .nav-links a[data-season="winter"].active{color:var(--winter);}
+.nav-links a[data-route="qa"].active{color:var(--orange-deep);}
 .search-btn{
   width:44px;height:44px;flex:none;margin-left:6px;
   border:2px solid var(--brown);background:#fff;color:var(--ink);
@@ -138,7 +147,7 @@ a{color:inherit;text-decoration:none;}
 .search-empty{color:var(--ink-soft);padding:8px 10px 14px;font-size:.95rem;}
 
 /* ---------- App container ---------- */
-main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,40px) 80px;}
+main{max-width:1240px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(16px,4vw,52px) 90px;position:relative;z-index:1;}
 
 /* ---------- Home ---------- */
 .hero{position:relative;text-align:center;padding:26px 0 8px;}
@@ -221,6 +230,20 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
 .story-group-title.summer{color:var(--summer);}
 .story-group-title.autumn{color:var(--autumn);}
 .story-group-title.winter{color:var(--winter);}
+/* 全部故事：能力分組標題帶 */
+.cap-group-head{display:flex;align-items:center;gap:14px;margin:34px 0 14px;padding:14px 18px;
+  border-radius:16px;border:1.5px solid rgba(154,100,56,.2);position:relative;overflow:hidden;}
+.cap-group-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;}
+.cap-group-head .cgh-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;background:#fff;box-shadow:0 4px 10px -6px rgba(74,53,38,.5);}
+.cap-group-head .cgh-ico svg{width:30px;height:30px;}
+.cap-group-head .cgh-txt{display:flex;flex-direction:column;line-height:1.25;}
+.cap-group-head .cgh-cap{font-family:var(--serif);font-weight:900;font-size:1.3rem;}
+.cap-group-head .cgh-season{font-family:var(--hand);font-size:.85rem;color:var(--ink-soft);}
+.cap-group-head .cgh-count{margin-left:auto;font-family:var(--hand);font-size:.9rem;color:#fff;padding:3px 14px;border-radius:20px;flex:none;}
+.cap-group-head.spring{background:rgba(224,131,107,.12);} .cap-group-head.spring::before{background:var(--spring);} .cap-group-head.spring .cgh-cap{color:var(--spring);} .cap-group-head.spring .cgh-ico svg{color:var(--spring);} .cap-group-head.spring .cgh-count{background:var(--spring);}
+.cap-group-head.summer{background:rgba(238,158,46,.12);} .cap-group-head.summer::before{background:var(--summer);} .cap-group-head.summer .cgh-cap{color:var(--summer);} .cap-group-head.summer .cgh-ico svg{color:var(--summer);} .cap-group-head.summer .cgh-count{background:var(--summer);}
+.cap-group-head.autumn{background:rgba(196,98,45,.12);} .cap-group-head.autumn::before{background:var(--autumn);} .cap-group-head.autumn .cgh-cap{color:var(--autumn);} .cap-group-head.autumn .cgh-ico svg{color:var(--autumn);} .cap-group-head.autumn .cgh-count{background:var(--autumn);}
+.cap-group-head.winter{background:rgba(110,151,166,.14);} .cap-group-head.winter::before{background:var(--winter);} .cap-group-head.winter .cgh-cap{color:var(--winter);} .cap-group-head.winter .cgh-ico svg{color:var(--winter);} .cap-group-head.winter .cgh-count{background:var(--winter);}
 .story-row{
   display:grid;grid-template-columns:64px 1fr 210px;gap:14px;align-items:center;
   background:var(--paper-card);border:2.5px solid var(--brown);border-radius:16px;
@@ -327,8 +350,26 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   display:grid;place-items:center;
 }
 .ws-box .sheet svg{width:88px;height:88px;}
+.ws-box .sheet.land{width:220px;height:156px;transform:rotate(2deg);}
 .ws-box .sheet span{position:absolute;bottom:10px;font-family:var(--hand);color:var(--ink-soft);font-size:.8rem;}
 .ws-box p{color:var(--ink-soft);max-width:420px;margin:0 auto 18px;}
+.ws-box .note code, .note code{background:var(--paper-2,#f3e6d0);border:1px solid var(--brown-line);
+  border-radius:6px;padding:1px 7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;color:var(--ink);}
+
+/* 上一則／下一則 */
+.story-nav{display:flex;gap:12px;margin:18px 0;}
+.snav{flex:1;display:flex;align-items:center;gap:10px;background:var(--paper-card,#fff);
+  border:1.5px solid rgba(154,100,56,.28);border-radius:14px;padding:12px 16px;cursor:pointer;
+  font-family:var(--serif);color:var(--ink);text-align:left;transition:transform .15s,border-color .15s;
+  box-shadow:0 6px 18px -14px rgba(74,53,38,.5);}
+.snav.next{justify-content:flex-end;text-align:right;}
+.snav:hover{transform:translateY(-2px);border-color:var(--orange);}
+.snav .ar{font-size:1.35rem;color:var(--orange-deep,#c4622d);flex:none;line-height:1;}
+.snav .lbl{display:flex;flex-direction:column;font-weight:700;line-height:1.3;}
+.snav .lbl small{font-family:var(--hand);font-weight:400;color:var(--ink-soft);font-size:.74rem;}
+.snav.disabled{opacity:.45;cursor:default;box-shadow:none;}
+.snav.disabled:hover{transform:none;border-color:rgba(154,100,56,.28);}
+@media(max-width:560px){.story-nav{flex-direction:column;}}
 
 /* toast */
 .toast{
@@ -338,6 +379,62 @@ main{max-width:1080px;margin:0 auto;padding:clamp(18px,4vw,44px) clamp(14px,4vw,
   transition:.3s;z-index:80;border:2px solid var(--orange);
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* 兩側手繪裝飾 */
+.side-doodles{position:fixed;inset:0;z-index:0;pointer-events:none;display:none;}
+@media(min-width:1300px){.side-doodles{display:block;}}
+.side-doodles .sd{position:fixed;opacity:.5;filter:saturate(.92);}
+.sd-l1{left:24px;top:110px;width:96px;height:96px;animation:floatY 7s ease-in-out infinite;}
+.sd-l2{left:40px;top:290px;width:76px;height:76px;transform:rotate(-8deg);animation:floatY 9s ease-in-out infinite .6s;}
+.sd-l3{left:20px;top:470px;width:84px;height:84px;transform:rotate(10deg);animation:floatY 8s ease-in-out infinite .3s;}
+.sd-l4{left:44px;top:650px;width:70px;height:70px;transform:rotate(-6deg);animation:floatY 8.5s ease-in-out infinite .9s;}
+.sd-l5{left:26px;bottom:70px;width:60px;height:60px;transform:rotate(8deg);animation:floatY 7.5s ease-in-out infinite .2s;}
+.sd-r1{right:30px;top:130px;width:64px;height:64px;animation:floatY 8s ease-in-out infinite .2s;}
+.sd-r2{right:22px;top:300px;width:88px;height:88px;transform:rotate(8deg);animation:floatY 10s ease-in-out infinite .8s;}
+.sd-r3{right:36px;top:490px;width:78px;height:78px;transform:rotate(-6deg);animation:floatY 7.5s ease-in-out infinite .5s;}
+.sd-r4{right:20px;top:670px;width:92px;height:92px;transform:rotate(4deg);animation:floatY 9s ease-in-out infinite .4s;}
+.sd-r5{right:40px;bottom:80px;width:52px;height:52px;transform:rotate(-10deg);animation:floatY 8s ease-in-out infinite .7s;}
+@keyframes floatY{0%,100%{translate:0 0;}50%{translate:0 -12px;}}
+
+/* 回到頂端 */
+#toTop{position:fixed;right:26px;bottom:26px;z-index:90;width:56px;height:56px;border-radius:50%;
+  background:var(--paper-card,#fefbf2);border:2.5px solid var(--brown-line,#9a6438);color:var(--orange-deep,#c4622d);
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  box-shadow:0 10px 22px -10px rgba(74,53,38,.6);opacity:0;transform:translateY(16px) scale(.9);
+  pointer-events:none;transition:opacity .25s,transform .25s,background .15s;}
+#toTop.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+#toTop:hover{background:var(--yellow,#f6d36b);transform:translateY(-3px) scale(1.04);}
+#toTop svg{width:22px;height:22px;margin-bottom:-2px;}
+#toTop small{font-family:var(--hand);font-size:.62rem;color:var(--ink-soft);line-height:1;}
+@media(max-width:560px){#toTop{right:16px;bottom:16px;width:48px;height:48px;}#toTop small{display:none;}}
+
+/* modal 彈窗（手繪蠟筆風） */
+.modal-overlay{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(74,53,38,.5);backdrop-filter:blur(3px);opacity:0;transition:opacity .2s;}
+.modal-overlay.show{display:flex;opacity:1;}
+.modal-card{background:var(--paper-card,#fefbf2);border-radius:26px;
+  padding:30px 30px 28px;max-width:420px;width:100%;text-align:center;position:relative;
+  box-shadow:0 30px 60px -24px rgba(74,53,38,.7);transform:translateY(14px) scale(.96) rotate(-.6deg);
+  transition:transform .24s cubic-bezier(.22,1,.36,1);}
+.modal-overlay.show .modal-card{transform:translateY(0) scale(1) rotate(-.6deg);}
+.modal-card.cray{border:3px solid var(--brown-line,#9a6438);
+  box-shadow:0 0 0 6px var(--paper,#fbf4e6),0 30px 60px -24px rgba(74,53,38,.7);}
+.modal-card.cray::before{content:"";position:absolute;inset:5px;border:2px dashed rgba(154,100,56,.4);border-radius:20px;pointer-events:none;}
+.modal-x{position:absolute;top:12px;right:14px;width:32px;height:32px;border:none;background:transparent;
+  font-size:1.7rem;line-height:1;color:var(--ink-soft);cursor:pointer;border-radius:50%;transition:.15s;}
+.modal-x:hover{background:var(--paper-2);color:var(--ink);}
+.modal-illo{position:relative;width:150px;height:120px;margin:8px auto 6px;}
+.modal-illo .illo-main{width:100px;height:100px;position:absolute;left:25px;top:8px;transform:rotate(-4deg);}
+.modal-illo .doo{position:absolute;opacity:.9;}
+.modal-illo .d1{width:30px;height:30px;left:6px;top:0;transform:rotate(-12deg);}
+.modal-illo .d2{width:20px;height:20px;right:16px;top:2px;transform:rotate(10deg);}
+.modal-illo .d3{width:44px;height:44px;right:2px;bottom:0;transform:rotate(8deg);}
+.modal-card h3{font-family:var(--round,var(--serif));font-weight:800;font-size:1.55rem;margin:2px 0 12px;color:var(--orange-deep);letter-spacing:.5px;}
+.modal-card p{margin:0 0 10px;font-family:var(--serif);color:var(--ink);line-height:1.75;font-size:1.02rem;}
+.modal-card p b{color:var(--orange-deep);}
+.modal-card .modal-note{font-family:var(--hand);font-size:.85rem;color:var(--ink-soft);margin:2px 0 20px;line-height:1.6;}
+.btn.big{font-size:1.05rem;padding:13px 30px;border-radius:16px;}
+@media(prefers-reduced-motion:reduce){.modal-card,.modal-overlay.show .modal-card{transform:rotate(-.6deg);}}
 
 /* focus */
 a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible{
@@ -394,7 +491,198 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
 .boardcard.autumn{border-color:var(--autumn);} .boardcard.autumn .bc-badge,.boardcard.autumn .bc-btn{background:var(--autumn);}
 .boardcard.winter{border-color:var(--winter);} .boardcard.winter .bc-badge,.boardcard.winter .bc-btn{background:var(--winter);}
 
+/* ===================== 內部工具版型 ===================== */
+.tool-tag{display:inline-block;font-family:var(--hand);letter-spacing:1px;font-size:.84rem;
+  background:var(--paper-2);border:1.5px solid var(--brown);color:var(--ink-soft);
+  padding:4px 14px;border-radius:20px;margin-bottom:16px;}
+.tool-tag.danger{background:#F7E0D6;border-color:var(--red);color:#9A3A25;}
+.sec-eyebrow{font-family:var(--serif);font-weight:900;font-size:1.15rem;color:var(--ink);
+  margin:0 0 16px;padding-left:13px;border-left:5px solid var(--orange);}
+.sec-eyebrow.center{text-align:center;border:none;padding:0;color:var(--orange-deep);margin-bottom:10px;font-size:1.6rem;letter-spacing:.5px;}
+.sec-eyebrow.accent{border-left-color:var(--red);color:var(--red);}
+.sec-eyebrow:not(.center){display:flex;align-items:center;gap:9px;}
+.sec-eyebrow .eb-ico{width:30px;height:30px;flex:none;}
+.pc-punch-tag .tag-ico{width:18px;height:18px;vertical-align:-3px;margin-right:5px;}
+.time .tag-ico{width:16px;height:16px;vertical-align:-3px;margin-right:4px;}
+.qa-cat-ico{width:26px;height:26px;flex:none;margin-right:8px;vertical-align:-7px;}
+.qa-cat span{display:inline-flex;align-items:center;}
+.copybtn .btn-ico{width:17px;height:17px;vertical-align:-3px;margin-right:6px;}
+
+/* Hero */
+.lead-hero{padding:26px 0 8px;}
+.lead-hero h1{font-family:var(--serif);font-weight:900;line-height:1.2;
+  font-size:clamp(2rem,5.4vw,3.5rem);margin:.1em 0 .55em;letter-spacing:.5px;}
+.lead-hero h1 .hl{color:var(--orange-deep);position:relative;white-space:nowrap;}
+.lead-hero h1 .hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:6px;height:13px;
+  background:var(--yellow);opacity:.55;z-index:-1;border-radius:5px;}
+.pitch-quote{position:relative;background:var(--paper-card);border:1.5px solid rgba(154,100,56,.28);
+  border-left:6px solid var(--orange);border-radius:14px;padding:24px 28px 24px 32px;
+  box-shadow:0 12px 34px -20px rgba(74,53,38,.55);}
+.pitch-quote .q{position:absolute;top:6px;left:14px;font-family:Georgia,serif;font-size:3.2rem;color:var(--yellow);line-height:1;}
+.pitch-quote p{margin:0;font-size:1.12rem;line-height:1.95;color:var(--ink);font-family:var(--serif);}
+.pitch-quote b{color:var(--orange-deep);}
+.pitch-quote .ph{color:var(--red);font-family:var(--hand);font-size:.9rem;margin-right:6px;}
+.lead-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;}
+
+/* 痛點卡 */
+.pain-sec{margin-top:62px;}
+.sec-sub{margin:0 0 30px;color:var(--ink-soft);font-family:var(--serif);font-size:1.08rem;}
+.sec-sub.center{text-align:center;}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.paincard{background:var(--paper-card);border:1.5px solid rgba(154,100,56,.28);border-radius:18px;
+  padding:26px 26px;box-shadow:0 10px 28px -20px rgba(74,53,38,.5);display:flex;flex-direction:column;
+  position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.paincard:hover{transform:translateY(-4px);box-shadow:0 16px 34px -20px rgba(74,53,38,.55);}
+.paincard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--orange);}
+.pc-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.pc-ico{width:54px;height:54px;background:var(--paper-2);border-radius:15px;display:grid;place-items:center;flex:none;}
+.pc-ico svg{width:36px;height:36px;}
+.pc-tag{font-family:var(--hand);font-size:.9rem;color:#fff;background:var(--orange-deep);
+  letter-spacing:.5px;padding:3px 13px;border-radius:20px;}
+.pc-quote{font-family:var(--serif);font-weight:900;font-size:1.5rem;margin:2px 0 16px;line-height:1.4;color:var(--ink);}
+.pc-lbl{display:inline-block;font-family:var(--hand);font-size:.8rem;font-weight:700;letter-spacing:.5px;
+  padding:2px 10px;border-radius:11px;margin-right:8px;vertical-align:middle;}
+.pc-lbl.pain{background:#F7E0D6;color:#9A3A25;}
+.pc-lbl.sol{background:var(--yellow,#f6d36b);color:#7a5210;}
+.pc-pain{color:var(--ink-soft);font-size:1.02rem;margin:0 0 16px;line-height:1.7;}
+.pc-sol{background:var(--paper-2,#f3e6d0);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;
+  padding:14px 16px;margin:0 0 20px;}
+.pc-sol p{margin:8px 0 0;font-size:1.02rem;line-height:1.75;color:var(--ink);}
+.pc-punch{margin-top:auto;background:var(--ink);color:var(--paper);font-family:var(--serif);font-weight:700;
+  padding:16px 18px;border-radius:15px;font-size:1.08rem;line-height:1.65;display:flex;flex-direction:column;gap:8px;}
+.pc-punch-tag{align-self:flex-start;background:var(--orange);color:#fff;font-size:.8rem;font-family:var(--hand);
+  padding:2px 12px;border-radius:12px;}
+.pc-punch-txt{font-size:1.12rem;}
+
+/* 黃金法則橫幅 */
+.golden{margin-top:62px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 140% at 12% 0%,#f0a04b 0%,var(--orange) 42%,var(--orange-deep) 100%);
+  border-radius:24px;padding:36px clamp(20px,4vw,44px);color:#fff;
+  box-shadow:0 22px 46px -22px rgba(199,97,29,.95);border:2.5px solid rgba(255,255,255,.35);}
+.golden::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.16) 1.4px,transparent 1.4px);background-size:22px 22px;
+  -webkit-mask-image:linear-gradient(120deg,rgba(0,0,0,.5),transparent 55%);mask-image:linear-gradient(120deg,rgba(0,0,0,.5),transparent 55%);}
+.golden-head{display:flex;align-items:center;gap:14px;margin-bottom:24px;position:relative;z-index:1;}
+.golden-ico{width:44px;height:44px;flex:none;filter:drop-shadow(0 3px 4px rgba(74,53,38,.35));}
+.golden-ico svg{width:100%;height:100%;}
+.golden-ico svg use{color:#fff;}
+.golden-head h2{font-family:var(--serif);font-weight:900;font-size:clamp(1.4rem,3.6vw,2.05rem);margin:0;
+  text-shadow:0 2px 6px rgba(120,55,16,.35);}
+.golden-sub{margin:2px 0 0;font-family:var(--hand);font-size:.95rem;color:rgba(255,255,255,.9);letter-spacing:.5px;}
+.golden-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1;}
+.rule{background:rgba(255,255,255,.96);border-radius:16px;padding:22px 20px 20px;color:var(--ink);
+  box-shadow:0 14px 28px -18px rgba(74,53,38,.6);transition:transform .16s;border:1.5px solid rgba(255,255,255,.6);}
+.rule:hover{transform:translateY(-5px);}
+.rule-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.rule .rn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--orange-deep));color:#fff;
+  font-family:var(--round);font-weight:700;font-size:1.25rem;box-shadow:0 5px 12px -5px var(--orange-deep);}
+.rule-emo{width:34px;height:34px;}
+.rule-emo svg{width:100%;height:100%;}
+.rule h4{font-family:var(--serif);font-weight:900;font-size:1.16rem;margin:0 0 8px;color:var(--orange-deep);}
+.rule p{margin:0;font-size:.93rem;line-height:1.7;color:var(--ink-soft);}
+
+/* 能力導覽 */
+.capnav-sec{margin-top:62px;}
+.capnav{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.cap-season{position:absolute;top:12px;left:12px;font-family:var(--hand);font-size:.82rem;color:#fff;padding:2px 11px;border-radius:12px;}
+.capcard.spring .cap-season{background:var(--spring);}
+.capcard.summer .cap-season{background:var(--summer);}
+.capcard.autumn .cap-season{background:var(--autumn);}
+.capcard.winter .cap-season{background:var(--winter);}
+.capcard{background:var(--paper-card);border:1.5px solid rgba(154,100,56,.28);border-top:6px solid;border-radius:16px;
+  padding:24px 18px;cursor:pointer;transition:transform .15s, box-shadow .15s;text-align:center;position:relative;
+  display:flex;flex-direction:column;align-items:center;box-shadow:0 10px 26px -20px rgba(74,53,38,.5);}
+.capcard:hover{transform:translateY(-6px);box-shadow:0 16px 32px -18px rgba(74,53,38,.55);}
+.capcard svg{width:54px;height:54px;margin-bottom:10px;}
+.capcard h3{font-family:var(--serif);font-weight:900;font-size:1.2rem;margin:0 0 6px;}
+.capcard p{font-size:.86rem;color:var(--ink-soft);margin:0 0 16px;line-height:1.5;flex:1;}
+.capcount{font-family:var(--hand);font-size:.92rem;color:var(--ink);}
+.capcard.spring{border-top-color:var(--spring);} .capcard.spring h3{color:var(--spring);}
+.capcard.summer{border-top-color:var(--summer);} .capcard.summer h3{color:var(--summer);}
+.capcard.autumn{border-top-color:var(--autumn);} .capcard.autumn h3{color:var(--autumn);}
+.capcard.winter{border-top-color:var(--winter);} .capcard.winter h3{color:var(--winter);}
+
+/* 故事銷售內頁 */
+.sp-hero{margin:6px 0 22px;}
+.sp-tags{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.sp-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--serif);font-weight:700;color:#fff;
+  padding:5px 15px 5px 7px;border-radius:20px;font-size:.98rem;}
+.sp-badge svg{width:26px;height:26px;background:rgba(255,255,255,.3);border-radius:50%;padding:2px;}
+.sp-badge.spring{background:var(--spring);} .sp-badge.summer{background:var(--summer);}
+.sp-badge.autumn{background:var(--autumn);} .sp-badge.winter{background:var(--winter);}
+.sp-ep{font-family:var(--hand);color:var(--ink-soft);}
+.sp-hero h2{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);margin:.2em 0 0;}
+.story-sec{background:var(--paper-card);border:1.5px solid rgba(154,100,56,.25);border-radius:16px;
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 8px 24px -20px rgba(74,53,38,.4);}
+.story-sec.brief p{margin:0;color:var(--ink-soft);font-size:1.04rem;}
+.story-sec.selling{border-width:2px;border-color:var(--red);}
+.story-sec.selling.spring{border-color:var(--spring);}
+.story-sec.selling.summer{border-color:var(--summer);}
+.story-sec.selling.autumn{border-color:var(--autumn);}
+.story-sec.selling.winter{border-color:var(--winter);}
+.selling-list{margin:0;padding:0;list-style:none;counter-reset:sp;}
+.selling-list li{counter-increment:sp;position:relative;padding:14px 14px 14px 54px;margin-bottom:10px;
+  background:var(--paper-2);border-radius:12px;font-size:1.04rem;line-height:1.65;}
+.selling-list li:last-child{margin-bottom:0;}
+.selling-list li::before{content:counter(sp);position:absolute;left:13px;top:13px;width:28px;height:28px;
+  border-radius:50%;background:var(--red);color:#fff;font-family:var(--round);font-weight:700;display:grid;place-items:center;font-size:.95rem;}
+.selling-list b{color:var(--ink);}
+.pitch{position:relative;background:#EDE4D6;border-radius:14px;padding:22px 26px 22px 30px;margin:0;
+  border-left:6px solid var(--ink-soft);font-family:var(--serif);font-size:1.1rem;line-height:2;color:var(--ink);}
+.pitch::before{content:"\201C";position:absolute;top:2px;left:10px;font-family:Georgia,serif;font-size:2.6rem;color:var(--brown);opacity:.5;}
+.copybtn{margin-top:14px;font-family:var(--serif);font-weight:700;cursor:pointer;
+  background:var(--ink);color:var(--paper);border:none;padding:11px 20px;border-radius:12px;font-size:.98rem;transition:.15s;}
+.copybtn:hover{background:#5c4130;transform:translateY(-2px);}
+.story-sec.resources{background:transparent;border:none;box-shadow:none;padding:0;margin-top:26px;}
+.story-sec.resources .sec-eyebrow{margin-bottom:14px;}
+
+/* Q&A 攻防戰 */
+.qa-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  background:linear-gradient(135deg,#4A3526,#6b4a33);color:var(--paper);border-radius:22px;
+  padding:30px clamp(20px,4vw,38px);margin-bottom:24px;}
+.qa-hero h2{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,4vw,2.3rem);margin:.1em 0;}
+.qa-hero p{margin:.5em 0 0;color:rgba(255,255,255,.87);max-width:640px;font-size:.98rem;line-height:1.75;}
+.qa-hero-ico{width:92px;height:92px;flex:none;opacity:.92;}
+.qa-layout{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start;}
+.qa-cats{display:flex;flex-direction:column;gap:9px;position:sticky;top:92px;}
+.qa-cat{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;text-align:left;
+  font-family:var(--serif);font-weight:700;font-size:1.02rem;color:var(--ink-soft);
+  background:var(--paper-card);border:1.5px solid rgba(154,100,56,.28);border-radius:12px;padding:13px 15px;transition:.14s;}
+.qa-cat small{background:var(--paper-2);border-radius:10px;padding:1px 9px;font-family:var(--hand);font-size:.85rem;}
+.qa-cat:hover{background:var(--paper-2);}
+.qa-cat.active{background:var(--orange);color:#fff;border-color:var(--orange-deep);box-shadow:0 4px 0 rgba(154,100,56,.25);}
+.qa-cat.active small{background:rgba(255,255,255,.28);color:#fff;}
+.qa-panels{display:flex;flex-direction:column;gap:12px;}
+.qa-item{background:var(--paper-card);border:1.5px solid rgba(154,100,56,.28);border-radius:14px;overflow:hidden;transition:box-shadow .15s;}
+.qa-item[open]{border-color:var(--orange);box-shadow:0 10px 26px -18px rgba(199,97,29,.6);}
+.qa-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:11px;padding:17px 18px;
+  font-family:var(--serif);font-weight:700;font-size:1.1rem;}
+.qa-item summary::-webkit-details-marker{display:none;}
+.hot{background:var(--red);color:#fff;font-family:var(--hand);font-size:.76rem;padding:3px 10px;border-radius:20px;flex:none;}
+.qa-q{flex:1;}
+.chev{transition:transform .2s;color:var(--orange-deep);font-size:1.1rem;}
+.qa-item[open] .chev{transform:rotate(180deg);}
+.qa-body{padding:0 18px 18px;display:grid;gap:12px;}
+.qa-mind,.qa-ans{border-radius:12px;padding:15px 17px;}
+.qa-mind{background:var(--paper-2);}
+.qa-ans{background:#FBEEDD;border:1.5px dashed var(--orange);}
+.qa-mind .lbl,.qa-ans .lbl{display:inline-block;font-family:var(--hand);font-size:.8rem;letter-spacing:1px;
+  padding:2px 11px;border-radius:20px;margin-bottom:8px;}
+.qa-mind .lbl{background:var(--ink-soft);color:#fff;}
+.qa-ans .lbl{background:var(--orange);color:#fff;}
+.qa-mind p,.qa-ans p{margin:0;line-height:1.85;}
+.qa-ans b{color:var(--orange-deep);font-weight:700;background:linear-gradient(transparent 62%, rgba(243,195,78,.6) 62%);padding:0 1px;}
+
 /* ---------- Responsive ---------- */
+@media(max-width:820px){
+  .pain-grid,.golden-grid{grid-template-columns:1fr;}
+  .capnav{grid-template-columns:repeat(2,1fr);}
+  .qa-layout{grid-template-columns:1fr;}
+  .qa-cats{flex-direction:row;flex-wrap:wrap;position:static;}
+  .qa-cat{flex:1 1 auto;}
+  .qa-hero-ico{display:none;}
+}
 @media(max-width:760px){
   .brand small{display:none;}
   .nav-links a{padding:5px 10px;font-size:.92rem;}
@@ -406,7 +694,7 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
   .story-row .ep{width:40px;height:40px;font-size:1rem;}
 }
 @media(max-width:480px){
-  .arch-grid,.board-grid{grid-template-columns:1fr;}
+  .arch-grid,.board-grid,.capnav{grid-template-columns:1fr;}
   .bc-theme{min-height:0;}
 }
 @media(prefers-reduced-motion:reduce){
@@ -667,6 +955,43 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
         <path d="M38 50V32a6 6 0 0112 0v10M50 42V26a6 6 0 0112 0v16M62 44V34a6 6 0 0112 0v22c0 16-11 26-25 26-9 0-15-4-21-12L28 58a6 6 0 019-8l7 7V36a6 6 0 0112 0v14"/>
       </g>
     </symbol>
+
+    <symbol id="i-heart" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#C7583F" stroke-width="3" stroke-linejoin="round">
+        <path d="M50 80C24 62 16 46 16 34c0-11 8-18 18-18 7 0 12 4 16 10 4-6 9-10 16-10 10 0 18 7 18 18 0 12-8 28-34 46z" fill="#E37B6B"/>
+        <path d="M34 34q6-4 10 2" fill="none" stroke="#FBDDD3" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <symbol id="i-target" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linejoin="round">
+        <circle cx="50" cy="50" r="32" fill="#F3C34E"/>
+        <circle cx="50" cy="50" r="20" fill="#FBF4E6"/>
+        <circle cx="50" cy="50" r="8" fill="#D4593F" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="i-coin" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#C99A2E" stroke-width="3" stroke-linejoin="round">
+        <circle cx="40" cy="44" r="24" fill="#F3D46A"/>
+        <circle cx="60" cy="58" r="24" fill="#F3C34E"/>
+        <path d="M60 48 v20 M53 54 h14" fill="none" stroke="#B5860B" stroke-linecap="round"/>
+      </g>
+    </symbol>
+    <symbol id="i-grow" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#6E7B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M50 82 V44"/>
+        <path d="M50 58 q-20 -2 -26 -22 q22 0 26 18" fill="#8FA95E"/>
+        <path d="M50 50 q20 -4 28 -22 q-22 -2 -28 16" fill="#A8C06A"/>
+      </g>
+    </symbol>
+    <symbol id="i-compare" viewBox="0 0 100 100">
+      <g filter="url(#crayon)" stroke="#8A5A38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M50 20 V74 M36 80 h28"/>
+        <path d="M20 34 h60"/>
+        <path d="M20 34 l-10 22 h20 z" fill="#F3B99C"/>
+        <path d="M80 34 l-10 22 h20 z" fill="#CDCF90"/>
+      </g>
+    </symbol>
   </defs>
 </svg>
 
@@ -677,11 +1002,12 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
     <div><b>故事屋</b><small>STORY HOUSE</small></div>
   </div>
   <div class="nav-links" id="navLinks">
-    <a href="#/" data-route="home"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-house"/></svg></span>首頁</a>
-    <a href="#/season/spring" data-season="spring"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-tree"/></svg></span>春季</a>
-    <a href="#/season/summer" data-season="summer"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-sun"/></svg></span>夏季</a>
-    <a href="#/season/autumn" data-season="autumn"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-leaf"/></svg></span>秋季</a>
-    <a href="#/season/winter" data-season="winter"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-snow"/></svg></span>冬季</a>
+    <a href="#/" data-route="home"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-house"/></svg></span>理念總綱</a>
+    <a href="#/season/spring" data-season="spring"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-speak"/></svg></span>語言表達力<small class="ns spring">春</small></a>
+    <a href="#/season/summer" data-season="summer"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-bulb"/></svg></span>邏輯推理力<small class="ns summer">夏</small></a>
+    <a href="#/season/autumn" data-season="autumn"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-heart"/></svg></span>情緒感知力<small class="ns autumn">秋</small></a>
+    <a href="#/season/winter" data-season="winter"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-target"/></svg></span>專注記憶力<small class="ns winter">冬</small></a>
+    <a href="#/qa" data-route="qa"><span class="ni"><svg viewBox="0 0 100 100"><use href="#i-qa"/></svg></span>應對家長 Q&amp;A</a>
   </div>
   <button class="search-btn" id="searchBtn" aria-label="搜尋故事" onclick="toggleSearch()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -697,15 +1023,36 @@ a:focus-visible,button:focus-visible,.story-row:focus-visible,.tab:focus-visible
 
 <main id="app"></main>
 
+<!-- 兩側手繪裝飾（寬螢幕才出現，純裝飾） -->
+<div class="side-doodles" aria-hidden="true">
+  <svg class="sd sd-l1" viewBox="0 0 100 100"><use href="#i-sun"/></svg>
+  <svg class="sd sd-l2" viewBox="0 0 100 100"><use href="#i-duck"/></svg>
+  <svg class="sd sd-l3" viewBox="0 0 100 100"><use href="#i-leaf"/></svg>
+  <svg class="sd sd-l4" viewBox="0 0 100 100"><use href="#i-book"/></svg>
+  <svg class="sd sd-l5" viewBox="0 0 100 100"><use href="#i-heart"/></svg>
+  <svg class="sd sd-r1" viewBox="0 0 100 100"><use href="#i-star"/></svg>
+  <svg class="sd sd-r2" viewBox="0 0 100 100"><use href="#i-moon"/></svg>
+  <svg class="sd sd-r3" viewBox="0 0 100 100"><use href="#i-snow"/></svg>
+  <svg class="sd sd-r4" viewBox="0 0 100 100"><use href="#i-tree"/></svg>
+  <svg class="sd sd-r5" viewBox="0 0 100 100"><use href="#i-star"/></svg>
+</div>
+
+<!-- 回到頂端 -->
+<button id="toTop" aria-label="回到頂端" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+  <small>頂端</small>
+</button>
+
 <div class="toast" id="toast"></div>
+<div class="modal-overlay" id="modalRoot" onclick="if(event.target===this)closeModal()"></div>
 
 <script>
 /* ================= 資料庫：全四季 54 集 ================= */
 const SEASONS = {
-  spring:{name:"春季故事屋", short:"春季", theme:"節慶寓言 × 經典童話啟蒙", tagline:"萬物甦醒，讓故事在春天發芽", arts:["#i-tree","#i-pig","#i-duck"]},
-  summer:{name:"夏季故事屋", short:"夏季", theme:"民間傳說 × 冒險奇幻故事", tagline:"艷陽高照，冒險故事正精彩", arts:["#i-sun","#i-lamp","#i-crown"]},
-  autumn:{name:"秋季故事屋", short:"秋季", theme:"神話智慧 × 生活寓言", tagline:"秋高氣爽，收藏一則則智慧", arts:["#i-leaf","#i-moon","#i-pumpkin"]},
-  winter:{name:"冬季故事屋", short:"冬季", theme:"世界童話 × 公主與城堡", tagline:"圍爐夜話，聽經典童話入夢", arts:["#i-snow","#i-castle","#i-star"]},
+  spring:{name:"春季故事屋", short:"春季", cap:"語言表達力", capEn:"Expression", capIcon:"#i-speak", capDesc:"完整重述訓練，把腦中的畫面組織成語言", theme:"節慶寓言 × 經典童話啟蒙", tagline:"萬物甦醒，讓故事在春天發芽", arts:["#i-tree","#i-pig","#i-duck"]},
+  summer:{name:"夏季故事屋", short:"夏季", cap:"邏輯推理力", capEn:"Logic", capIcon:"#i-bulb", capDesc:"因果順序與預測推論，建立條理思考", theme:"民間傳說 × 冒險奇幻故事", tagline:"艷陽高照，冒險故事正精彩", arts:["#i-sun","#i-lamp","#i-crown"]},
+  autumn:{name:"秋季故事屋", short:"秋季", cap:"情緒感知力", capEn:"Empathy", capIcon:"#i-heart", capDesc:"換位思考與情緒辨識，培養同理心", theme:"神話智慧 × 生活寓言", tagline:"秋高氣爽，收藏一則則智慧", arts:["#i-leaf","#i-moon","#i-pumpkin"]},
+  winter:{name:"冬季故事屋", short:"冬季", cap:"專注記憶力", capEn:"Focus", capIcon:"#i-target", capDesc:"沉浸式參與與圖像記憶，拉長專注續航", theme:"世界童話 × 公主與城堡", tagline:"圍爐夜話，聽經典童話入夢", arts:["#i-snow","#i-castle","#i-star"]},
 };
 
 const STORIES = [
@@ -774,6 +1121,84 @@ const STORIES = [
 const byId = id => STORIES.find(s=>s.id===id);
 const bySeason = k => STORIES.filter(s=>s.season===k);
 
+/* 對家長主打賣點（依能力別，帶入故事名） */
+const SELL = {
+  spring:n=>["<b>完整重述訓練：</b>孩子要把《"+n+"》從頭到尾說一遍，在過程中累積詞彙與句型。","<b>上台開口的勇氣：</b>從「不敢說」到「搶著說」，克服在眾人面前表達的緊張。","<b>換句話說的能力：</b>用自己的話重組劇情，而不是死背課文。"],
+  summer:n=>["<b>因果順序：</b>《"+n+"》有清楚的「起因—衝突—結局」，孩子要說對順序才說得通。","<b>預測與推論：</b>在關鍵轉折停下來，讓孩子推理「接下來會怎樣」。","<b>拖曳排序：</b>APP 場景需按邏輯排列，把抽象順序變成看得見的操作。"],
+  autumn:n=>["<b>換位思考：</b>帶孩子想「主角這時候是什麼心情？」培養同理心。","<b>情緒辨識與命名：</b>把難過、害怕、開心說出口，建立情緒詞彙。","<b>價值判斷：</b>《"+n+"》藏著善惡與選擇，引導孩子說出自己的想法。"],
+  winter:n=>["<b>細節記憶：</b>孩子要記住《"+n+"》的角色與物件，才能完整重現。","<b>延續性專注：</b>一集 40 分鐘的沉浸式參與，拉長孩子的專注續航。","<b>圖像記憶轉化：</b>把聽到的故事畫下來，用圖像鞏固長期記憶。"],
+};
+/* 一分鐘示範話術（依能力別） */
+const PITCH = {
+  spring:n=>"您有沒有發現，孩子常常有滿肚子想法，卻說不出一句完整的話？在故事屋，我們用《"+n+"》這樣的故事，讓孩子親自上台、用自己的話把整個故事說一遍。他練的不是背誦，而是「把腦中的畫面組織成語言」的能力——這正是未來面試、報告與溝通最關鍵的底層能力。",
+  summer:n=>"很多家長擔心孩子「想到哪說到哪、沒有條理」。我們透過《"+n+"》這種有清楚因果的故事，讓孩子動手把場景照順序排好、預測下一步。孩子在玩的過程中，其實是在建立「先後、因果、推論」的邏輯骨架——這是數學和寫作都用得到的思考力。",
+  autumn:n=>"這個年紀的孩子，最需要學的其實是「讀懂情緒」。透過《"+n+"》，我們會停下來問孩子：主角現在是什麼感覺？如果是你會怎麼做？孩子在說故事的同時，練習的是同理與換位思考——這會直接影響他未來的人際關係與情緒穩定。",
+  winter:n=>"如果孩子看螢幕三分鐘就分心，那正是我們要解決的。故事屋一堂課 40 分鐘，孩子要記住《"+n+"》的角色、順序，還要自己操作、重述、畫下來。這是一種「沉浸式的專注訓練」——不是逼他坐好，而是讓他因為投入而專注。",
+};
+
+
+/* 每則故事的專屬內容：簡介、主打賣點、示範話術 */
+const STORYCONTENT = {"spring-1":{"intro":"很久很久以前，每到除夕的夜晚，一隻叫做「年」的凶猛怪獸就會從山裡跑出來，闖進村莊吃人、破壞農作，嚇得大家不敢過年。有一年，一位白鬍子老爺爺告訴村民：年其實最怕三樣東西——紅色、火光，還有巨大的聲響。於是家家戶戶貼上紅紙、掛起紅燈籠，又點火、放起劈啪作響的鞭炮。當年再次下山，被滿村的紅光和爆竹聲嚇得落荒而逃，從此再也不敢來。這就是為什麼我們過年要貼春聯、放鞭炮、穿紅衣的由來。","points":["<b>把「由來」說清楚：</b>孩子要說出「為什麼要貼春聯、放鞭炮」，練習用因果句完整交代一個習俗的來歷。","<b>擬聲與形容詞：</b>描述怪獸的吼叫、鞭炮的「劈啪」，讓孩子累積生動的狀聲詞與形容詞。","<b>複述長故事：</b>從怪獸出現到被嚇跑有完整轉折，訓練孩子把一段有頭有尾的故事講完。"],"pitch":"您知道孩子每年都在過年，但他說得出「為什麼要放鞭炮」嗎？在《年來了》這一集，我們讓孩子親自把這個習俗的由來從頭講一遍——怪獸年怕什麼、村民想到什麼辦法。他練的不只是記住故事，而是把一件事的來龍去脈用自己的話講清楚。這種「把一件事說明白」的能力，是他以後上台報告、跟人溝通最需要的底子。","questions":["除夕晚上跑出來的那隻怪獸叫什麼名字？牠會做什麼壞事？","村民後來發現「年」最怕哪三樣東西？","大家用了什麼辦法把年嚇跑？","如果你是村民，你還會想到什麼方法對付年？"],"tm":{"scenes":["除夕夜，怪獸「年」下山闖進安靜的村莊","年吃人、破壞農作，村民驚慌逃竄","村民貼紅紙、放鞭炮，把年嚇跑"],"objects":"怪獸年、村民、紅紙／紅燈籠、火堆、鞭炮","climax":"年再次下山、卻被滿村紅光與爆竹聲嚇退的那一刻"}},"spring-2":{"intro":"這是一則從孩子自己出發的主題故事。老師會帶著孩子，一步一步想起媽媽的樣子——她的頭髮、她的笑容、她生氣時的表情；再想起媽媽為自己做過的事——早起準備早餐、生病時整夜的照顧、還有那些叮嚀和擁抱。最後，孩子要試著把心裡「最想對媽媽說的一句話」講出來。故事沒有公主也沒有怪獸，主角就是每個孩子生命中最重要的那個人，目的是讓孩子學會把最熟悉、卻最少被好好描述的媽媽，用自己的話具體地說出來。","points":["<b>從生活取材：</b>主角就是孩子自己的媽媽，練習把「最熟悉卻最難描述」的人具體說出來。","<b>形容一個人：</b>引導孩子用外貌、個性、小故事三個角度描述媽媽，而不是只會說「她很好」。","<b>真情表達：</b>把「謝謝媽媽」背後的具體理由講出來，練習有內容、有感情的表達。"],"pitch":"很多孩子愛媽媽，但要他形容媽媽，卻只會說「她人很好」。這一集《我的媽媽》，我們帶孩子從外貌、個性到一件難忘的小事，把媽媽具體地說出來。他學到的是「怎麼把一個人、一件事描述得清楚又有感情」——這是作文和口說表達最核心的能力。而且成果是他親口說出對媽媽的愛，家長聽了都很感動。","questions":["你的媽媽長什麼樣子？可以說說她的頭髮、她笑起來的樣子嗎？","媽媽為你做過哪一件事，讓你印象最深刻？","媽媽在什麼時候會對你特別溫柔？什麼時候會比較嚴格？","如果現在可以對媽媽說一句話，你最想說什麼？"],"tm":{"scenes":["想起媽媽的樣子（外貌、表情）","回想媽媽為我做過的一件事","說出最想對媽媽說的話"],"objects":"媽媽、孩子、代表媽媽的物件（圍裙、便當、雨傘等）","climax":"孩子親口對媽媽說出感謝的那一段"}},"spring-3":{"intro":"在很久很久以前，天和地還沒有分開，整個世界混沌一片，就像一顆巨大的雞蛋，黑漆漆、什麼都看不見。巨人盤古就在這顆大蛋裡沉睡了一萬八千年。有一天他醒了過來，覺得又悶又暗，於是拿起大斧用力一劈——輕而清的東西緩緩上升，變成了天；重而濁的東西慢慢下沉，變成了地。盤古怕天地又合起來，就頭頂著天、腳踏著地，一天天長高、把它們撐開。等到天地終於穩固，盤古也累倒了，他的身體化成了高山、河流、太陽、月亮和風雨，成就了我們居住的世界。","points":["<b>抽象變具體：</b>「開天闢地」很抽象，孩子要用自己的話把這個過程說出來，練習描述看不見的畫面。","<b>順序與變化：</b>從混沌到天地分開、再到身體化成萬物，練習把一連串變化按順序講清楚。","<b>神話詞彙：</b>接觸「混沌、頂天立地」等詞，擴充孩子的語彙庫。"],"pitch":"《盤古開天》是華人最古老的創世神話。我們讓孩子用自己的話，把「天地怎麼從一團混沌變出來」講一遍。這個故事的畫面很抽象，正好訓練孩子把「看不見的東西」說得讓人聽得懂——這是很高階的語言能力。孩子還會學到像「頂天立地」這樣的成語，語彙自然變豐富。","questions":["天地還沒分開的時候，整個世界看起來像什麼？","盤古在大蛋裡睡了多久才醒過來？","盤古用什麼把天和地劈開？之後又做了什麼？","盤古最後怎麼了？他的身體變成了哪些東西？"],"tm":{"scenes":["混沌如大蛋，盤古沉睡其中","盤古醒來、揮斧劈開天地","盤古頂天立地，身體化為萬物"],"objects":"大蛋（混沌）、盤古、大斧、天、地、日月山川","climax":"盤古一斧劈開、清濁分離成天地的瞬間"}},"spring-4":{"intro":"很久以前，玉皇大帝想挑選十二種動物來當年份的代表，就宣布舉辦一場渡河比賽，誰先到達終點，就照順序排進生肖。比賽當天，不會游泳的老鼠靈機一動，偷偷跳上老實的牛背，快到岸邊時猛地一跳，搶下了第一名，牛只能屈居第二。老虎、兔子、龍、蛇……一個接一個上岸。原本和老鼠約好一起出發的貓，卻被老鼠騙了、錯過了報名，氣得從此見到老鼠就追——這也是為什麼貓沒有排進十二生肖。就這樣，鼠、牛、虎、兔、龍、蛇、馬、羊、猴、雞、狗、豬的順序被定了下來。","points":["<b>排順序、說名次：</b>孩子要記住並說出十二種動物的先後，練習有條理地依序敘述。","<b>角色動機：</b>說明老鼠為什麼贏、貓為什麼落榜，練習把「誰做了什麼、結果如何」講清楚。","<b>對話重現：</b>動物之間的互動與心機，讓孩子練習用不同語氣說出角色的話。"],"pitch":"孩子都知道自己屬什麼，但講得出十二生肖是怎麼排出來的嗎？這一集我們讓孩子把整場渡河比賽說一遍——老鼠怎麼取巧、貓為什麼氣得跟老鼠結仇。他在練習「按順序、有條理地把一件複雜的事講清楚」，還要模仿不同動物的語氣。這種敘事和表達力，對他未來說話、寫作都是關鍵。","questions":["玉皇大帝用什麼比賽來決定十二生肖的順序？","不會游泳的老鼠，用什麼聰明的辦法拿到第一名？","貓為什麼沒有排進十二生肖？牠後來為什麼一直追老鼠？","你記得十二生肖的前三名是誰嗎？可以照順序說說看嗎？"],"tm":{"scenes":["玉皇大帝宣布渡河比賽","動物們下水競渡、老鼠跳上牛背","依到達順序排出十二生肖、貓落榜"],"objects":"玉皇大帝、河流、鼠牛虎兔等十二種動物、貓","climax":"老鼠從牛背一躍、搶下第一名的那一刻"}},"spring-5":{"intro":"一位很想要孩子的婦人，得到了一顆神奇的種子。種子開出一朵美麗的花，花瓣一打開，裡面竟坐著一個只有拇指般大的小女孩，大家叫她拇指姑娘。她的冒險就此展開：先是被醜癩蛤蟆擄走想逼她成親，好不容易逃脫，又被金龜子叼走再拋棄；入冬後她躲進田鼠家避寒，差點被逼著嫁給又胖又瞎的鼴鼠。幸好她救活了一隻凍僵的燕子，春天時燕子帶著她飛越田野，來到溫暖的花之國度，遇見了一位和她一樣嬌小的花仙子國王，從此過著幸福的日子。","points":["<b>講一段冒險：</b>拇指姑娘經歷好幾個關卡，孩子要把這趟曲折的旅程依序講完，練習長篇敘事。","<b>形容大小與細節：</b>描述「拇指般大」的世界，練習用比喻和細節把畫面說得具體。","<b>情節轉折語：</b>用「後來、沒想到、幸好」等連接詞，把一波三折的劇情串起來。"],"pitch":"《拇指姑娘》是一段一波三折的小小冒險。我們讓孩子把她怎麼被抓走、又怎麼獲救的過程完整講一遍。這種比較長、轉折多的故事，最能訓練孩子用「後來、沒想到、幸好」把情節串起來，把一件複雜的事說得有條有理。孩子講完一個這樣的故事，表達的續航力和組織力都會明顯進步。","questions":["拇指姑娘是從哪裡出生的？她有多大呢？","拇指姑娘一路上被哪些動物抓走過？","她在田鼠家差點要嫁給誰？她願意嗎？","最後是誰帶著拇指姑娘飛走、找到幸福的？"],"tm":{"scenes":["花中誕生的拇指姑娘","被癩蛤蟆、金龜子擄走又被田鼠逼婚","救活燕子、飛到花之國找到幸福"],"objects":"花、拇指姑娘、癩蛤蟆、金龜子、田鼠、鼴鼠、燕子、花仙子國王","climax":"燕子帶著拇指姑娘飛越田野、抵達花之國的那一段"}},"spring-6":{"intro":"在一個小小的潮間帶水窪裡，住著一隻不甘於平凡的小螃蟹。牠總覺得外面的大海一定更精彩，於是有一天，牠橫著身子、鼓起勇氣爬出水窪，一路朝著大海前進。旅途中，牠遇見了色彩斑斕的魚群、搖曳的海草森林、發光的水母，還有比自己大上好幾倍的海中生物。牠靠著勇敢和機智，一次次化解危險、闖過一關又一關。等牠回到家鄉時，早已成為海邊人人傳頌的傳奇——那隻敢一個人闖進大海的小螃蟹。","points":["<b>描述新事物：</b>海底世界充滿新奇生物，孩子要練習把沒看過的東西描述給別人聽。","<b>連續事件敘述：</b>一場場冒險接連發生，練習把好幾件事有先後地串起來說。","<b>膽量與開口：</b>呼應小螃蟹的勇敢，鼓勵內向的孩子也勇敢上台把故事說出來。"],"pitch":"《海螃蟹傳奇》講一隻小螃蟹勇闖大海的冒險。我們讓孩子扮演說書人，把牠遇到的奇奇怪怪海底生物一一描述出來。這訓練的是「把新鮮、陌生的東西講得讓人聽懂」的能力。而且故事本身就在講勇敢，正好鼓勵比較害羞的孩子勇敢站上台、開口說——很多內向的孩子是從這一集開始敢講話的。","questions":["小螃蟹原本住在哪裡？牠為什麼想離開？","小螃蟹在大海裡看到了哪些新奇的東西？","遇到比自己大的海洋生物時，小螃蟹是怎麼做的？","你覺得小螃蟹最了不起的地方是什麼？"],"tm":{"scenes":["小螃蟹爬出小水窪、奔向大海","一路遇見海底奇特生物與危險","化解危機、成為海邊傳奇"],"objects":"小螃蟹、水窪、大海、魚群、海草、水母、大型海洋生物","climax":"小螃蟹面對比自己大好幾倍的生物、靠機智脫險的段落"}},"spring-7":{"intro":"豬媽媽的三隻小豬長大了，要自己蓋房子獨立生活。急性子的豬大哥隨便用稻草搭了一間，貪玩的豬二哥用木頭釘了一間，都想早點去玩；只有踏實的豬小弟，一塊一塊地把磚頭砌成堅固的房子。這時，肚子餓的大野狼來了。牠對著稻草屋一吹，房子就散了；對著木頭屋用力一撞，房子也垮了，兩隻小豬嚇得逃進小弟的磚房。大野狼又吹又撞都沒用，最後想從煙囪爬進去，卻掉進小豬們燒滾的熱水鍋，燙得哇哇大叫、逃得無影無蹤。三隻小豬終於明白：踏實去做，才最安全。","points":["<b>對比與重複句型：</b>三種房子、三次「我要吹倒你的房子」，孩子在重複中自然練熟句型與對話。","<b>角色語氣：</b>兇狠的野狼、慌張的小豬，練習用不同聲音、表情把角色演出來。","<b>把道理說出口：</b>引導孩子講出「為什麼磚頭房子最安全」，練習把故事的寓意用自己的話總結。"],"pitch":"《三隻小豬》幾乎每個孩子都聽過，但您有沒有讓他「自己講一遍」？這一集我們讓孩子扮演野狼和小豬，用不同的聲音把「我要吹倒你的房子」這樣的對話說出來。重複的句型讓他不知不覺練熟表達，還要用自己的話講出「踏實才安全」的道理。孩子不是背故事，是在練「把故事說得生動、還能講出重點」的真本事。","questions":["三隻小豬分別用什麼材料蓋房子？","大野狼吹倒了哪幾間房子？哪一間吹不倒？","大野狼最後想從哪裡爬進磚房？結果發生了什麼事？","為什麼磚頭房子最堅固？這個故事告訴我們什麼道理？"],"tm":{"scenes":["三隻小豬各自蓋稻草、木頭、磚頭房","大野狼吹倒稻草屋、撞垮木頭屋","野狼爬煙囪、掉進熱水鍋逃走"],"objects":"三隻小豬、稻草屋、木頭屋、磚頭屋、大野狼、煙囪、熱水鍋","climax":"野狼從煙囪爬下、掉進滾水的那一刻"}},"spring-8":{"intro":"羊媽媽要出門前，再三叮嚀七隻小羊：「絕對不能開門，除非確認是媽媽回來了。」羊媽媽一走，大野狼就來敲門了。第一次，小羊們聽出粗啞的聲音不是媽媽，不開；狡猾的野狼就吞了白粉讓聲音變柔。第二次，小羊們從門縫看見黑色的腳掌，還是不開；野狼又用麵粉把腳塗得雪白。第三次，小羊們終於被騙開了門，六隻小羊一口氣被吞進肚裡，只有最小的那隻躲進時鐘裡逃過一劫。羊媽媽回來後，帶著小羊剪開熟睡野狼的肚子，救出了六隻小羊，還在牠肚裡塞滿石頭，讓牠再也作不了惡。","points":["<b>識破與說明：</b>孩子要說出野狼「怎麼一步步騙開門」，練習把一個計謀的細節講清楚。","<b>叮嚀與對話：</b>媽媽的叮嚀、門內外的問答，提供大量可以複述的生活對話。","<b>安全表達：</b>結合「陌生人來敲門怎麼辦」，讓孩子把安全常識用自己的話說出來。"],"pitch":"《七隻小羊》其實是最好的機會教育。我們讓孩子把大野狼「怎麼假裝成媽媽、一步步騙開門」講清楚。他在練習把一個有細節的計謀說明白，同時也把「陌生人敲門不能隨便開」這個安全觀念用自己的話講出來。一堂課下來，孩子的表達力和自我保護意識一起提升，家長最有感。","questions":["羊媽媽出門前叮嚀小羊什麼事？","大野狼用了哪些辦法，讓自己假裝成羊媽媽？","有一隻小羊沒有被吃掉，牠躲在哪裡？","如果有陌生人來敲門，你應該怎麼做才安全？"],"tm":{"scenes":["羊媽媽叮嚀後出門","野狼三次喬裝、騙開門吞下小羊","羊媽媽剖狼肚救出小羊、填石頭"],"objects":"羊媽媽、七隻小羊、時鐘、大野狼、白粉、麵粉、剪刀、石頭","climax":"野狼假扮成媽媽、成功騙開門的緊張時刻"}},"spring-9":{"intro":"在一個溫暖的農場裡，鴨媽媽孵出了一窩毛茸茸的小鴨，其中卻有一隻特別大、特別灰、長得和大家都不一樣。因為長得「醜」，牠被兄弟姊妹啄、被其他動物嘲笑，連鴨媽媽也護不了牠。傷心的醜小鴨只好離家流浪，獨自熬過了又冷又餓、孤單的秋天和冬天。等到春天來臨，牠來到一座湖邊，看見幾隻優雅美麗的白天鵝，正想著自己配不上時，卻在清澈的水面上看見了倒影——原來那隻美麗的天鵝，就是長大後的自己。原來牠從來不是醜小鴨，只是還沒長成真正的樣子。","points":["<b>心情的描述：</b>孩子要說出醜小鴨「被笑的難過、變天鵝的驚喜」，練習把情緒說成語言。","<b>時間的推移：</b>從被排擠到蛻變經過四季，練習用「一開始、後來、最後」交代時間變化。","<b>鼓勵性表達：</b>引導孩子講出「不一樣不代表不好」，練習說出正向、鼓勵人的話。"],"pitch":"《醜小鴨》講的是「不一樣」與「自我肯定」。我們讓孩子把醜小鴨從被嘲笑到蛻變成天鵝的過程說出來，特別是牠一路上的心情變化。孩子在練習「把感受講成句子」——這是很多孩子最缺、卻最重要的能力。講完這個故事，孩子不只表達變好，也更懂得欣賞自己和別人的不同。","questions":["醜小鴨為什麼會被大家嘲笑、欺負？","被欺負的醜小鴨，心裡是什麼感覺？","醜小鴨自己一個人過了多久，才等到春天？","最後醜小鴨在水面上看到了什麼？牠變成了什麼？"],"tm":{"scenes":["醜小鴨因長得不同被嘲笑排擠","獨自流浪、熬過寒冬","春天在水面看見自己變成天鵝"],"objects":"鴨媽媽、小鴨們、醜小鴨、農場動物、湖、白天鵝、水中倒影","climax":"醜小鴨在水面倒影裡認出自己是天鵝的那一刻"}},"spring-10":{"intro":"老公公在田裡種了一顆蘿蔔，天天澆水、細心照顧，蘿蔔長得又大又壯，大到超乎想像。收成的日子到了，老公公抓住蘿蔔的葉子用力拔——「嘿咻！」拔不動。他叫來老婆婆，老婆婆拉著老公公；還是拔不動，又叫來孫女、小狗、小貓，一個拉著一個的腰，排成長長的一列。可是那顆超級大蘿蔔還是紋風不動。最後，連一隻小小的老鼠也跑來，拉住小貓的尾巴。「嘿咻——！」大家一起使勁，蘿蔔終於「啵」地一聲被拔了出來，全部的人都跌成一團，笑成一片。原來，再難的事，只要大家同心協力就能完成。","points":["<b>累加式重複：</b>一個接一個來幫忙的結構，讓孩子在重複中練熟「誰拉誰」的順序敘述。","<b>狀聲與節奏：</b>「嘿咻嘿咻」的呼喊，練習有節奏、有力氣地把話說出來。","<b>合作的道理：</b>引導孩子講出「人多力量大」，把故事的意義用一句話總結。"],"pitch":"《大蘿蔔》看起來簡單，卻是低年級練口說的神器。一個接一個來幫忙的重複結構，讓孩子很自然地把「老公公、老婆婆、小狗、小貓」一路按順序講下來，還要跟著「嘿咻嘿咻」出力。這種累加式的故事最能建立孩子敘事的順序感和節奏感，講完還能說出「團結力量大」的道理。連比較慢熱的孩子都能輕鬆開口。","questions":["老公公種出來的蘿蔔長得怎麼樣？","老公公一個人拔得動大蘿蔔嗎？他請了誰來幫忙？","來幫忙的順序是怎麼排的？最後一個來的是誰？","為什麼大家一起拉，就能把蘿蔔拔出來？"],"tm":{"scenes":["老公公種出超級大蘿蔔、拔不動","老婆婆、孫女、貓狗一個接一個來拉","小老鼠加入、大家合力拔出蘿蔔"],"objects":"大蘿蔔、老公公、老婆婆、孫女、小狗、小貓、小老鼠","climax":"小老鼠加入後、大家一起把蘿蔔拔出、跌成一團的瞬間"}},"spring-11":{"intro":"從前有一個心地善良的人，有一天在路邊發現一隻翅膀受傷、掉在地上的鴿子。他小心地把鴿子捧回家，替牠上藥、餵牠吃東西，日復一日耐心照顧，直到鴿子的傷完全好了，才依依不捨地把牠放回天空。過了一段日子，這隻鴿子沒有忘記救命之恩，牠飛回來，嘴裡銜著一顆閃閃發亮的珍貴寶物，輕輕放在好心人的手心裡，用自己的方式報答了他的恩情。這個溫暖的故事告訴我們：你對別人付出的善意，別人都會記在心裡。","points":["<b>因果敘述：</b>「因為被救、所以報恩」，孩子練習把善行與回報之間的關係說清楚。","<b>描述動作：</b>照顧鴿子、鴿子銜物，練習把一連串細膩的動作講出來。","<b>感恩的表達：</b>引導孩子說出「幫助別人、別人也會記得你的好」，練習說出溫暖的話。"],"pitch":"《鴿子報恩》是一則溫暖的故事。我們讓孩子把「好心人怎麼救鴿子、鴿子又怎麼報恩」講出來，練習把善行和回報之間的因果說清楚。孩子在敘述這種細膩、有情感的情節時，語言會變得更有溫度。講完這一集，孩子不只表達進步，也把「善良」這件事說進了心裡。","questions":["好心人在路邊撿到了一隻怎麼樣的鴿子？","他是怎麼照顧受傷的鴿子的？","鴿子的傷好了以後，做了什麼來報答好心人？","這個故事想告訴我們什麼樣的道理？"],"tm":{"scenes":["好心人撿到受傷的鴿子","細心照顧、放鴿子回天空","鴿子銜寶物回來報恩"],"objects":"好心人、受傷的鴿子、藥、天空、閃亮的寶物","climax":"鴿子飛回來、把寶物放進好心人手心的那一段"}},"spring-12":{"intro":"在一個下著大雪的冬日，一位老爺爺走過森林時，不小心掉了一隻手套在雪地上。一隻怕冷的小老鼠發現了，鑽進手套裡，覺得好溫暖，就住了下來。接著，一隻青蛙跳來問：「可以讓我進去嗎？」然後是兔子、狐狸、野豬，最後連一隻大大的熊都想擠進來。奇妙的是，這隻小小的手套竟然一個接一個地容納了所有動物，變成了大家溫暖的家。直到老爺爺發現手套不見了，回頭來找，動物們才「轟」地一聲全都跑了出來，四散奔逃。","points":["<b>累加與空間感：</b>動物一隻隻擠進來，孩子練習依序敘述，並描述「怎麼還擠得下」的畫面。","<b>角色自我介紹：</b>每隻動物進場都自報名號，提供大量可模仿的短對話。","<b>想像與描述：</b>把一隻手套變成家，練習把不合理的畫面說得生動有趣。"],"pitch":"《手套》和《大蘿蔔》一樣，是累加式的經典。動物一隻隻擠進手套，孩子要按順序把牠們講出來，還要描述「這麼小的手套怎麼裝下大熊」的有趣畫面。每隻動物進場都會自我介紹，是最好的對話練習。孩子在笑聲中練熟了順序敘述和角色扮演，開口說話變得毫無壓力。","questions":["老爺爺在雪地裡掉了什麼東西？","第一個住進手套的是誰？後來還有哪些動物擠進去？","這麼小的一隻手套，怎麼裝得下這麼多動物呢？","最後動物們為什麼全跑出來了？"],"tm":{"scenes":["老爺爺在雪地掉了手套","動物一隻隻擠進手套變成家","爺爺回來找、動物全跑出來"],"objects":"手套、老爺爺、小老鼠、青蛙、兔子、狐狸、野豬、大熊","climax":"大熊也要擠進小小手套的爆笑時刻"}},"spring-13":{"intro":"從前有一戶很窮的老夫婦，家裡養了一隻瘦巴巴的老鼠；山那頭則住著有錢人家，養了一隻又肥又壯的老鼠。兩隻老鼠常常相撲比賽，可是瘦老鼠每次都被胖老鼠摔得慘兮兮。善良的窮老公公看了很不忍心，雖然自己也沒什麼東西吃，還是特地做了香噴噴的年糕給瘦老鼠。瘦老鼠吃飽了、長出了力氣，在下一次的相撲比賽中，終於一舉把胖老鼠摔倒，贏得漂亮！而牠也悄悄為善良的老夫婦帶來了好運與回報。","points":["<b>對比敘述：</b>瘦老鼠對胖老鼠、窮人對富人，練習用對比把兩邊的差別說清楚。","<b>轉變的過程：</b>「吃了年糕、長了力氣、贏了比賽」，練習交代事情如何一步步改變。","<b>賽事的臨場感：</b>模仿相撲比賽的加油與過程，練習有情緒、有畫面地敘述。"],"pitch":"《老鼠相撲》是一則有趣又溫暖的日本民間故事。我們讓孩子把「瘦老鼠怎麼從一直輸，到吃了年糕、翻身贏得比賽」講出來，練習交代事情前後的轉變。加上相撲比賽的臨場感，孩子敘述時會自然帶進情緒和畫面。這種「說得生動、又講得有條理」的能力，正是我們要幫孩子打好的底子。","questions":["瘦老鼠和胖老鼠比相撲，一開始誰總是贏？","窮老公公明明也很窮，卻為瘦老鼠做了什麼？","吃了年糕以後，瘦老鼠有什麼改變？","你覺得為什麼善良的老公公最後會得到好運？"],"tm":{"scenes":["瘦老鼠總是輸給胖老鼠","窮老公公做年糕給瘦老鼠吃","瘦老鼠長力氣、贏得相撲"],"objects":"瘦老鼠、胖老鼠、窮老夫婦、富人、年糕、相撲場","climax":"瘦老鼠吃飽後、一舉摔倒胖老鼠的翻身時刻"}},"summer-1":{"intro":"屈原是兩千多年前楚國的大臣，他滿懷才華、一心愛國，時常向國王提出對國家有益的建議。可是朝中的小人嫉妒他，不斷在國王面前說他的壞話，國王漸漸疏遠他，最後還把他流放到偏遠的地方。即使被冷落，屈原仍然日日夜夜掛念著國家。當他聽到國都被敵人攻破的消息，悲痛欲絕，便抱著石頭投入汨羅江。江邊的百姓十分不捨，紛紛划船去打撈他，又把飯糰、粽子投進江裡，希望魚蝦吃飽了就不會傷害他的身體。這就是端午節划龍舟、吃粽子的由來。","points":["<b>因果推理：</b>孩子要推出「為什麼要划龍舟、丟粽子」，練習把習俗和原因串成因果鏈。","<b>動機分析：</b>思考屈原為什麼投江、百姓為什麼救他，練習從行為推想背後的理由。","<b>時序整理：</b>被陷害→流放→國破→投江→端午，練習把事件按邏輯排好。"],"pitch":"端午節大家都在吃粽子，但孩子想過「為什麼」嗎？《屈原》這一集，我們讓孩子自己推理出划龍舟、丟粽子和屈原之間的因果關係。他不是死背由來，而是練習「從結果回推原因」的邏輯思考。這種把事情前後因果連起來的能力，是數學應用題和閱讀理解都用得到的關鍵。","questions":["屈原是一個什麼樣的人？他為什麼會被國王流放？","屈原聽到什麼消息後，傷心地跳進了江裡？","百姓們做了哪些事，想要保護屈原？","為什麼我們現在過端午節要划龍舟、吃粽子呢？"],"tm":{"scenes":["屈原忠心進諫、卻被小人陷害流放","聽聞國都陷落、抱石投江","百姓划船、投粽子救屈原"],"objects":"屈原、楚王、小人、汨羅江、石頭、龍舟、粽子","climax":"屈原抱石投江、百姓紛紛划船打撈的悲壯場面"}},"summer-2":{"intro":"牛郎是個勤勞善良的年輕人，在老牛的幫助下，認識了下凡遊玩的織女。兩人相愛結婚，男耕女織、生了一對兒女，日子過得幸福美滿。可是天上的王母娘娘知道後大發雷霆，硬是把織女帶回天庭，還拔下頭上的金簪，在他們之間劃出一條波濤洶湧的銀河，讓牛郎再也追不過去。他們忠貞的愛情感動了成群的喜鵲，於是每年農曆七月七日這一天，喜鵲們會飛上天，用身體搭成一座「鵲橋」，讓牛郎織女能夠在橋上相會一次。這就是七夕情人節的由來。","points":["<b>條件推理：</b>「因為被銀河隔開、所以需要鵲橋」，練習理解「問題→解決」的邏輯關係。","<b>規則與週期：</b>一年只能見一次，練習理解「每隔多久發生一次」的時間規則。","<b>推想後果：</b>思考如果沒有喜鵲會怎樣，練習做假設與推論。"],"pitch":"《牛郎織女》是七夕的由來。我們讓孩子推理：牛郎織女被銀河隔開，那要怎麼見面？喜鵲搭橋又解決了什麼問題？孩子在練習「遇到障礙、找出解法」的邏輯。故事裡「一年見一次」還帶到時間週期的概念。這種問題解決和推論的思考，比單純聽故事有價值得多。","questions":["牛郎和織女本來過著什麼樣的生活？","是誰把他們拆散的？用什麼把他們隔開？","牛郎織女被銀河隔開後，靠什麼才能見面？","他們一年可以見幾次面？是在哪一天？"],"tm":{"scenes":["牛郎織女相愛、男耕女織","王母以銀河拆散兩人","喜鵲搭橋、七夕相會"],"objects":"牛郎、織女、老牛、王母娘娘、金簪、銀河、喜鵲、鵲橋","climax":"王母劃出銀河、把兩人硬生生隔開的那一刻"}},"summer-3":{"intro":"傑克和媽媽很窮，家裡只剩一頭老母牛。媽媽要傑克把牛牽去市場賣掉換錢，半路上，傑克卻被一個老人用「幾顆神奇魔豆」給說動，把牛換了回來。媽媽氣得把豆子丟出窗外。沒想到隔天一早，窗外竟長出一棵高聳入雲的巨大豆藤！好奇的傑克順著豆藤往上爬，來到雲端一座巨人的城堡，發現裡面有會下金蛋的母雞和會自己唱歌的金豎琴。他趁巨人睡著時偷偷取走寶物，卻吵醒了巨人。傑克拚命爬下豆藤，一到地面就抓起斧頭把豆藤砍斷，追下來的巨人也重重摔落，從此傑克和媽媽再也不愁吃穿。","points":["<b>因果連鎖：</b>換豆→長藤→爬上去→拿寶物→砍藤，練習把一連串因果事件推演到底。","<b>風險判斷：</b>思考「用牛換豆值不值得、爬上去危不危險」，練習權衡與判斷。","<b>解決問題：</b>面對追來的巨人，傑克怎麼脫身？練習從情境推出解決辦法。"],"pitch":"《傑克與魔豆》是一條完整的因果鏈：換了豆、長了藤、爬上去、拿了寶、砍斷藤。我們讓孩子把每一步的「因為所以」推演出來，還要判斷傑克的選擇聰不聰明、危不危險。這訓練的是孩子「預測後果、權衡判斷」的邏輯腦。孩子玩完會發現，原來每個決定都會牽動後面的結果——這就是推理力的起點。","questions":["傑克把家裡的牛換成了什麼？媽媽的反應是什麼？","被丟到窗外的魔豆，隔天發生了什麼驚人的變化？","傑克爬上豆藤，在巨人的城堡裡拿到了哪些寶物？","被巨人追下來時，傑克想到什麼辦法脫困？"],"tm":{"scenes":["傑克用牛換魔豆、被丟窗外","魔豆長成巨藤、傑克爬上巨人城堡","取寶逃下、砍斷豆藤"],"objects":"傑克、老母牛、魔豆、巨大豆藤、巨人、金蛋母雞、金豎琴、斧頭","climax":"傑克在地面砍斷豆藤、巨人摔落的關鍵時刻"}},"summer-4":{"intro":"阿拉丁是個窮人家的少年，有一天被一個假扮成叔叔的壞魔法師騙進了一個神秘的山洞，要他去取一盞舊油燈。阿拉丁拿到燈後不肯先交出來，魔法師一氣之下把他關在洞裡。困在洞中的阿拉丁無意間擦了擦油燈，竟然冒出一個能實現願望的燈神！靠著燈神的幫助，阿拉丁不但逃出山洞，還變得富有、娶了美麗的公主。後來魔法師捲土重來，用「舊燈換新燈」的詭計騙走了神燈，奪走阿拉丁的一切。機智的阿拉丁沒有放棄，設下計謀重新奪回神燈，最後過上幸福快樂的日子。","points":["<b>手段與目的：</b>「想達成願望→需要神燈」，練習理解目標和方法之間的邏輯。","<b>識破詭計：</b>魔法師兩次行騙，孩子要推理出破綻，練習找出「哪裡不對勁」。","<b>策略思考：</b>阿拉丁怎麼把神燈騙回來？練習設計解決問題的步驟。"],"pitch":"《阿拉丁》不只是願望成真的故事，更是一場鬥智。我們讓孩子推理：魔法師怎麼騙走神燈？阿拉丁又用什麼計策奪回來？孩子在練習「找出破綻、設計對策」的邏輯思考。這種面對問題、一步步想出解決步驟的能力，是孩子未來學習和生活最需要的思考習慣。","questions":["壞魔法師用什麼身分接近阿拉丁？他要阿拉丁去拿什麼？","阿拉丁是怎麼發現油燈的秘密的？","魔法師用什麼詭計把神燈騙走了？","阿拉丁最後怎麼把神燈拿回來的？"],"tm":{"scenes":["阿拉丁被騙進山洞取神燈","擦亮神燈、召喚燈神致富娶公主","魔法師騙走神燈、阿拉丁設計奪回"],"objects":"阿拉丁、假叔叔（魔法師）、山洞、神燈、燈神、公主、舊燈換新燈","climax":"阿拉丁無意擦亮神燈、燈神現身的那一刻"}},"summer-5":{"intro":"樵夫阿里巴巴上山砍柴時，無意間看見四十個強盜來到一處山洞前，喊了一聲「芝麻開門」，石門就自動打開了。強盜離開後，阿里巴巴照著喊了同樣的咒語，進到洞裡，發現滿滿的金銀財寶，只拿了一小袋回家。他貪心的哥哥知道後，也偷偷跑進山洞，卻因為太興奮，忘了「芝麻開門」這句出洞的咒語，被回來的強盜發現殺害。強盜循線追查到阿里巴巴家，把人藏在一個個大油缸裡想偷襲，幸好聰明的女僕察覺不對勁，識破了詭計，救了全家人。","points":["<b>關鍵線索：</b>「芝麻開門」是解謎的鑰匙，練習理解「關鍵條件」在解決問題中的作用。","<b>對比推論：</b>哥哥為何失敗、女僕為何成功，練習比較兩種做法的差別與原因。","<b>觀察與識破：</b>女僕發現油缸有異，練習從細節推理出隱藏的危險。"],"pitch":"《阿里巴巴》裡藏著好幾層推理。為什麼哥哥忘了密語就出不來？聰明女僕又是怎麼發現藏在油缸裡的強盜？我們讓孩子一步步推敲這些關鍵。孩子練的是「抓關鍵、辨線索、識破詭計」的邏輯力。這種觀察和推理的習慣，會讓孩子變得更機靈、更會思考。","questions":["進出強盜山洞的神奇咒語是什麼？","阿里巴巴的哥哥進了山洞，為什麼出不來了？","強盜們最後把自己藏在哪裡，想偷襲阿里巴巴家？","是誰發現了強盜的詭計、救了大家？她是怎麼發現的？"],"tm":{"scenes":["阿里巴巴發現「芝麻開門」的藏寶洞","哥哥忘咒語喪命、強盜追查","女僕識破油缸詭計救全家"],"objects":"阿里巴巴、四十大盜、山洞石門、金銀財寶、哥哥、女僕、油缸","climax":"女僕察覺油缸有異、識破強盜藏身的緊張段落"}},"summer-6":{"intro":"有一個小裁縫，某天一口氣打死了七隻停在果醬上的蒼蠅，得意極了，便在腰帶上繡了「一次打死七個」幾個大字，出門闖蕩。人們看到這句話，都誤以為他一次能打死七個巨人，是位了不起的大英雄。小裁縫將錯就錯，靠著滿肚子的機智，而不是力氣：他用捏碎石頭、丟出小鳥等小把戲，把真正的巨人唬得一愣一愣；又設下巧計制服了獨角獸和野豬。最後，國王履行承諾，把公主嫁給了他，還分給他半個國家。這個故事告訴我們：真正厲害的，往往是腦袋，而不是拳頭。","points":["<b>以智取勝：</b>小裁縫用計謀而非力氣取勝，練習思考「怎麼用聰明解決難題」。","<b>誤會的邏輯：</b>「七個」被誤解成巨人，練習理解一句話如何被解讀成不同意思。","<b>設計計策：</b>捏石頭、騙巨人，練習拆解他每一步計謀背後的道理。"],"pitch":"《勇敢的小裁縫》是一則「以智取勝」的經典。小裁縫沒有力氣，全靠腦筋制服巨人。我們讓孩子把他的每一步計謀拆解出來——為什麼捏起石頭就能唬住巨人？孩子在練習「用聰明解決問題」的思考方式。這種遇到難題先動腦、而不是硬碰硬的邏輯，對孩子非常受用。","questions":["小裁縫腰帶上繡的那句話是什麼意思？別人卻誤會成什麼？","小裁縫是靠力氣還是靠聰明制服巨人的？","他用了哪些機智的小把戲來唬住巨人？","這個故事想告訴我們，什麼比力氣更重要？"],"tm":{"scenes":["小裁縫打死七蒼蠅、繡上「一次打死七個」","被誤認勇士、以智唬住巨人","制服野獸、娶得公主"],"objects":"小裁縫、腰帶、蒼蠅、巨人、石頭、小鳥、獨角獸、野豬、公主","climax":"小裁縫捏碎石頭、唬得巨人一愣一愣的鬥智時刻"}},"summer-7":{"intro":"這是一則充滿智慧的寓言故事。有三個外表看起來一模一樣的罐子，擺在一起，讓人分不出差別。可是打開後才發現，裡面裝的東西天差地遠——有的裝著金子，有的裝著泥土，有的裝著看似不起眼、卻真正珍貴的東西。故事透過「該選哪一個罐子」的難題，考驗人的判斷力，也提醒我們：眼睛看到的表面往往會騙人，真正重要的價值，得動腦仔細想過、看進裡面，才能分辨得出來。","points":["<b>比較與判斷：</b>三個罐子怎麼選？練習列出條件、比較後做出有理由的決定。","<b>表象與真相：</b>外表一樣、內容不同，練習推理「不能只看表面」。","<b>推論結果：</b>選了不同罐子會有不同下場，練習預測每個選擇的後果。"],"pitch":"《三個罐子》是一則考驗判斷力的寓言。三個一模一樣的罐子該怎麼選？我們讓孩子練習「先想清楚、再做選擇」，並推理每個選擇會帶來什麼結果。孩子學到的是「不能只看表面、要動腦判斷」的邏輯。這種做決定前先思考的習慣，是孩子一輩子受用的能力。","questions":["這三個罐子的外表看起來有什麼特別？","打開罐子以後，發現裡面裝的東西一樣嗎？","如果是你，你會怎麼決定要選哪一個罐子？","這個故事提醒我們，看事情不能只看什麼？"],"tm":{"scenes":["三個外表相同的罐子並排","打開後發現內容天差地遠","做出選擇、明白不能只看表面"],"objects":"三個罐子、金子、泥土、看似不起眼卻珍貴的物件","climax":"打開罐子、揭曉裡面裝什麼的那一刻"}},"summer-8":{"intro":"一個賣油的小販，辛苦一整天賺來的銅錢被偷了，傷心地跑去找包公申冤。可是沒有人證、也沒有線索，怎麼抓小偷呢？包公想了個妙計，竟然當眾「審問」路邊一塊大石頭，惹得圍觀的百姓哈哈大笑。包公故意生氣，罰每個看熱鬧的人都要丟一枚銅錢到一盆清水裡「賠罪」。當輪到偷錢的人丟下銅錢時，水面上立刻浮起一層油花——因為那些銅錢是從賣油小販那兒偷來的，早就沾了油！真相大白，小偷當場被抓。包公靠的不是運氣，而是縝密的觀察和推理。","points":["<b>觀察找證據：</b>油花浮起洩了密，練習理解「證據怎麼指向答案」。","<b>逆向推理：</b>包公為何要審石頭、罰大家丟錢？練習從奇怪的行為推出背後的用意。","<b>設計方法：</b>用水面驗油，練習理解「用一個方法把真相逼出來」的巧思。"],"pitch":"《包公審石頭》根本是一堂偵探課。包公為什麼要審一塊石頭、還罰大家丟銅錢？我們讓孩子一步步推理出包公的巧計，看懂「油花浮起來」這個證據怎麼抓到小偷。孩子練的是「觀察線索、逆向推理」的偵探腦。這種找證據、推真相的思考，是邏輯力最精彩的展現，孩子超愛。","questions":["賣油小販遇到了什麼麻煩，跑來找包公？","包公居然審問了誰？大家看了有什麼反應？","包公罰大家做什麼事？他到底想觀察什麼？","小偷是怎麼露出馬腳、被抓到的？"],"tm":{"scenes":["小販賣油錢被偷、找包公申冤","包公審石頭、罰眾人丟錢入水","銅錢浮油花、當場抓到小偷"],"objects":"賣油小販、包公、大石頭、圍觀百姓、一盆清水、銅錢、油花","climax":"小偷的銅錢丟入水中、浮起油花洩密的破案瞬間"}},"summer-9":{"intro":"年輕時的周處力氣過人、性情兇暴，經常惹是生非，鄉里的人都很怕他。當時地方上有三樣禍害：山上的猛虎、水裡的蛟龍，還有第三害——其實就是周處自己，只是沒人敢當面說。有人故意慫恿周處去除掉猛虎和蛟龍，想藉機除掉他。周處果真上山射死了老虎，又下水和蛟龍纏鬥了三天三夜。當他終於得勝歸來，卻看見鄉親們正在慶祝——原來大家以為他已經死了，都在額手稱慶。周處這才恍然大悟：原來自己也是一害。從此他痛改前非，發憤向善，成了一個有用的人。","points":["<b>找出問題：</b>「三害」是誰？練習把問題一項項列出來、逐一分析。","<b>意外的推論：</b>鄉人為何慶祝？周處從中推理出「自己也是一害」，練習從反應推想真相。","<b>因果與改變：</b>認錯→改過的轉折，練習理解「行為和結果」的關聯。"],"pitch":"《周處除三害》藏著一個很棒的推理轉折。周處除掉了虎和蛟，回來卻發現大家在慶祝他「死了」——他從這個反應推理出「原來我自己就是第三害」。我們讓孩子跟著這個邏輯走一遍。孩子練的是「從別人的反應推想真相」的思考，還學到面對自己缺點的勇氣。邏輯與品格，一次到位。","questions":["鄉里的「三害」分別是指哪三樣？","周處除掉了猛虎和蛟龍，花了多少時間？","周處回來時，看到鄉親們在做什麼？他明白了什麼？","周處知道自己也是一害之後，做了什麼改變？"],"tm":{"scenes":["鄉里以虎、蛟、周處為三害","周處射虎、斬蛟三天三夜","歸來見鄉人慶祝、醒悟改過"],"objects":"周處、猛虎、蛟龍、鄉親、慶祝的人群","climax":"周處歸來、發現鄉人以為他死了而慶祝的醒悟時刻"}},"summer-10":{"intro":"河邊住著一隻總想吃掉胡狼的鱷魚，可是機靈的胡狼每次都能識破牠的詭計。有一回，鱷魚假裝成一根漂在水面的木頭，一動也不動，想等胡狼靠近就一口咬住。聰明的胡狼一眼就覺得不對勁，故意大聲自言自語：「奇怪，真正的木頭都會隨著水流上下浮動，這根怎麼一動也不動？」貪心的鱷魚一聽，急忙晃動身體想裝得像木頭，反而露了餡。胡狼哈哈大笑，安全地離開了。牠靠的不是力氣，而是冷靜的觀察和機智的反問。","points":["<b>識破偽裝：</b>胡狼怎麼看穿假木頭？練習「用常識和觀察揭穿不合理的事」。","<b>設圈套反制：</b>胡狼用話術試探鱷魚，練習理解「用一個問題逼對方露餡」。","<b>冷靜判斷：</b>面對危險先想再動，練習在情境中做出合理反應。"],"pitch":"《鱷魚與胡狼》是一場鬥智。鱷魚假裝成木頭，胡狼怎麼識破？他說「木頭都會浮，這根怎麼不動」，一句話就讓鱷魚露餡。我們讓孩子拆解胡狼的機智。孩子練的是「用常識判斷、用問題試探」的邏輯反應。這種冷靜觀察、動腦脫困的能力，比單純的勇敢更重要。","questions":["鱷魚為了抓胡狼，把自己假裝成什麼？","胡狼說了哪一句話，讓鱷魚忍不住露出破綻？","鱷魚為什麼會上當、動了起來？","胡狼每次都能逃走，靠的是什麼本領？"],"tm":{"scenes":["鱷魚假裝成木頭埋伏","胡狼以話術試探、鱷魚露餡","胡狼識破詭計、安全脫身"],"objects":"鱷魚、胡狼、河流、假裝的木頭","climax":"胡狼一句「木頭怎麼不動」、逼鱷魚露餡的機智時刻"}},"summer-11":{"intro":"從前有一個非常愛炫耀新衣服的國王。兩個騙子看準了這一點，跑來說他們能織出一種神奇的布料，做成的衣服「只有聰明人才看得見，笨蛋和不稱職的人都看不見」。國王派大臣去查看，大臣明明什麼都沒看到，卻怕被人說笨，只好假裝讚嘆；國王自己也一樣，明明看見空無一物，還是誇讚衣服漂亮，穿著這件「新衣」上街遊行。沿路的百姓也都不敢說實話，直到一個天真的小孩指著國王大喊：「他根本什麼都沒穿呀！」大家這才敢承認真相。原來，只有願意相信自己眼睛、說實話的人，才是真正聰明的人。","points":["<b>找出矛盾：</b>「看不見卻說看得見」，練習發現「大家說的和事實不符」的破綻。","<b>從眾的推理：</b>為什麼沒人敢說真話？練習分析「怕被笑」如何影響判斷。","<b>相信事實：</b>小孩憑什麼敢說？練習理解「以事實為準」比「跟著大家」更可靠。"],"pitch":"《國王的新衣》其實在訓練孩子「不盲從、講事實」。為什麼所有大人都不敢說國王沒穿衣服？只有小孩敢？我們讓孩子推理這個矛盾，分析「怕被笑」怎麼讓人說出違心的話。孩子學到的是「用事實判斷、不隨大家起舞」的獨立思考——這在資訊爆炸的時代，是最珍貴的能力。","questions":["兩個騙子說，那件神奇的衣服有什麼特別的地方？","大臣和國王明明看不見衣服，為什麼還一直稱讚？","是誰第一個說出「國王什麼都沒穿」的真話？","為什麼大人都不敢說實話，只有小孩敢？"],"tm":{"scenes":["騙子獻上「只有聰明人看得見」的新衣","大臣、國王明明看不見卻假裝稱讚","小孩喊破真相、眾人才敢承認"],"objects":"國王、兩個騙子、空織布機、大臣、遊行隊伍、天真的小孩","climax":"小孩指著國王喊「他什麼都沒穿」、真相揭穿的那一刻"}},"summer-12":{"intro":"好心的東郭先生走在路上，遇見一隻被獵人追趕、走投無路的野狼。野狼苦苦哀求，東郭先生心一軟，就把牠藏進自己裝書的袋子裡，騙過了獵人，救了野狼一命。沒想到獵人一走，野狼從袋子裡爬出來，竟然說自己餓了，要反過來吃掉恩人！東郭先生又氣又急，兩人爭論不休，決定去請一位老農夫評理。聰明的老農夫假裝不相信「這麼大的狼怎麼裝得進小袋子」，要野狼再鑽進袋裡示範一次。等野狼一鑽進去，老農夫立刻把袋口綁緊，除掉了這隻忘恩負義的壞狼。這個故事提醒我們：同情心也要用對地方。","points":["<b>判斷善惡：</b>「該不該救野狼」，練習衡量情況、思考同情的界線。","<b>識破詭辯：</b>野狼強詞奪理，練習聽出「哪裡講不通、哪裡是狡辯」。","<b>巧計解圍：</b>老農怎麼把野狼騙回袋子？練習理解解決問題的計策。"],"pitch":"《東郭先生》提出一個很值得想的問題：好心救了壞人，反被恩將仇報，怎麼辦？我們讓孩子分析野狼的狡辯哪裡不合理，再看老農怎麼用計除害。孩子練的是「判斷是非、聽出詭辯、想出對策」的邏輯。這種不被花言巧語騙倒、能明辨是非的思考力，是孩子面對複雜世界的護身符。","questions":["東郭先生為什麼要把野狼藏進書袋裡？","野狼被救出來以後，做了什麼恩將仇報的事？","老農夫用什麼辦法，讓野狼自己鑽回袋子裡？","這個故事提醒我們，幫助別人時要注意什麼？"],"tm":{"scenes":["東郭先生把野狼藏進書袋救牠","野狼脫險後反要吃恩人","老農設計、把野狼騙回袋中除害"],"objects":"東郭先生、野狼、書袋、獵人、老農夫","climax":"老農假裝不信、誘使野狼再鑽回袋中的巧計時刻"}},"summer-13":{"intro":"螃蟹撿到一個飯糰，猴子撿到一顆柿子種子。猴子花言巧語，用種子跟螃蟹換走了飯糰，還說：「飯糰吃了就沒了，種子種下去會長出好多柿子喔！」螃蟹辛苦地把種子種下、澆水照顧，柿子樹果然結滿了紅通通的柿子。可是螃蟹爬不上樹，只好請猴子幫忙摘。貪心的猴子自己在樹上大吃香甜的紅柿子，卻把又青又硬的柿子往下砸，把螃蟹砸傷了。螃蟹的孩子們決定為母親討回公道，牠們聯合了栗子、蜜蜂、臼和牛糞，各自埋伏在猴子家的灶邊、水缸、屋頂，合力給了狡猾的猴子一個好好的教訓。","points":["<b>交換的判斷：</b>用飯糰換種子划算嗎？練習思考「眼前的好處和長遠的價值」。","<b>團隊策略：</b>栗子、蜜蜂、臼各就各位，練習理解「誰負責什麼、怎麼配合」的計畫邏輯。","<b>因果報應：</b>猴子的下場，練習把「做了什麼、得到什麼結果」串成因果。"],"pitch":"《猴蟹交戰》後半段是一場超精彩的策略布局。螃蟹的夥伴——栗子躲灶裡、蜜蜂藏水缸、臼在屋頂——怎麼分工合作教訓猴子？我們讓孩子把這套埋伏的邏輯講出來。孩子練的是「按計畫、分步驟解決問題」的思考。這種團隊策略和因果推理，讓孩子的腦筋越動越靈活。","questions":["猴子用什麼理由，把螃蟹的飯糰換走了？","柿子樹結果後，猴子是怎麼對待螃蟹的？","螃蟹的孩子找了哪些夥伴一起去教訓猴子？","栗子、蜜蜂、臼分別躲在什麼地方埋伏？"],"tm":{"scenes":["猴子用種子換走螃蟹的飯糰","柿子樹結果、猴子砸傷螃蟹","栗子、蜜蜂、臼合力教訓猴子"],"objects":"螃蟹、猴子、飯糰、柿子種子、柿子樹、栗子、蜜蜂、臼、牛糞","climax":"夥伴們各就各位、聯手伏擊猴子的精彩布局"}},"autumn-1":{"intro":"這是一則從孩子視角出發的主題故事。老師會帶著孩子回想：自己的老師長什麼樣子？說話的聲音、走路的樣子、笑起來的神情。再想起老師做過的一件讓自己特別難忘的事——也許是耐心地教會你一件事，也許是在你難過時給了你一個擁抱。孩子要試著去體會，老師嚴格或溫柔的背後，藏著什麼樣的用心；最後，把心裡對老師的敬愛與感謝，好好地說出來。故事的目的，是讓孩子學會覺察自己的情感，也懂得讀懂並珍惜身邊大人對自己的好。","points":["<b>覺察感受：</b>引導孩子說出「對老師是什麼感覺」，練習辨認並命名自己的情緒。","<b>換位理解：</b>想想老師為什麼那樣做，練習從別人的角度體會用心。","<b>表達感謝：</b>把「謝謝老師」背後的理由說出來，練習真誠地表達情感。"],"pitch":"《我的老師》讓孩子把對老師的感覺說出來。我們引導他回想一件老師做過的、讓他印象深刻的事，並體會老師背後的用心。孩子練的是「覺察自己的感受、也讀懂別人的心意」——這就是情緒感知力。懂得感恩、會表達情感的孩子，人際關係和情緒都會更穩定。","questions":["你的老師長什麼樣子？說話、笑起來是什麼感覺？","老師做過哪一件事，讓你到現在都還記得？","老師比較嚴格的時候，你覺得他其實是為了什麼？","如果可以對老師說一句謝謝，你想謝謝他什麼？"],"tm":{"scenes":["回想老師的樣子與神情","想起老師做過的難忘一件事","說出對老師的感謝"],"objects":"老師、孩子、教室、代表老師的物件（粉筆、課本等）","climax":"孩子說出「謝謝老師」與背後理由的那一段"}},"autumn-2":{"intro":"這是一則以「爸爸」為主角的生活主題故事。老師引導孩子仔細想想爸爸的模樣——高高的個子、粗粗的手、疲累卻總是撐著的樣子；再回想和爸爸相處的點點滴滴：他載你上學、陪你玩、教你騎腳踏車，或是工作到很晚才回家。孩子要學著從這些小事裡，感受到爸爸沒有說出口的愛，也體會到「爸爸有時嚴肅、有時溫柔」其實都是關心。最後，孩子要試著把平常最難說出口的那句「爸爸，我愛你」勇敢地表達出來。","points":["<b>觀察情感：</b>從相處的小事讀出爸爸的愛，練習「感受別人沒說出口的心意」。","<b>複雜情緒：</b>爸爸有時嚴肅有時溫柔，練習理解「一個人可以有很多面」。","<b>真情流露：</b>說出對爸爸的感謝，練習表達平常難以啟齒的情感。"],"pitch":"很多孩子和爸爸的感情藏在心裡、說不出口。《我的爸爸》這一集，我們帶孩子從相處的小事去感受爸爸的愛，體會「嚴格背後其實是關心」。孩子練習讀懂別人沒明說的心意，也練習把感謝說出口。這種情緒的覺察與表達，會讓孩子成為一個更懂事、更貼心的人。","questions":["你的爸爸長什麼樣子？他的手、他的個子給你什麼感覺？","爸爸最常陪你做什麼事？","爸爸有沒有哪一次很嚴格？你覺得他是為了你好嗎？","有沒有什麼話，你平常不好意思對爸爸說？"],"tm":{"scenes":["描繪爸爸的模樣","回想與爸爸相處的點滴","說出平常難開口的那句愛"],"objects":"爸爸、孩子、代表爸爸的物件（工作服、腳踏車等）","climax":"孩子鼓起勇氣說出「爸爸，我愛你」的那一刻"}},"autumn-3":{"intro":"很久以前，天上有十個太陽一起出來，曬得大地乾裂、民不聊生。英雄后羿拉開神弓，一口氣射下九個太陽，救了百姓，也因此得到了一包能長生不老、飛升成仙的仙藥。他捨不得丟下妻子嫦娥獨自成仙，便把仙藥交給嫦娥保管。沒想到后羿的壞徒弟趁他外出時，闖進家裡想搶奪仙藥。危急之下，嫦娥不願讓仙藥落入壞人手中，一口把整包藥吞了下去。頓時她的身體變得輕飄飄，緩緩飛上了天，最後停在了又冷又清的月宮裡，只能遠遠地望著人間，和后羿隔著天地日夜思念。這就是中秋節的由來。","points":["<b>體會孤獨：</b>嫦娥獨居月宮，練習體會「孤單、思念」這些細膩的情緒。","<b>兩難的心情：</b>吞藥的當下有多掙扎？練習理解人在為難時的複雜感受。","<b>思念的表達：</b>后羿與嫦娥的相思，練習把「想念一個人」的心情說出來。"],"pitch":"《嫦娥奔月》是中秋節的由來，也是一個關於「思念」的故事。我們讓孩子體會嫦娥獨自在月宮的孤單、以及她和后羿的相思。孩子練習的是「感受並說出比較深、比較細膩的情緒」。懂得體會孤單與思念的孩子，也會更懂得珍惜身邊的人——中秋節講這個，家長特別有共鳴。","questions":["后羿為什麼要射太陽？他射下了幾個？","嫦娥為什麼要把仙藥一口吞下去？","飛上月亮後的嫦娥一個人住在月宮，你覺得她的心情如何？","嫦娥和后羿分隔兩地，他們彼此會是什麼樣的感覺？"],"tm":{"scenes":["后羿射日、得到仙藥","壞徒弟搶藥、嫦娥吞藥飛天","嫦娥獨居月宮、與后羿相思"],"objects":"后羿、神弓、太陽、仙藥、嫦娥、壞徒弟、月宮、玉兔","climax":"嫦娥吞下仙藥、身體變輕飄向月亮的那一刻"}},"autumn-4":{"intro":"費長房是個嚮往成仙的年輕人。有一天，他看見市集上一位賣藥的老翁，收攤後竟然縱身一躍，鑽進了一個小小的葫蘆裡！費長房大為驚奇，認定這位老翁一定是神仙，便誠心誠意地拜他為師，跟著他學道。老翁為了考驗費長房的膽識與決心，設下了一關又一關可怕又古怪的難題——有的嚇人、有的噁心、有的危險。費長房咬著牙通過了大部分的考驗，卻在最後、也是最關鍵的一關，因為心裡的恐懼而退縮了。於是他沒能成仙，只學到了一些法術，帶著遺憾回到了人間。","points":["<b>面對恐懼：</b>費長房在考驗中害怕，練習辨認「害怕」並思考怎麼面對它。","<b>體會遺憾：</b>最後一關失敗的心情，練習理解「差一點成功」的懊惱與遺憾。","<b>意志與情緒：</b>思考「為什麼會退縮」，練習覺察情緒如何影響行為。"],"pitch":"《費長房求仙記》講一個人如何面對一關關的恐懼考驗。我們讓孩子體會他害怕、掙扎、最後功虧一簣的心情。孩子在練習「辨認恐懼、理解遺憾」這些不容易說清楚的情緒。懂得面對害怕、也能接受不完美結果的孩子，情緒的韌性會更強。","questions":["費長房看見賣藥的老翁做了什麼奇怪的事，才決定拜師？","老翁為什麼要用一關關的考驗來磨練費長房？","費長房在最後一關為什麼失敗了？","如果是你，遇到很害怕的考驗，你會怎麼給自己打氣？"],"tm":{"scenes":["費長房見老翁鑽入葫蘆、拜師","一關關可怕的考驗","最後一關因害怕而失敗"],"objects":"費長房、賣藥老翁、葫蘆、各種考驗場景","climax":"費長房在最後一關因恐懼退縮、功虧一簣的關鍵時刻"}},"autumn-5":{"intro":"傑克是個又吝嗇又愛耍小聰明的人，一輩子作弄別人、佔人便宜，就連來找他的魔鬼都被他要得團團轉、騙了好幾次。傑克死後，因為生前做了太多壞事，天堂不肯收他；而被他捉弄過的魔鬼也記恨在心，不讓他進地獄。無處可去的傑克，只能提著一盞挖空南瓜、裡面放著一小塊炭火的燈，在無邊的黑夜裡孤零零地四處遊蕩，永遠找不到一個能歇腳的地方。這就是萬聖節「南瓜燈」的由來，也提醒著我們：只顧自己、對人不好的人，最後往往會變得最孤單。","points":["<b>行為與後果的感受：</b>傑克的下場，練習體會「自私會讓自己變得孤單」。","<b>孤獨的情緒：</b>無處可去的遊蕩，練習感受並描述「孤單、被排除」的心情。","<b>同理與反思：</b>引導孩子想「如果對人好一點會不會不一樣」，練習換位思考。"],"pitch":"《傑克與南瓜燈》是萬聖節的由來，也是一個關於「自私的代價」的故事。傑克騙了所有人，最後落得無處可去、孤獨遊蕩。我們讓孩子體會這份孤單，並反思「對人好一點會不會不一樣」。孩子練習的是同理與自省。這種能感受後果、懂得將心比心的能力，正是情緒感知力的核心。","questions":["傑克是一個什麼樣的人？他做過哪些事？","為什麼傑克死後，天堂和地獄都不收他？","無處可去的傑克，只能提著什麼、到處遊蕩？","你覺得傑克為什麼會落得這麼孤單的下場？"],"tm":{"scenes":["吝嗇的傑克作弄他人、連魔鬼都騙","死後天堂地獄都不收","提著南瓜燈孤獨遊蕩"],"objects":"傑克、魔鬼、天堂門、地獄門、南瓜、炭火、南瓜燈","climax":"無處可去的傑克、提起南瓜燈開始永世遊蕩的那一刻"}},"autumn-6":{"intro":"從前，媽媽出遠門，把姊姊和弟弟兩個孩子單獨留在家。山裡的老虎精聽說了，就變成慈祥的「姑婆」模樣，趁著天黑來敲門，騙兩個孩子開門讓牠住下。半夜裡，姊姊聽見「喀啦喀啦」的咀嚼聲，一問之下，發現虎姑婆竟然把弟弟吃掉了！姊姊嚇壞了，卻強忍著恐懼，冷靜地假裝要上廁所，騙虎姑婆讓她出門，趁機爬上院子裡的大樹躲了起來。最後，她靈機一動，騙虎姑婆張開嘴，把滾燙的熱油倒進牠口中，除掉了老虎，成功保護了自己。","points":["<b>辨識危險情緒：</b>姊姊「覺得不對勁」的直覺，練習相信並說出自己的不安。","<b>強忍與冷靜：</b>害怕卻要裝鎮定，練習理解「如何在害怕時安定自己」。","<b>手足之情：</b>姊姊的悲傷與保護欲，練習體會親人之間的情感。"],"pitch":"《虎姑婆》是華人版的小紅帽。我們讓孩子體會姊姊「察覺不對勁的警覺、害怕卻強裝鎮定的勇敢」。孩子練習的是「相信自己的直覺、在恐懼中安定情緒」——這既是情緒能力，也是重要的自我保護意識。故事夠刺激，孩子印象深刻，這些感受也記得牢。","questions":["老虎精變成什麼模樣，來騙姊弟開門？","姊姊半夜聽到奇怪的聲音，發現了什麼可怕的事？","姊姊那麼害怕，是怎麼冷靜地逃到樹上的？","姊姊最後用什麼辦法制服了虎姑婆？"],"tm":{"scenes":["老虎精變姑婆、騙姊弟開門","半夜吃掉弟弟、姊姊察覺","姊姊逃上樹、用熱油除虎"],"objects":"姊姊、弟弟、虎姑婆、門、大樹、熱油","climax":"姊姊強忍恐懼、假裝上廁所騙過虎姑婆逃出的緊張時刻"}},"autumn-7":{"intro":"從前有一對兄弟，個性完全相反：弟弟善良老實，哥哥貪心又愛計較。有一天，善良的弟弟因為做了好事，意外得到了一項神奇的本領——他放的屁竟然是香噴噴的！這件奇事傳到有錢人和大官耳裡，大家爭相請他表演，還給了他豐厚的賞賜，弟弟因此過上了好日子。貪心的哥哥看了眼紅，硬要有樣學樣去表演「香屁」，結果卻放出一連串奇臭無比的臭屁，把貴人們薰得掩鼻大怒，狠狠地把他教訓了一頓。這個又好笑又有意思的故事，讓我們看見善良和貪心會帶來多麼不同的結果。","points":["<b>對比感受：</b>弟弟的善良對哥哥的貪心，練習體會「善良讓人喜歡、貪心讓人討厭」。","<b>同理弟弟：</b>感受善良的人如何對待別人，練習欣賞善良的品格。","<b>幽默中的道理：</b>在笑聲中討論「為什麼哥哥會失敗」，練習從情緒理解是非。"],"pitch":"《賣香屁》是一則又好笑又有寓意的故事。善良的弟弟和貪心的哥哥，下場天差地別。我們讓孩子在笑聲中體會「善良和貪心會帶來完全不同的感受和結果」。孩子練習的是「從情感上分辨善惡、欣賞好的品格」。用幽默包裝品格教育，孩子接受度最高，笑著就把道理記住了。","questions":["善良的弟弟得到了什麼神奇的本領？","弟弟靠著這個本領，得到了什麼好處？","貪心的哥哥學弟弟去表演，結果怎麼樣？","為什麼弟弟成功、哥哥卻失敗了呢？"],"tm":{"scenes":["善良弟弟得到放香屁的本領受賞","貪心哥哥模仿","哥哥放臭屁被教訓"],"objects":"善良弟弟、貪心哥哥、貴人、賞賜","climax":"哥哥當眾表演卻放出臭屁、被薰得掩鼻的爆笑時刻"}},"autumn-8":{"intro":"有個名叫宋定伯的年輕人，膽子特別大。有一天晚上趕路，他遇見了一隻鬼。宋定伯不但一點也不害怕，還謊稱自己也是新來的鬼，和對方一路同行、有說有笑。他趁機套話，故意問：「我們當鬼的，最怕什麼呀？」鬼老實回答：「最怕人的口水。」快到集市時，宋定伯猛地抓住鬼，任憑牠怎麼變化掙扎都不放手，鬼最後變成了一隻羊。宋定伯朝牠吐了一口口水，讓牠再也變不回去，然後把羊牽到市場賣掉，換了一筆錢。這個又刺激又好笑的故事，最適合替膽小的孩子壯壯膽。","points":["<b>克服恐懼：</b>宋定伯不怕鬼，練習思考「害怕的時候可以怎麼讓自己冷靜」。","<b>情緒與膽識：</b>體會「勇敢不是不怕，而是怕了還能穩住」。","<b>換位套話：</b>他假裝成鬼去理解鬼，練習從對方角度思考。"],"pitch":"《宋定伯賣鬼》是一則替孩子壯膽的故事。面對鬼，宋定伯不慌不忙、還反過來套話。我們讓孩子體會這份「怕歸怕，但能穩住」的勇敢。孩子練習的是「管理自己的恐懼情緒」。對容易怕黑、膽小的孩子，這一集特別有幫助——他們會發現，原來害怕是可以被自己安撫下來的。","questions":["宋定伯晚上遇到鬼，他害怕嗎？他怎麼假裝的？","宋定伯用什麼方法，套出了鬼最怕的東西？","鬼最怕的是什麼？宋定伯怎麼利用這一點？","如果換成你在晚上遇到害怕的東西，你會怎麼讓自己冷靜下來？"],"tm":{"scenes":["宋定伯夜遇鬼、假裝也是鬼","套出鬼怕口水的弱點","抓鬼變羊、賣掉換錢"],"objects":"宋定伯、鬼、夜路、口水、變成的羊、集市","climax":"宋定伯抓住鬼、鬼變成羊、吐口水定住牠的那一刻"}},"autumn-9":{"intro":"有一個常被大家笑「傻」的小伙子，心地卻非常善良。他上山砍柴時，把自己僅有的食物分給了一位老人，因此得到了一隻渾身金光閃閃的金鵝作為回報。這隻金鵝有個神奇的特性：只要有人動了貪念、伸手去碰牠，手就會被黏住、怎麼也拉不開。於是一個接一個貪心的人被黏了上去，後面的人想去拉前面的人，也一起被黏住，最後排成了一長串又滑稽又好笑的隊伍。這古怪的畫面，剛好被一位從來不笑、憂鬱的公主看見，她忍不住哈哈大笑！國王早有言在先——誰能逗公主笑，就把公主嫁給他，於是善良的傻小子娶到了公主。","points":["<b>感受歡笑：</b>公主為何而笑？練習體會「快樂、逗趣」也是重要的情緒。","<b>善良的回報：</b>傻小子因分享得福，練習感受「善良帶來的溫暖」。","<b>同理不笑的人：</b>想想公主為什麼不快樂，練習關心別人的情緒狀態。"],"pitch":"《金鵝》是一則充滿歡樂的故事。一長串被黏住的滑稽隊伍，逗笑了從不笑的公主。我們讓孩子體會「歡笑」這種情緒，也想想「公主為什麼一直不快樂」。孩子練習的是關注別人的心情、並理解善良和快樂的力量。在笑聲中，孩子學會了體察他人的情緒——這正是情緒感知力最溫暖的一面。","questions":["善良的傻小子做了什麼好事，得到了金鵝？","金鵝有什麼神奇的地方？","一群人為什麼會黏成長長的一串？","那位公主為什麼一直不快樂？最後又為什麼笑了？"],"tm":{"scenes":["善良傻小子分享食物、得到金鵝","貪心的人一個個被黏成長串","滑稽隊伍逗笑不笑的公主"],"objects":"傻小子、老人、金鵝、一串被黏住的人、憂鬱的公主、國王","climax":"長長的滑稽隊伍經過、逗得公主哈哈大笑的那一刻"}},"autumn-10":{"intro":"從前有個窮困潦倒的年輕人，走投無路時去向觀音菩薩祈求。菩薩告訴他：「出了廟門後，第一樣你手裡抓到的東西，一定要好好握住，別放開。」年輕人一出門就跌了一跤，起身時手裡剛好抓著一根稻草。他聽話地緊緊握著。路上，他用稻草逗哭鬧的孩子開心、換來了三顆橘子；又用橘子解了口渴商人的急、換到一匹布；再用布換到一匹馬……就這樣，靠著一次次的善意與樂於助人，他手上的東西越換越好，最後竟換得了一棟大宅院，成了人人稱羨的富翁。這個故事告訴我們：珍惜擁有、樂於助人，好運自然會來。","points":["<b>感謝與知足：</b>珍惜一根稻草的心，練習體會「感恩、知足」的情緒。","<b>助人的善意：</b>每次交換都是幫了別人，練習感受「與人為善的快樂」。","<b>正向心態：</b>從一無所有到富有的心情變化，練習體會希望與感恩。"],"pitch":"《稻草富翁》講一根稻草如何換來一棟大宅，靠的是善意和惜福。我們讓孩子體會主角「珍惜擁有、樂於助人」的心情。孩子練習的是「感恩、知足」這些正向情緒。在什麼都不缺的時代，懂得珍惜、願意對人好的孩子特別難得——這一集正好把這份心種進孩子心裡。","questions":["觀音菩薩告訴年輕人，要好好握住什麼？","年輕人出廟門後，第一個抓到的東西是什麼？","一根稻草最後怎麼會變成一棟大房子的？","你覺得年輕人能越換越好，是因為他有什麼優點？"],"tm":{"scenes":["觀音指示、緊握第一樣東西—稻草","稻草換橘子、換布、換馬一路交換","最後換得大宅、成為富翁"],"objects":"年輕人、觀音、稻草、橘子、布、馬、大宅院","climax":"一根不起眼的稻草、最後換來一棟大宅的驚喜時刻"}},"autumn-11":{"intro":"約翰是一個熱愛大自然、心地善良的人。他一生都在四處旅行，走遍一座又一座山丘、一片又一片荒地。每到一個地方，他就把隨身帶著的蘋果種子，細心地撒進泥土裡。他從不求任何回報，只是懷抱著一個單純的心願：希望許多許多年以後，當別人來到這些地方，能在他種下的蘋果樹下乘涼歇腳，摘下甜美的蘋果吃。多年後，他走過的路上，果真長出了一片片結實累累的蘋果園，溫暖並滋養了無數素未謀面的人。這是一則關於「默默付出、造福他人」的溫暖故事。","points":["<b>體會無私：</b>約翰不求回報地付出，練習感受「為別人著想」的心意。","<b>延遲的溫暖：</b>種子多年後才結果，練習理解「現在的善意會溫暖未來的人」。","<b>感謝付出者：</b>引導孩子想想生活中默默付出的人，練習感恩。"],"pitch":"《約翰的蘋果籽》講一個人默默撒下蘋果種子、造福後人的故事。我們讓孩子體會這份「不求回報、為別人著想」的心意，也想想生活中還有誰在默默付出。孩子練習的是同理與感恩。懂得欣賞別人的付出、也願意為別人著想的孩子，心會特別柔軟、特別善良。","questions":["約翰一生都在做一件什麼樣的事？","約翰撒下蘋果種子，是為了得到回報嗎？他希望什麼？","很多年以後，約翰走過的地方變成了什麼樣子？","生活中有沒有人也像約翰一樣，默默為別人付出？"],"tm":{"scenes":["約翰四處旅行、沿途撒下蘋果種子","不求回報、只願後人受惠","多年後長出片片蘋果園"],"objects":"約翰、蘋果種子、山丘荒地、蘋果樹、乘涼的人們","climax":"多年後、荒地長成結實累累蘋果園、造福無數人的畫面"}},"autumn-12":{"intro":"森林裡有一隻調皮搗蛋的小黃鼠狼，最愛捉弄別人：牠會嚇唬正在喝水的小兔子、扯松鼠的尾巴、把小鳥的窩弄亂，把大家整得雞飛狗跳，自己卻在一旁得意地哈哈大笑。漸漸地，森林裡的動物都不想跟牠玩了，小黃鼠狼開始覺得孤單。在一次次的經歷中——也許是自己也被捉弄、也許是看見別人難過的表情——牠終於體會到「被捉弄的滋味一點也不好受」。牠學會了將心比心，改掉了壞習慣，變得誠實又友善，最後重新交到了朋友，成為大家都喜歡的小動物。","points":["<b>換位感受：</b>小黃鼠狼體會被捉弄的滋味，練習「將心比心，想想別人的感受」。","<b>情緒的轉變：</b>從惹人厭到被喜歡，練習理解行為如何影響別人的心情。","<b>改過的心情：</b>體會「知道錯了、想變好」的感受，練習面對自己的缺點。"],"pitch":"《小黃鼠狼》講一隻愛捉弄人的小動物如何學會體貼。我們讓孩子跟著牠體會「被捉弄有多不舒服」，進而懂得將心比心。孩子練習的正是同理心——設身處地想想別人的感受。這種能力學校很少教，卻決定了孩子未來的人緣和情商，是我們課程最重視的一環。","questions":["小黃鼠狼平常最喜歡對其他動物做什麼？","被牠捉弄的動物，心裡會是什麼感覺？","森林裡的動物為什麼漸漸不想跟牠玩了？","小黃鼠狼後來為什麼會改變？牠明白了什麼道理？"],"tm":{"scenes":["小黃鼠狼四處捉弄大家","動物們不想跟牠玩、牠變孤單","體會被捉弄的感受、改過交友"],"objects":"小黃鼠狼、小兔子、松鼠、小鳥、森林動物們","climax":"小黃鼠狼親身體會被捉弄的滋味、決定改過的轉折"}},"autumn-13":{"intro":"老磨坊主人過世後，三個兒子分家產，最小的兒子只分到了一隻貓，難過地以為自己什麼都沒有了。沒想到，這隻貓一開口說話，要了一雙長靴和一個袋子，就展開了替主人翻身的計畫。牠聰明伶俐，用捕來的獵物假借主人「卡拉巴斯侯爵」的名義獻給國王，一步步替主人打響名聲；又機智地騙倒了一個會變身的吃人妖怪，把牠變成老鼠一口吃掉，奪下了牠的城堡。最後，國王把公主嫁給了這位「侯爵」，而這隻忠心又聰明的貓，也和主人一起過上了好日子。","points":["<b>忠誠的情感：</b>貓一心為主人著想，練習體會「為在乎的人努力」的心情。","<b>感受信任：</b>主人與貓之間的信任，練習理解人與人之間的情感連結。","<b>欣賞他人：</b>看見貓的聰明與付出，練習欣賞並感謝身邊人的好。"],"pitch":"《穿長靴的貓》裡，一隻貓費盡心思幫助落魄的主人翻身。我們讓孩子體會這隻貓的忠誠，以及主人和貓之間的信任。孩子練習的是「感受情感的連結、欣賞別人的付出」。懂得珍惜身邊對自己好的人、也願意為在乎的人努力，這樣的情感能力會陪伴孩子一生。","questions":["磨坊主人的小兒子，只分到了什麼？","這隻貓向主人要了哪兩樣東西，來展開牠的計畫？","貓是怎麼騙倒那個會變身的妖怪的？","這隻貓為主人做了這麼多，你覺得牠對主人的心意是什麼？"],"tm":{"scenes":["小兒子只分到一隻貓","貓穿長靴、替主人製造名聲","智取妖怪城堡、主人娶公主"],"objects":"小兒子、會說話的貓、長靴、袋子、國王、公主、變身妖怪、城堡","climax":"貓誘使妖怪變成老鼠、一口吃掉、奪下城堡的機智時刻"}},"autumn-14":{"intro":"一隻慢吞吞、看起來一點也不強壯的小烏龜，有一天在路上遇見了一個兇惡可怕的妖怪，妖怪張牙舞爪地想要傷害牠。面對這麼危險的處境，小烏龜沒有驚慌失措，也沒有拔腿硬逃，而是把頭腳縮進堅硬的殼裡冷靜下來，一邊穩住自己、一邊動腦筋想辦法。牠靠著沉著的態度和聰明的智慧，一步步化解了妖怪的威脅，最後平安脫身。這個故事讓孩子明白：面對兇惡，不一定要用兇狠去對抗；善良、冷靜和智慧，有時候比蠻力更有力量。","points":["<b>安定情緒：</b>烏龜面對妖怪不慌張，練習「害怕時如何讓自己冷靜」。","<b>以柔克剛：</b>體會「溫和、冷靜也是一種力量」，練習欣賞不同的特質。","<b>同理弱者：</b>從烏龜的處境，練習體會弱小者的心情與勇氣。"],"pitch":"《烏龜與妖怪》告訴孩子：面對兇惡，不一定要用兇來對付。慢吞吞的烏龜靠冷靜和智慧化解危機。我們讓孩子體會這份「臨危不亂」的情緒力量。孩子練習的是安定自己、欣賞溫和的力量。對個性比較內向、溫和的孩子，這一集特別能給他們自信——原來冷靜和善良，也可以很強大。","questions":["小烏龜看起來強壯嗎？牠遇到了什麼危險？","面對可怕的妖怪，小烏龜有沒有驚慌亂跑？","小烏龜靠什麼化解了妖怪的威脅？","這個故事告訴我們，除了力氣，什麼也很有力量？"],"tm":{"scenes":["慢吞吞的小烏龜遇上兇惡妖怪","縮進殼裡冷靜、動腦想辦法","以智慧化解威脅、平安脫身"],"objects":"小烏龜、龜殼、兇惡的妖怪","climax":"小烏龜臨危不亂、用智慧化解妖怪威脅的那一段"}},"winter-1":{"intro":"在聖誕老公公的馴鹿群裡，有一隻名叫魯道夫的小馴鹿，牠天生有一個又紅又亮、會發光的鼻子。因為長得和別人不一樣，魯道夫常常被其他馴鹿嘲笑、排擠，不讓牠一起玩馴鹿遊戲，牠因此很自卑、很難過。直到某一個聖誕夜，外頭下起了好大的暴風雪，濃霧瀰漫、伸手不見五指，聖誕老公公正發愁著雪橇根本沒辦法出發、禮物送不出去。這時，魯道夫那顆發亮的紅鼻子，正好成了黑夜裡最明亮的一盞燈！牠飛在隊伍最前面照亮道路，帶領大家安全地把禮物送到每個孩子手中。從此，魯道夫成了大家最喜愛、最感謝的英雄。","points":["<b>記住角色特徵：</b>魯道夫的紅鼻子是關鍵，練習「記住並說出角色最重要的特點」。","<b>專注聽轉折：</b>從被嘲笑到成為英雄，練習全神貫注跟上劇情的翻轉。","<b>記憶因果：</b>「因為鼻子會亮、所以能帶路」，練習記住事情的前因後果。"],"pitch":"《大紅鼻魯道夫》是聖誕節最經典的故事。我們讓孩子記住魯道夫最關鍵的特徵——那個發亮的紅鼻子，以及它如何從缺點變成救星。孩子在練習「抓住重點、記住因果」的專注記憶力。40 分鐘全程投入一個完整故事，還要記得住細節、講得出來，這種專注續航力，正是低年級最需要打好的基礎。","questions":["魯道夫和別的馴鹿有什麼不一樣的地方？","一開始，魯道夫因為紅鼻子被大家怎麼對待？","那個暴風雪的聖誕夜，發生了什麼困難？","魯道夫的紅鼻子最後幫上了什麼大忙？"],"tm":{"scenes":["魯道夫因紅鼻子被嘲笑排擠","暴風雪聖誕夜、雪橇無法出發","紅鼻子照亮夜路、帶隊送禮成英雄"],"objects":"魯道夫、紅鼻子、其他馴鹿、聖誕老公公、雪橇、暴風雪、禮物","climax":"紅鼻子在漆黑暴風雪中發亮、帶領雪橇隊出發的那一刻"}},"winter-2":{"intro":"國王和王后盼了好久，終於生下一位美麗的小公主，開心地舉辦盛大的慶祝宴會，邀請了國內的仙子們來祝福。可是他們漏掉了一位脾氣壞的仙子，那位仙子一氣之下下了惡毒的詛咒：公主長到十五歲時，會被紡錘刺傷手指而死。幸好還有一位善良的仙子沒送出祝福，她把詛咒改輕了一些——公主不會死，只會沉睡一百年，直到真愛降臨才會醒來。詛咒果然在公主十五歲那年成真，她一碰到紡錘就倒下沉睡，全城的人也跟著一起睡著，城堡被荊棘團團圍住。一百年後，一位勇敢的王子穿過重重荊棘，來到公主身邊，用一個真愛之吻喚醒了她，也喚醒了整座沉睡的城堡。","points":["<b>記住預言：</b>詛咒的細節是全劇關鍵，練習「牢牢記住重要的設定」。","<b>追蹤時間線：</b>出生→詛咒→沉睡→甦醒橫跨百年，練習記住長時間的事件順序。","<b>細節記憶：</b>紡錘、荊棘、真愛之吻，練習記住並複述關鍵物件。"],"pitch":"《睡美人》橫跨百年，細節很多——詛咒的內容、紡錘、荊棘、真愛之吻。我們讓孩子把這條長長的時間線記住並講出來。這對孩子的專注和記憶是很好的鍛鍊：要全神貫注聽完，還要記得住前因後果。能把一個這麼長的故事完整記下來、說出來的孩子，上課的專注力和記憶力都會明顯提升。","questions":["壞脾氣的仙子為什麼要詛咒小公主？她下了什麼詛咒？","善良的仙子把可怕的詛咒改成了什麼？","公主是被什麼東西刺到，才沉睡過去的？","一百年後，是誰用什麼方法喚醒了公主？"],"tm":{"scenes":["公主誕生、壞仙子下詛咒","十五歲被紡錘刺傷、全城沉睡","王子穿越荊棘、真愛之吻喚醒"],"objects":"小公主、仙子們、紡錘、荊棘、沉睡的城堡、王子","climax":"公主碰到紡錘倒下、全城跟著沉睡的關鍵時刻"}},"winter-3":{"intro":"長髮姑娘從小就被一個巫婆搶走，關在森林深處一座又高又沒有門、也沒有樓梯的高塔裡。這座塔只有塔頂有一扇小窗，巫婆每次要進去，都會站在塔下喊：「長髮姑娘，長髮姑娘，把你的長髮放下來！」姑娘就垂下她那頭又長又金的頭髮，讓巫婆攀著爬上去。有一天，一位路過的王子聽見塔裡傳來的美妙歌聲，也偷偷學會了這句暗號，順著長髮爬上塔和姑娘相見，兩人約定要一起逃走。雖然計畫被巫婆發現，經歷了一番波折和分離，但憑著彼此的思念與堅持，他們最後終於重逢、團圓。","points":["<b>記住關鍵機關：</b>「靠長髮爬上塔」是核心，練習記住並說明故事的關鍵設定。","<b>記憶對話暗號：</b>呼喚長髮的固定台詞，練習記住並重複關鍵語句。","<b>追蹤情節：</b>相遇→約定→波折→團圓，練習記住事件的來龍去脈。"],"pitch":"《長髮姑娘》全劇的關鍵就是那頭長髮，還有呼喚她放下頭髮的固定暗號。我們讓孩子記住這個機關和台詞，並把整個故事的來龍去脈講出來。孩子在練習「抓住核心設定、記住關鍵語句」的記憶力。這種能從一整個故事裡抓出重點、記得牢的能力，對孩子的閱讀和學習幫助非常大。","questions":["長髮姑娘被巫婆關在什麼樣的地方？","要進入高塔，巫婆都會喊哪一句話？","王子是怎麼發現、又怎麼爬上高塔的？","這個故事裡，最關鍵的東西是什麼？"],"tm":{"scenes":["長髮姑娘被關進無門高塔","王子學會暗號、爬長髮相見","計畫被發現、歷經波折後團圓"],"objects":"長髮姑娘、金色長髮、高塔、巫婆、王子","climax":"「長髮姑娘，放下你的長髮」暗號響起、有人攀髮而上的時刻"}},"winter-4":{"intro":"灰姑娘的父親再娶後，她被狠心的繼母和兩個姊姊當成傭人使喚，每天做著粗重的家事，睡在滿是灰燼的爐灶邊，因此被叫做「灰姑娘」。有一天，王子舉辦盛大的舞會，繼母卻不准灰姑娘去。傷心的她得到了仙女教母的幫助——南瓜變成了華麗的馬車、老鼠變成了駿馬，破舊的衣服變成了禮服，還有一雙晶瑩剔透的玻璃鞋。但仙女再三叮嚀：魔法只能持續到午夜十二點！灰姑娘在舞會上和王子相談甚歡，卻在鐘聲敲響時匆忙逃離，慌亂中遺落了一隻玻璃鞋。後來，王子拿著這隻鞋走遍全國尋找，終於找到了腳能剛好穿進玻璃鞋的灰姑娘，兩人從此過著幸福的生活。","points":["<b>記住關鍵時限：</b>「午夜前必須離開」，練習記住並說出故事的重要規則。","<b>細節記憶：</b>玻璃鞋、南瓜馬車、十二點，練習記住多個關鍵物件與數字。","<b>順序重述：</b>從被欺負到穿鞋團圓，練習把完整情節依序記住講出。"],"pitch":"《灰姑娘》裡有好多要記住的關鍵：午夜十二點的期限、玻璃鞋、南瓜變的馬車。我們讓孩子把這些細節記牢，再依順序把故事講一遍。孩子練的是「記住規則、記住細節、按順序重述」的專注記憶力。當孩子能把這麼多細節都記得清清楚楚，您會發現他聽故事、上課的專注度完全不一樣了。","questions":["灰姑娘為什麼會有「灰姑娘」這個名字？","仙女教母把南瓜和老鼠變成了什麼？","仙女特別叮嚀，魔法會在什麼時候消失？","灰姑娘匆忙逃走時掉了什麼？王子靠它做了什麼？"],"tm":{"scenes":["灰姑娘被繼母姊姊使喚","仙女變出馬車禮服、赴舞會","午夜逃走遺落玻璃鞋、王子尋人"],"objects":"灰姑娘、繼母、兩姊姊、仙女教母、南瓜馬車、玻璃鞋、時鐘、王子","climax":"午夜鐘聲響起、灰姑娘匆忙逃走遺落玻璃鞋的那一刻"}},"winter-5":{"intro":"白雪公主有著雪一樣白的皮膚，美麗又善良。她的繼母是個狠毒又愛美的皇后，擁有一面會說真話的魔鏡。皇后每天都問：「魔鏡魔鏡，誰是世界上最美的人？」直到有一天，魔鏡回答「白雪公主最美」，皇后妒火中燒，派人要殺害她。白雪公主逃進森林，遇見了七個小矮人，和他們住在一起。狠心的皇后不肯罷休，先後三次喬裝打扮上門加害——先用束得太緊的腰帶，再用有毒的梳子，最後用一顆一半有毒的紅蘋果，終於把白雪公主毒倒。她沉睡在小矮人做的水晶棺裡，直到一位王子經過，深深被她吸引，才讓她重新甦醒，脫離了皇后的魔掌。","points":["<b>記住重複結構：</b>皇后三次加害（束腰帶、毒梳子、毒蘋果），練習記住並區分相似的情節。","<b>記住角色群：</b>七個小矮人與皇后，練習記住較多的角色。","<b>魔鏡台詞：</b>「魔鏡魔鏡」的固定問答，練習記憶並複述經典台詞。"],"pitch":"《白雪公主》裡皇后來害人來了三次——束腰帶、毒梳子、毒蘋果，還有七個小矮人要記。我們讓孩子把這些相似又不同的情節分清楚、記下來。這對記憶力是很棒的訓練：要專心聽，才不會把三次搞混。孩子還會記住「魔鏡魔鏡」的經典台詞。能記住這麼豐富的細節，孩子的專注和記憶就是這樣一點一滴練出來的。","questions":["皇后每天都問魔鏡什麼問題？","白雪公主逃進森林後，和誰住在一起？","狠心的皇后一共來害了白雪公主幾次？分別用了什麼？","最後白雪公主是被什麼東西毒倒、又是怎麼醒過來的？"],"tm":{"scenes":["皇后問魔鏡、妒忌白雪公主","公主逃入森林與七矮人同住","皇后三次下手、毒蘋果毒倒公主"],"objects":"白雪公主、皇后、魔鏡、七個小矮人、束帶、毒梳子、毒蘋果、水晶棺、王子","climax":"白雪公主咬下毒蘋果、應聲倒下的那一刻"}},"winter-6":{"intro":"很久以前，有一位善良的公主和她的十一個哥哥。狠毒的後母施了魔法，把十一位王子全都變成了野天鵝，白天飛翔、只有夜晚才能變回人形。為了拯救哥哥們，公主歷經千辛萬苦，找到了唯一的解救方法：她必須親手用會刺痛雙手的蕁麻，編織出十一件披衣給哥哥們穿上，而且在完成之前，她一句話都不能說，否則哥哥們就會永遠變不回來。公主忍著雙手的刺痛，默默地日夜編織；就算被人誤會、受了天大的委屈，她也咬牙不吭一聲。最後，她終於在關鍵時刻趕織完成，把披衣拋向天鵝，救回了十一個哥哥。","points":["<b>記住任務規則：</b>「織十一件、不能說話」，練習牢記故事的關鍵條件。","<b>記住數字：</b>十一位哥哥、十一件衣，練習記住並運用故事中的數量。","<b>專注長情節：</b>漫長的編織過程，練習持續專注，不漏掉關鍵轉折。"],"pitch":"《野天鵝》裡妹妹要完成一個很嚴格的任務：用蕁麻織十一件衣、而且過程中一句話都不能說。我們讓孩子把這些關鍵規則和數字牢牢記住。這故事情節長、細節多，很考驗孩子的持續專注力。能耐著性子聽完、還記得住任務規則的孩子，專注續航力已經超越同齡——這正是我們要鍛鍊的。","questions":["公主的十一個哥哥被後母變成了什麼？","要解救哥哥，公主必須用什麼材料、織出幾件衣服？","在織完之前，公主必須遵守什麼規定？","你覺得公主為了哥哥，忍受了哪些辛苦？"],"tm":{"scenes":["十一位哥哥被變成野天鵝","妹妹默默用蕁麻織衣、不能說話","及時織完、救回哥哥們"],"objects":"十一位王子（天鵝）、公主、蕁麻、十一件披衣","climax":"公主在最後關頭織完披衣、拋向天鵝救回哥哥的時刻"}},"winter-7":{"intro":"在鬧饑荒的年代，一對兄妹——韓賽爾和葛麗特，被狠心的繼母設計，帶到森林深處丟棄。機警的哥哥韓賽爾早有準備，第一次他沿路撒下白色小石子，靠著月光下發亮的石子順利找到了回家的路；可是第二次，他改撒麵包屑，卻被小鳥全吃光了，兄妹倆這才真的迷了路。飢餓的他們，在森林裡發現一棟用糖果和餅乾蓋成的房子，忍不住吃了起來——沒想到屋主竟是一個想吃小孩的巫婆，把他們抓了起來。危急時刻，聰明勇敢的妹妹葛麗特趁機把巫婆推進了燒燙的烤爐，兄妹倆帶著巫婆的財寶，一路循著記號，平安地回到了家。","points":["<b>記住路線記號：</b>兄妹用石子、麵包屑做記號，練習「記住怎麼找到回家的路」。","<b>對比兩次記號：</b>石子成功、麵包屑被鳥吃掉，練習記住並比較兩次的差別。","<b>細節記憶：</b>糖果屋的模樣、烤爐，練習記住並描述關鍵場景。"],"pitch":"《糖果屋》裡有個很棒的記憶點：兄妹倆用石子和麵包屑做記號找路——一次成功、一次失敗。我們讓孩子記住這兩次的差別，還有那棟糖果屋的細節。孩子在練習「記住關鍵線索、比較異同」的專注記憶力。這種能記住細節、還能分辨差異的能力，是孩子閱讀理解和學習的重要基礎。","questions":["兄妹倆第一次是用什麼做記號找到回家的路？","第二次為什麼失敗、迷路了呢？","他們在森林裡發現的房子，是用什麼蓋成的？","最後兄妹倆是怎麼逃出巫婆的魔掌的？"],"tm":{"scenes":["兄妹被丟森林、撒石子與麵包屑","發現糖果屋、被巫婆抓住","葛麗特推巫婆進烤爐、循記號回家"],"objects":"韓賽爾、葛麗特、白石子、麵包屑、糖果屋、巫婆、烤爐、財寶","climax":"葛麗特趁機把巫婆推進烤爐、兄妹脫困的那一刻"}},"winter-8":{"intro":"小人魚是海王最小的女兒，住在美麗的海底王國。在她十五歲那年，第一次浮出海面，就遇上一場暴風雨，她奮力救起了一位快溺水的人類王子，並深深愛上了他。為了能和王子在一起，小人魚忍痛去找海底的巫婆，用自己最動聽的聲音，換來了一雙人類的腿——可是代價非常沉重：她失去了說話的能力，而且每走一步，都像是踩在鋒利的刀尖上般疼痛。她來到王子身邊，卻因為不能說話而無法表明自己就是救命恩人，最後王子娶了別的公主。傷心的小人魚原本有機會傷害王子、變回人魚，但她太愛王子了，不忍下手，最後化成了一片海上的泡沫。","points":["<b>記住交換條件：</b>「用聲音換雙腿」的代價，練習牢記故事的關鍵設定。","<b>追蹤心情與情節：</b>愛慕→犧牲→心碎，練習專注記住情感的轉折。","<b>記住結局：</b>化為泡沫的淒美結局，練習記住並複述故事的收尾。"],"pitch":"《人魚公主》是一個淒美的故事，小人魚用聲音換來雙腿，代價很沉重。我們讓孩子記住這個關鍵的交換條件，並專注跟隨她從愛慕到心碎的情節。這故事情感細膩、轉折多，很能訓練孩子「專心聽、記得住」的能力。能把一個這麼細膩的故事完整記下來，孩子的專注和記憶力都在悄悄升級。","questions":["小人魚為什麼會愛上人類的王子？","小人魚用什麼，向巫婆換來了一雙腿？","換來雙腿的代價是什麼？她付出了多大的痛苦？","故事的最後，小人魚做了什麼選擇？"],"tm":{"scenes":["小人魚救起王子、深深愛上他","用聲音向巫婆換來雙腿","王子娶了別人、小人魚化為泡沫"],"objects":"小人魚、王子、海巫婆、聲音、雙腿、海上泡沫","climax":"小人魚用聲音換腿、忍著刀尖般疼痛走向王子的那一段"}},"winter-9":{"intro":"聖誕夜，小女孩克拉拉收到了一個特別的禮物——一個造型像士兵的胡桃鉗娃娃，她非常喜歡。到了半夜，神奇的事發生了：客廳裡的玩具全都活了過來！由七個頭的老鼠王率領的老鼠大軍，和胡桃鉗帶領的玩具士兵們，展開了一場激烈的大戰。眼看胡桃鉗就要不敵，克拉拉情急之下脫下鞋子丟向老鼠王，幫助胡桃鉗打敗了牠。原來，這個胡桃鉗其實是被施了魔法的王子，戰勝老鼠王後，魔法解除，他變回了英俊的王子，並帶著克拉拉走進一個由糖果、點心組成的奇幻王國，度過了一個夢幻般的夜晚。","points":["<b>記住陣營角色：</b>玩具兵、胡桃鉗、七頭鼠王，練習記住兩軍的角色。","<b>記憶戰役順序：</b>大戰的過程，練習記住事件的先後與轉折。","<b>場景記憶：</b>糖果王國的奇景，練習記住並描述豐富的場景細節。"],"pitch":"《胡桃鉗》場面豐富——玩具兵、胡桃鉗、七頭老鼠王的大戰，還有奇幻的糖果王國。我們讓孩子記住這些角色和戰役的過程，再把它講出來。角色多、場景多，正好訓練孩子的記憶容量和專注力。能把這麼熱鬧的一個故事記得清楚、講得出來，孩子的專注記憶力就是這樣練大的。","questions":["克拉拉在聖誕夜收到了什麼禮物？","半夜裡，是誰帶領老鼠大軍來攻打？","克拉拉做了什麼，幫助胡桃鉗打贏了老鼠王？","打敗老鼠王後，胡桃鉗變成了什麼？帶克拉拉去了哪裡？"],"tm":{"scenes":["克拉拉收到胡桃鉗娃娃","半夜玩具兵與七頭鼠王大戰","克拉拉助陣、胡桃鉗變回王子入糖果國"],"objects":"克拉拉、胡桃鉗、七頭老鼠王、玩具兵、鼠群、鞋子、糖果王國","climax":"克拉拉扔出鞋子、幫胡桃鉗擊敗老鼠王的決勝時刻"}},"winter-10":{"intro":"一頭驢子因為年紀大了、做不動工，被主人嫌棄，牠決定離家去布萊梅當個音樂家。路上，牠先後遇見了同樣因為年老而被主人嫌棄的獵狗、貓和公雞，四隻動物意氣相投，決定結伴同行。走到半路天黑了，牠們發現森林裡有一間亮著燈的房子，裡面竟是一群強盜正在分贓。四隻動物想了個妙計：驢子站最下面，狗站驢背上，貓再站狗背上，公雞站到最高處，然後一起放聲大叫——「呃啊——汪汪——喵喵——喔喔——」這古怪又響亮的聲音，把強盜們嚇得魂飛魄散、落荒而逃。從此，四隻動物就在這間房子裡，過起了幸福快樂的生活。","points":["<b>記住成員順序：</b>驢、狗、貓、雞依序加入，練習記住角色出場的先後。","<b>記住疊羅漢：</b>四隻動物疊起來的畫面與叫聲，練習記住關鍵的場景安排。","<b>因果記憶：</b>「一起叫→嚇跑強盜」，練習記住事情如何發生。"],"pitch":"《布萊梅樂隊》裡四隻動物依序加入，還疊成一疊嚇跑強盜。我們讓孩子記住牠們出場的順序、還有那個經典的疊羅漢畫面。這種「按順序記角色、記住關鍵場景」的練習，對孩子的專注記憶力很有幫助。故事輕快好記，連比較坐不住的孩子都能專心聽完、記得住，很有成就感。","questions":["四隻動物為什麼都離開了原本的主人？","牠們依照什麼順序加入這支隊伍的？","牠們用什麼辦法把屋子裡的強盜嚇跑？","四隻動物疊在一起的時候，誰在最下面、誰在最上面？"],"tm":{"scenes":["驢狗貓雞因年老被嫌、結伴出走","發現強盜屋、疊成一疊","齊聲大叫嚇跑強盜、安居"],"objects":"驢子、獵狗、貓、公雞、強盜、亮燈的房子","climax":"四隻動物疊羅漢、齊聲怪叫嚇跑強盜的那一刻"}},"winter-11":{"intro":"森林裡住著熊爸爸、熊媽媽和熊寶寶三隻熊。有一天早上，牠們煮好了粥，因為太燙，就一起出門散步，等粥涼一點再回來吃。這時，一個叫金髮女孩的小女孩闖進了牠們沒鎖的家。她肚子餓，先試了三碗粥：熊爸爸的太燙、熊媽媽的太冷，只有熊寶寶那碗剛剛好，她全喝光了；接著她試坐三張椅子，最後坐上熊寶寶的小椅子，卻把它坐壞了；她又累又睏，試躺三張床，最後在熊寶寶的小床上睡著了。三隻熊散步回來，發現粥被喝了、椅子壞了，最後在熊寶寶床上發現熟睡的女孩。女孩被驚醒，嚇得跳下床，飛也似地逃走了。","points":["<b>記住三組對應：</b>大、中、小三份粥／椅／床，練習記住並配對重複的細節。","<b>記憶重複句型：</b>「誰動了我的…」，練習記住並複述反覆出現的台詞。","<b>順序重述：</b>女孩試粥、試椅、試床的順序，練習依序記憶。"],"pitch":"《三隻熊》是低年級練記憶的最佳教材：大、中、小三份粥、三張椅子、三張床，還有「誰動了我的東西」的重複句。我們讓孩子把這些一組組對應的細節記住、配對、講出來。這種規律的重複最能幫孩子建立記憶的架構。孩子會發現記憶其實有訣竅，一旦抓到，記東西就變得又快又牢。","questions":["三隻熊為什麼要出門散步，沒有馬上吃粥？","金髮女孩試了三碗粥，覺得哪一碗剛剛好？","女孩把誰的椅子坐壞了？又睡了誰的床？","三隻熊回家後，發現了什麼？結果女孩怎麼了？"],"tm":{"scenes":["三隻熊煮好粥、出門散步","金髮女孩闖入、試粥試椅試床","三隻熊回家、發現熟睡的女孩"],"objects":"熊爸爸、熊媽媽、熊寶寶、三碗粥、三張椅子、三張床、金髮女孩","climax":"三隻熊在熊寶寶床上發現熟睡女孩、女孩驚醒逃走的時刻"}},"winter-12":{"intro":"從前有一位美麗卻非常驕傲的公主，不管哪位王公貴族來求婚，她都要挑人家的毛病、加以嘲笑。有一位下巴稍尖的國王來求婚，也被她譏笑下巴長得像「畫眉鳥的嘴」。國王生氣了，決定要好好教訓這位傲慢的公主。他喬裝成一個窮困的流浪樂師，娶了因故被父親下嫁的公主，帶她住進破舊的小屋，讓她親自劈柴、生火、編籃子、賣陶器，嘗盡了從前不曾體會的貧苦與辛勞。在一次次的挫折中，驕傲的公主漸漸變得謙虛、懂得體諒。最後，樂師表明了自己就是當初被她嘲笑的畫眉嘴國王，原諒了她，公主也真心悔改，兩人幸福地在一起。","points":["<b>記住前後對比：</b>公主從驕傲到謙卑，練習記住並說出角色的轉變。","<b>記憶身分伏筆：</b>樂師其實是國王，練習記住並串起前後的線索。","<b>追蹤情節：</b>嘲笑→受苦→醒悟，練習記住事件的因果順序。"],"pitch":"《畫眉嘴國王》講一個驕傲公主如何學會謙卑。我們讓孩子記住公主前後的轉變，還有「窮樂師其實是國王」這個伏筆。孩子在練習「記住線索、串起前後」的專注記憶——這其實就是閱讀理解的核心能力。能記住伏筆、看懂角色轉變的孩子，讀故事、讀課文都會又快又深入。","questions":["公主為什麼要嘲笑那位國王？她叫他什麼？","國王喬裝成什麼身分，來教訓驕傲的公主？","公主嫁給窮樂師後，過著什麼樣的生活？","公主最後有什麼改變？那位樂師的真實身分是誰？"],"tm":{"scenes":["驕傲公主嘲笑求婚的國王","國王喬裝樂師、讓公主嘗貧苦","公主學會謙卑、國王表明身分"],"objects":"驕傲的公主、畫眉嘴國王、樂師裝扮、破舊小屋、陶器、籃子","climax":"樂師揭曉自己就是被嘲笑的畫眉嘴國王、公主悔悟的那一刻"}},"winter-13":{"intro":"三個商人合夥養了一隻貓，還很有趣地說好：一人負責認養貓的一條腿。有一天，貓的其中一條腿受了傷，負責那條腿的商人便細心地替牠包紮、擦上藥膏。沒想到，這隻貓後來經過燭火旁時，包著藥布的那條受傷的腿不小心碰倒了油燈，引起了一場大火，把貨物都燒掉了。三個商人為了「這場火到底該由誰來賠」吵得不可開交，鬧上了公堂。最後，靠著一番巧妙的推理——釐清「究竟是哪一條腿闖的禍、那條腿又是誰負責的」，才判定了這樁趣味官司的責任歸屬。","points":["<b>記住設定：</b>「三人各養一條腿」的古怪前提，練習牢記故事的關鍵設定。","<b>追蹤責任線：</b>誰的腿、誰包紮、誰該賠，練習記住並理清複雜的來龍去脈。","<b>細節記憶：</b>受傷的腿、油燈、火災，練習記住環環相扣的細節。"],"pitch":"《三個商人買三條貓腿》是一則有趣的推理官司，前提很特別——三個人各養貓的一條腿。我們讓孩子記住這個古怪設定，並理清「誰的腿受傷、誰該負責」這條複雜的線。孩子練的是「記住設定、追蹤細節」的專注記憶力。能把這麼繞的一件事記清楚、講明白，孩子的邏輯記憶就非常扎實了。","questions":["三個商人養一隻貓，他們是怎麼分工的？","是貓的哪一條腿受了傷？誰負責照顧牠？","那場大火是怎麼引起的？","你覺得這場火，應該由誰來負責賠償呢？"],"tm":{"scenes":["三商人合養一貓、各認一條腿","受傷的腿包藥、碰倒油燈引火","上公堂、推理釐清賠償責任"],"objects":"三個商人、貓、受傷的腿、藥布、油燈、大火、貨物、公堂","climax":"推理釐清「哪條腿闖禍、誰該負責」、判定責任的關鍵時刻"}},"winter-14":{"intro":"天空中有一隻又大又強壯的禿鷹，仗著自己身強力壯，長期欺負森林裡其他弱小的鳥兒。牠搶奪別人辛苦找來的食物、霸佔最好的樹枝、把小鳥們趕來趕去，讓大家都敢怒不敢言，只能忍氣吞聲。日子一久，弱小的鳥兒們終於忍無可忍，牠們聚在一起商量，決定不再各自害怕、而是團結起來一起想辦法對抗霸道的禿鷹。靠著眾鳥齊心協力，牠們終於讓不可一世的禿鷹嘗到了苦頭，也讓牠學到了「不能仗著自己強大就欺負弱小」的教訓。","points":["<b>記住角色關係：</b>禿鷹與眾小鳥的對立，練習記住並說明角色間的關係。","<b>記憶事件轉折：</b>從被欺負到團結反抗，練習記住情節的轉變。","<b>記住寓意：</b>「不能仗勢欺人」，練習記住並複述故事的教訓。"],"pitch":"《霸道的禿鷹》講弱小的鳥兒團結起來對抗霸道禿鷹的故事。我們讓孩子記住角色之間的關係，以及「從被欺負到反抗成功」的轉折。孩子在練習記住情節與寓意的專注力。故事主題鮮明，孩子容易記住「不能欺負弱小、團結有力量」的道理——記得住，才帶得走。","questions":["霸道的禿鷹平常都怎麼欺負其他小鳥？","被欺負的小鳥們，一開始為什麼不敢反抗？","後來小鳥們決定怎麼做，來對付禿鷹？","這個故事告訴我們，面對霸道的人，什麼很重要？"],"tm":{"scenes":["禿鷹仗勢欺負弱小鳥兒","小鳥們忍無可忍、聚在一起商量","團結反抗、教訓霸道禿鷹"],"objects":"霸道的禿鷹、弱小的鳥兒們、食物、樹枝","climax":"眾鳥齊心協力、讓不可一世的禿鷹嘗到苦頭的那一刻"}}};
+
+/* 家長常見問題攻防戰 */
+const QA_DATA = [
+  {id:"hot", icon:"i-star", label:"高頻發問", items:[
+    {q:"這跟外面的繪本班有什麼不一樣？", hot:true,
+     mindset:"家長其實在問「我為什麼要選你、而不是更便宜的選項」，背後是怕花冤枉錢。",
+     answer:"繪本班多半是「老師講、孩子聽」。我們最大的不同是——<b>孩子是主角</b>。他要自己上台、操作平板、把故事說出來。我們訓練的不是「聽過幾個故事」，而是<b>孩子的表達力與思考力</b>。您可以把我們想成<b>兒童版的簡報與邏輯訓練</b>，只是包裝成他最愛的故事。"},
+    {q:"為什麼你們收費比較貴？", hot:true,
+     mindset:"家長不是嫌貴，是還沒看到「貴的價值」。別急著降價，要先把價值講清楚。",
+     answer:"我理解，錢一定要花得值得。我們一堂課是 <b>40 分鐘、孩子親自上台</b>，用的是完整的互動 APP 與 54 集課程系統，孩子帶走的是<b>可以累積的能力與作品</b>，不是上完就忘的一次性課。平均下來，這是<b>投資在孩子的表達與思考底層能力</b>，而這正是未來最難補的一塊。"},
+    {q:"我的孩子在學校都不太敢舉手發言，你們真的能改善嗎？", hot:true,
+     mindset:"這是家長最深的痛點，也最怕被敷衍。要具體、給信心，讓他看見改變的路徑。",
+     answer:"內向、不敢發言的孩子，其實<b>最適合我們</b>。我們不是叫他「勇敢一點」，而是用他熟悉的故事，讓他<b>先在小小的舞台上、對熟悉的老師開口</b>，一次累積一點成功經驗。當他發現「原來我說得出來、還被稱讚」，自信就會慢慢長出來——很多孩子，是從這裡開始<b>敢在班上舉手</b>的。"},
+  ]},
+  {id:"fees", icon:"i-coin", label:"費用問題", items:[
+    {q:"可以算便宜一點嗎？有沒有折扣？",
+     mindset:"可能在測試底線，也可能預算真的有限。守住價格，改談價值與方案。",
+     answer:"我們的價格是統一的，這樣對每位家長都公平。不過我可以幫您看看<b>最適合的方案與檔期</b>，讓預算發揮最大效益。比起折扣，我更希望您是因為<b>看到孩子的改變</b>而覺得值得。"},
+    {q:"一次要繳一整期，可以月繳或分期嗎？",
+     mindset:"多半是預算配置或降低風險，不一定是拒絕。理解他的現實，再守住連續性。",
+     answer:"我完全理解，一次準備一整期的費用是需要規劃的。我們設計成一整期，是因為<b>能力的養成需要連續、不中斷</b>，孩子才看得到成果。我可以幫您看看<b>目前有沒有適合的分期或優惠方案</b>，一起找出對您最輕鬆的方式，重點是<b>別讓孩子的學習斷在半路</b>。"},
+    {q:"我要回去跟先生／家人商量。",
+     mindset:"多半是禮貌性拒絕，或還有沒說出口的疑慮。要找出真正的猶豫點。",
+     answer:"當然，這是很重要的決定。方便問一下，如果撇開需要商量的部分，<b>您自己最猶豫的一點是什麼</b>？也許我現在就能幫您解答，讓您回去也更好說明。"},
+  ]},
+  {id:"effect", icon:"i-grow", label:"成效問題", items:[
+    {q:"上這個課，多久會看到效果？",
+     mindset:"家長怕花了錢沒用。要給合理期待，並把「效果」定義成看得見的行為。",
+     answer:"表達與思考是慢慢累積的，但<b>改變其實看得到</b>。通常上幾堂之後，家長會發現孩子<b>比較敢開口、講事情比較有頭有尾</b>。我們每一集都有孩子自己的作品和紀錄，您可以<b>具體看到他的成長歷程</b>，而不是憑感覺。"},
+    {q:"在學校老師也沒特別說什麼，真的有差嗎？",
+     mindset:"家長需要外部驗證，也在確認錢花得值不值。把驗證的主導權交回他手上。",
+     answer:"表達力的進步，常常<b>先在家裡看到</b>——孩子開始<b>主動跟您分享今天發生的事，而且講得有頭有尾</b>。學校一位老師要顧幾十個孩子，不一定會特別點出來；但我們每堂課都有<b>孩子親口說故事的紀錄和作品</b>，您可以<b>自己聽、自己看</b>他的變化，不用等別人告訴您。"},
+    {q:"我的孩子很內向／坐不住，適合嗎？",
+     mindset:"家長怕孩子跟不上或被比較。把「內向／好動」重新框成「正是要來練的」。",
+     answer:"這樣的孩子<b>最適合來</b>。內向的孩子，我們用他熟悉的故事讓他<b>慢慢敢開口</b>；坐不住的孩子，我們用互動操作讓他<b>因為投入而專注</b>。我們不是要改變他的個性，而是給他一個<b>安全、好玩的舞台</b>去練習。"},
+  ]},
+  {id:"versus", icon:"i-compare", label:"競品比較", items:[
+    {q:"這跟 YouTube 上免費的故事影片差在哪？",
+     mindset:"家長分不清「被動觀看」和「主動訓練」的差別，要點破這個關鍵。",
+     answer:"影片是<b>單向的、看完就結束</b>，孩子是觀眾；我們是<b>雙向的</b>——孩子要動手、開口、思考，是<b>參與者</b>。看影片練不到表達，就像看球賽不會變強，<b>得自己下場打</b>才會。"},
+    {q:"我自己在家講故事不就好了？",
+     mindset:"家長低估了「系統化訓練」的價值，也可能是省錢考量。先肯定家長，再補位。",
+     answer:"您願意陪孩子讀故事真的很棒，這對他幫助很大！我們補的是<b>在家比較難做到的部分</b>——<b>引導提問的技巧、上台的儀式感，以及一套循序漸進的能力設計</b>。簡單說，您給的是愛，我們給的是<b>方法與舞台</b>，兩個加起來效果最好。"},
+    {q:"跟正音班、作文班比，我該選哪個？",
+     mindset:"家長在有限預算下比較 CP 值，怕重複投資。把我們定位成「地基」而非競品。",
+     answer:"正音班練發音、作文班練寫字，都很好，但通常是<b>孩子大一點、或已經卡關了才補救</b>。我們做的是<b>更前面、更底層的那一塊</b>——敢不敢開口、腦袋能不能把想法組織起來。這個底子打好了，<b>將來學正音、寫作文都會更快</b>。與其說選哪一個，不如說我們是<b>其他學習的地基</b>。"},
+  ]},
+  {id:"enroll", icon:"i-qa", label:"報名考量", items:[
+    {q:"孩子還這麼小，有需要這麼早開始嗎？",
+     mindset:"家長怕揠苗助長，也在確認時機對不對。用「黃金期」框架給他信心。",
+     answer:"國小低年級<b>正是語言和表達的黃金期</b>，這個階段的孩子<b>敢講、不怕錯</b>，正是最好的練習時機。我們不是提早教他難的東西，而是<b>用他最愛的故事、用玩的方式</b>，把表達和思考變成習慣。等年紀再大、開始怕丟臉，反而更難開口——<b>現在開始，剛剛好</b>。"},
+    {q:"可以先試上一堂再決定嗎？",
+     mindset:"想降低風險、眼見為憑。這是好機會，別急著逼單，用體驗促成信任。",
+     answer:"當然可以！我非常鼓勵您<b>帶孩子來體驗一堂</b>，因為孩子的反應最真實。您會<b>親眼看到他上台、開口說故事的樣子</b>，也能感受我們的老師怎麼引導。我幫您安排一個<b>孩子狀況最好的時段</b>，讓他玩得開心、您也看得安心，再決定也不遲。"},
+    {q:"課程時間、地點會不會很難配合？",
+     mindset:"接送與時間是很實際的門檻。主動幫他解決，把負擔降到最低。",
+     answer:"我懂，<b>接送和時間</b>常常是最現實的考量。我們有<b>不同的時段可以選</b>，方便告訴我您平常的作息嗎？我來幫您<b>找出最好接送、對孩子精神也最好的時段</b>，盡量把您的負擔降到最低。"},
+  ]},
+];
+
 /* ================= 頁面渲染 ================= */
 const app = document.getElementById("app");
 
@@ -784,6 +1209,7 @@ function render(){
   closeSearch();
   window.scrollTo({top:0,behavior:"instant"});
   if(parts.length===0){ renderHome(); }
+  else if(parts[0]==="qa"){ renderQA(); }
   else if(parts[0]==="season"){ renderSeason(parts[1]); }
   else if(parts[0]==="story"){ renderStory(parts[1], parts[2]); }
   else { renderHome(); }
@@ -792,89 +1218,75 @@ function render(){
 function setActiveNav(parts){
   document.querySelectorAll(".nav-links a").forEach(a=>a.classList.remove("active"));
   if(parts.length===0){ document.querySelector('[data-route="home"]').classList.add("active"); }
+  else if(parts[0]==="qa"){ const el=document.querySelector('[data-route="qa"]'); if(el)el.classList.add("active"); }
   else if(parts[0]==="season"){ const el=document.querySelector(`[data-season="${parts[1]}"]`); if(el)el.classList.add("active"); }
   else if(parts[0]==="story"){ const s=byId(parts[1]); if(s){const el=document.querySelector(`[data-season="${s.season}"]`); if(el)el.classList.add("active");} }
 }
 
-/* ---------- 首頁 ---------- */
+/* ---------- 理念總綱（首頁） ---------- */
+function painCards(){
+  const d=[
+    ["#i-target","家長焦慮 #1","「我的孩子專注力不足…」","一坐下來就扭來扭去、看螢幕沒三分鐘就分心。","我們用 40 分鐘沉浸式互動，讓孩子「因為投入而專注」，而不是逼他坐好。","孩子不是不專注，是還沒遇到讓他想投入的舞台。"],
+    ["#i-bulb","家長焦慮 #2","「他表達沒邏輯、講不清楚…」","講事情想到哪說到哪，前後兜不起來。","用有因果的故事＋完整重述，幫孩子建立「先後、因果」的表達骨架。","我們教的不是說得多，而是說得有條理。"],
+    ["#i-heart","家長焦慮 #3","「只會死背、缺乏想像力…」","答案背得出來，卻不會自己想、也不懂別人的感受。","用開放式提問與畫作，鼓勵孩子創造、換位思考，而不是背標準答案。","想像力不是天生的，是被好問題問出來的。"],
+  ];
+  return d.map(c=>`
+    <div class="paincard">
+      <div class="pc-head">
+        <div class="pc-ico"><svg viewBox="0 0 100 100"><use href="${c[0]}"/></svg></div>
+        <span class="pc-tag">${c[1]}</span>
+      </div>
+      <h3 class="pc-quote">${c[2]}</h3>
+      <p class="pc-pain"><span class="pc-lbl pain">情境</span>${c[3]}</p>
+      <div class="pc-sol"><span class="pc-lbl sol">我們的解法</span><p>${c[4]}</p></div>
+      <div class="pc-punch"><span class="pc-punch-tag"><svg class="tag-ico" viewBox="0 0 100 100"><use href="#i-qa"/></svg>背這句</span><span class="pc-punch-txt">「${c[5]}」</span></div>
+    </div>`).join("");
+}
+
 function renderHome(){
   app.innerHTML = `
-  <section class="hero">
-    <div class="eyebrow">Digital Storytelling Studio</div>
-    <h1>故事屋</h1>
-    <p class="sub">數位互動表達培訓平台 · 老師備課與課程成效專用</p>
-    <div class="hero-scene">
-      <svg viewBox="0 0 100 100"><use href="#i-pig"/></svg>
-      <svg viewBox="0 0 100 100"><use href="#i-wolf"/></svg>
-      <svg viewBox="0 0 100 100"><use href="#i-castle"/></svg>
-      <svg viewBox="0 0 100 100"><use href="#i-crown"/></svg>
-      <svg viewBox="0 0 100 100"><use href="#i-moon"/></svg>
+  <section class="lead-hero">
+    <span class="tool-tag">內部員工工具 · 招生溝通 × 教學備課</span>
+    <h1>故事屋不只是聽故事，<br>是<span class="hl">建構大腦的工程</span></h1>
+    <div class="pitch-quote">
+      <span class="q">&ldquo;</span>
+      <p>您有沒有發現，孩子明明滿腦子想法，卻常常一句話都說不清楚？<b>故事屋專為國小低年級（一、二年級）設計</b>，我們不讓孩子被動聽故事，而是讓他親自上台，用平板切換場景、拖曳角色，把一整個故事用自己的話說出來。短短 40 分鐘，同時鍛鍊<b>語言表達、邏輯推理、情緒感知與專注記憶</b>四大能力，還把每一次的畫作收進專屬故事資料夾，成長看得見。我們收錄 54 則經典故事，要培養的不是「聽過幾個故事」的孩子，而是<b>敢開口、有條理、會思考</b>的孩子。</p>
+    </div>
+    <div class="lead-cta">
+      <button class="btn primary" onclick="go('#/season/all')">瀏覽 54 則故事庫 →</button>
+      <button class="btn" onclick="go('#/qa')">家長 Q&amp;A 攻防戰 →</button>
     </div>
   </section>
 
-  <section class="outcomes" aria-label="課程四大核心成效">
-    <div class="oc"><div class="num">1</div><svg viewBox="0 0 100 100"><use href="#i-crown"/></svg>
-      <h3>上台發表的勇氣</h3><p>孩子親自站上台，開口說出屬於自己的完整故事。</p></div>
-    <div class="oc"><div class="num">2</div><svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
-      <h3>空間與圖像邏輯</h3><p>透過 APP 拖曳操作，鍛鍊空間感與圖像思考力。</p></div>
-    <div class="oc"><div class="num">3</div><svg viewBox="0 0 100 100"><use href="#i-house"/></svg>
-      <h3>高階語言組織力</h3><p>拒絕死背，訓練孩子即時組織與表達的能力。</p></div>
-    <div class="oc"><div class="num">4</div><svg viewBox="0 0 100 100"><use href="#i-tree"/></svg>
-      <h3>專屬故事資料夾</h3><p>畫作一一收錄，為每個孩子建立完整學習歷程。</p></div>
+  <section class="pain-sec">
+    <div class="sec-eyebrow center">三大教育痛點打擊區 · 員工必背武器</div>
+    <p class="sec-sub center">家長最常說出口的三種焦慮，以及你該怎麼接、怎麼答</p>
+    <div class="pain-grid">${painCards()}</div>
   </section>
 
-  <section class="arch">
-    <h2 class="sec-title">平台架構 · 每集必備的教學資源</h2>
-    <p class="sec-lead">故事屋為老師與行政人員的備課與課程成效追蹤而設計。每一集動畫故事都對應以下四大教學資源，可線上檢視、一鍵取用，直接帶進 40 分鐘的課堂。點任一張卡片，即可看《三隻小豬》的實際範例。</p>
-    <div class="arch-grid">
-      <div class="rescard lp" role="button" tabindex="0" onclick="go('#/story/spring-7/lp')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/lp')">
-        <span class="bar"></span>
-        <svg viewBox="0 0 100 100"><use href="#i-book"/></svg>
-        <h3>完整教案 <em>LP</em></h3>
-        <p>老師示範、學生上台發表、圖像沉澱歸檔三階段，40 分鐘流程一次到位。</p>
-        <span class="go">查看範例 →</span>
-      </div>
-      <div class="rescard tm" role="button" tabindex="0" onclick="go('#/story/spring-7/tm')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/tm')">
-        <span class="bar"></span>
-        <svg viewBox="0 0 100 100"><use href="#i-app"/></svg>
-        <h3>APP 操作指導 <em>TM</em></h3>
-        <p>標註每集場景切換點與角色物件拖曳建議，讓老師精準掌握操作節奏。</p>
-        <span class="go">查看範例 →</span>
-      </div>
-      <div class="rescard qa" role="button" tabindex="0" onclick="go('#/story/spring-7/qa')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/qa')">
-        <span class="bar"></span>
-        <svg viewBox="0 0 100 100"><use href="#i-qa"/></svg>
-        <h3>引導練習題 <em>Q&amp;A</em></h3>
-        <p>學生一時詞窮時的口袋提示問題，鼓勵孩子用完整句子開口表達。</p>
-        <span class="go">查看範例 →</span>
-      </div>
-      <div class="rescard ws" role="button" tabindex="0" onclick="go('#/story/spring-7/ws')" onkeydown="if(event.key==='Enter')go('#/story/spring-7/ws')">
-        <span class="bar"></span>
-        <svg viewBox="0 0 100 100"><use href="#i-sheet"/></svg>
-        <h3>學習單下載 <em>WS</em></h3>
-        <p>A4 統一規格圖紙，一鍵下載印出，畫完即可收錄進專屬故事資料夾。</p>
-        <span class="go">查看範例 →</span>
-      </div>
+  <section class="golden">
+    <div class="golden-head">
+      <span class="golden-ico"><svg viewBox="0 0 100 100"><use href="#i-speak"/></svg></span>
+      <div><h2>與家長溝通的三大不踩雷原則</h2><p class="golden-sub">開口介紹前，先記住這三件事</p></div>
+    </div>
+    <div class="golden-grid">
+      <div class="rule"><div class="rule-top"><span class="rn">1</span><span class="rule-emo"><svg viewBox="0 0 100 100"><use href="#i-target"/></svg></span></div><h4>講能力，不要只講故事</h4><p>家長買的是孩子的成長，不是劇情。任何故事都要收斂到「這訓練什麼能力」。</p></div>
+      <div class="rule"><div class="rule-top"><span class="rn">2</span><span class="rule-emo"><svg viewBox="0 0 100 100"><use href="#i-scenes"/></svg></span></div><h4>給畫面，不要給術語</h4><p>少說「培養高階語言組織力」，多說「孩子開始會把一件事講得有頭有尾」。</p></div>
+      <div class="rule"><div class="rule-top"><span class="rn">3</span><span class="rule-emo"><svg viewBox="0 0 100 100"><use href="#i-heart"/></svg></span></div><h4>先同理，再介紹</h4><p>先接住家長的焦慮（「我懂，這年紀很容易分心」），再自然帶出解法。</p></div>
     </div>
   </section>
 
-  <section class="board-sec">
-    <div class="board-head">
-      <h2 class="sec-title">全四季 54 集 · 資源大看板</h2>
-      <button class="btn small" onclick="go('#/season/all')">瀏覽全部 54 集 →</button>
-    </div>
-    <div class="board-grid">
-      ${['spring','summer','autumn','winter'].map((k,i)=>{const S=SEASONS[k];const n=bySeason(k).length;return `
-      <div class="boardcard ${k}">
-        <div class="bc-top">
-          <svg viewBox="0 0 100 100"><use href="${S.arts[0]}"/></svg>
-          <span class="bc-badge">第 ${i+1} 季</span>
-        </div>
-        <h3>${S.name}</h3>
-        <p class="bc-theme">${S.theme}</p>
-        <span class="bc-count">共 ${n} 集</span>
-        <button class="bc-btn" onclick="go('#/season/${k}')">查看全部集數 →</button>
-      </div>`;}).join("")}
+  <section class="capnav-sec">
+    <div class="sec-eyebrow center">四大核心能力 · 點入查看對應故事與話術</div>
+    <div class="capnav">
+      ${['spring','summer','autumn','winter'].map(k=>{const S=SEASONS[k];const n=bySeason(k).length;return `
+        <div class="capcard ${k}" role="button" tabindex="0" onclick="go('#/season/${k}')" onkeydown="if(event.key==='Enter')go('#/season/${k}')">
+          <span class="cap-season ${k}">${S.short}</span>
+          <svg viewBox="0 0 100 100"><use href="${S.capIcon}"/></svg>
+          <h3>${S.cap}</h3>
+          <p>${S.capDesc}</p>
+          <span class="capcount">${S.short}故事屋 · ${n} 則故事 →</span>
+        </div>`;}).join("")}
     </div>
   </section>`;
 }
@@ -893,7 +1305,7 @@ function renderSeason(key){
     if(!S){ renderHome(); return; }
     const list = bySeason(key);
     banner = `<div class="season-banner ${key}">
-      <div class="txt"><h2>${S.name}</h2><p>${S.tagline}</p><span class="count">共 ${list.length} 集</span></div>
+      <div class="txt"><h2>${S.cap}</h2><p>${S.capDesc}</p><span class="count">${S.short}故事屋 · 共 ${list.length} 則故事</span></div>
       <div class="art">${S.arts.map(a=>`<svg viewBox="0 0 100 100"><use href="#${a.slice(1)}"/></svg>`).join("")}</div></div>`;
     groups = [{key, list}];
   }
@@ -909,10 +1321,14 @@ function renderSeason(key){
     </div>`).join("");
 
   app.innerHTML = `
-    <div class="crumb"><a href="#/">首頁</a> / <b>${isAll?"全部故事":SEASONS[key].short}</b></div>
+    <div class="crumb"><a href="#/">理念總綱</a> / <b>${isAll?"全部故事":SEASONS[key].cap}</b></div>
     ${banner}
     <div class="list-head"><span>集數</span><span>故事名稱與簡介</span><span>資源標籤</span></div>
-    ${groups.map(g=> (isAll?`<div class="story-group-title ${g.key}">${SEASONS[g.key].name}</div>`:"") + rows(g.list)).join("")}
+    ${groups.map(g=> (isAll?`<div class="cap-group-head ${g.key}">
+        <span class="cgh-ico"><svg viewBox="0 0 100 100"><use href="${SEASONS[g.key].capIcon}"/></svg></span>
+        <div class="cgh-txt"><span class="cgh-cap">${SEASONS[g.key].cap}</span><span class="cgh-season">${SEASONS[g.key].short}故事屋</span></div>
+        <span class="cgh-count">${g.list.length} 則</span>
+      </div>`:"") + rows(g.list)).join("")}
   `;
 }
 
@@ -929,22 +1345,123 @@ function renderStory(id, tab){
   if(!s){ renderHome(); return; }
   const active = TAB_META.some(t=>t.id===tab) ? tab : "lp";
   const S = SEASONS[s.season];
+  const C = (typeof STORYCONTENT!=="undefined" && STORYCONTENT[s.id]) ? STORYCONTENT[s.id] : null;
+  const intro  = C ? C.intro  : s.intro;
+  const points = C ? C.points : SELL[s.season](s.name);
+  const pitch  = C ? C.pitch  : PITCH[s.season](s.name);
 
   app.innerHTML = `
-    <div class="crumb"><a href="#/">首頁</a> / <a href="#/season/${s.season}">${S.short}</a> / <b>${s.name}</b></div>
-    <div class="story-hero">
-      <div class="epbig">${S.short} · 第 ${s.ep} 集</div>
+    <div class="crumb"><a href="#/">理念總綱</a> / <a href="#/season/${s.season}">${S.cap}</a> / <b>${s.name}</b></div>
+    <div class="sp-hero">
+      <div class="sp-tags">
+        <span class="sp-badge ${s.season}"><svg viewBox="0 0 100 100"><use href="${S.capIcon}"/></svg>${S.cap}</span>
+        <span class="sp-ep">${S.short} · 第 ${s.ep} 集</span>
+      </div>
       <h2>${s.name}</h2>
-      <p class="intro">${s.intro}</p>
     </div>
-    <div class="tabs" id="tabs">
-      ${TAB_META.map(t=>`<div class="tab ${t.id===active?"active":""}" role="button" tabindex="0"
-          onclick="go('#/story/${id}/${t.id}')" onkeydown="if(event.key==='Enter')go('#/story/${id}/${t.id}')">
-          ${t.label}<small>${t.en}</small></div>`).join("")}
-    </div>
-    <div class="panel">${panelHTML(active, s)}</div>
+
+    ${storyNavHTML(s)}
+
+    <section class="story-sec brief">
+      <div class="sec-eyebrow">故事簡介</div>
+      <p>${intro}</p>
+    </section>
+
+    <section class="story-sec selling ${s.season}">
+      <div class="sec-eyebrow accent"><svg class="eb-ico" viewBox="0 0 100 100"><use href="#i-target"/></svg>對家長的主打賣點 · 必提的 3 個教育價值</div>
+      <ol class="selling-list">
+        ${points.map(p=>`<li>${p}</li>`).join("")}
+      </ol>
+    </section>
+
+    <section class="story-sec pitch-sec">
+      <div class="sec-eyebrow"><svg class="eb-ico" viewBox="0 0 100 100"><use href="#i-speak"/></svg>一分鐘示範話術</div>
+      <blockquote class="pitch" id="pitchText">${pitch}</blockquote>
+      <button class="copybtn" onclick="copyPitch()"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>複製話術</button>
+    </section>
+
+    <section class="story-sec resources">
+      <div class="sec-eyebrow"><svg class="eb-ico" viewBox="0 0 100 100"><use href="#i-book"/></svg>課堂教學資源 · 老師備課用</div>
+      <div class="tabs" id="tabs">
+        ${TAB_META.map(t=>`<div class="tab ${t.id===active?"active":""}" data-tab="${t.id}" role="button" tabindex="0"
+            onclick="switchStoryTab('${id}','${t.id}')" onkeydown="if(event.key==='Enter')switchStoryTab('${id}','${t.id}')">
+            ${t.label}<small>${t.en}</small></div>`).join("")}
+      </div>
+      <div class="panel">${panelHTML(active, s)}</div>
+    </section>
+
+    ${storyNavHTML(s)}
   `;
 }
+
+/* 在同一能力（季節）內切換上一則／下一則 */
+function storyNavHTML(s){
+  const list = bySeason(s.season);
+  const i = list.findIndex(x=>x.id===s.id);
+  const prev = list[i-1], next = list[i+1];
+  const S = SEASONS[s.season];
+  const p = prev
+    ? `<button class="snav prev" onclick="go('#/story/${prev.id}')"><span class="ar">←</span><span class="lbl"><small>上一則</small>${prev.name}</span></button>`
+    : `<span class="snav disabled"><span class="ar">←</span><span class="lbl"><small>已是第一則</small>${S.cap}</span></span>`;
+  const n = next
+    ? `<button class="snav next" onclick="go('#/story/${next.id}')"><span class="lbl"><small>下一則</small>${next.name}</span><span class="ar">→</span></button>`
+    : `<span class="snav disabled"><span class="lbl"><small>已是最後一則</small>${S.cap}</span><span class="ar">→</span></span>`;
+  return `<div class="story-nav">${p}${n}</div>`;
+}
+
+/* 只換頁籤內容、不重整頁面、不跳回置頂 */
+function switchStoryTab(id, tabId){
+  const s = byId(id); if(!s) return;
+  document.querySelectorAll('#tabs .tab').forEach(t=>t.classList.toggle('active', t.getAttribute('data-tab')===tabId));
+  const panel = document.querySelector('.story-sec.resources .panel');
+  if(panel) panel.innerHTML = panelHTML(tabId, s);
+}
+
+function copyPitch(){
+  const el=document.getElementById("pitchText");
+  if(!el) return;
+  const txt=el.textContent.trim();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast("話術已複製，可直接貼上 ✓")).catch(()=>toast("複製失敗，請手動選取文字"));
+  } else { toast("此環境不支援自動複製，請手動選取"); }
+}
+
+/* ---------- 家長常見問題攻防戰 ---------- */
+let qaCat = "hot";
+function renderQA(){
+  const active = QA_DATA.find(c=>c.id===qaCat) || QA_DATA[0];
+  app.innerHTML = `
+    <div class="crumb"><a href="#/">理念總綱</a> / <b>應對家長 Q&A</b></div>
+    <div class="qa-hero">
+      <div class="qa-hero-txt">
+        <span class="tool-tag danger">最後防線 · 統一口徑</span>
+        <h2>家長常見問題攻防戰</h2>
+        <p>家長問的每個問題背後都有焦慮。先讀懂「核心思維」，再用「標準回應」照著說——口徑一致，就不會被問倒。</p>
+      </div>
+      <svg class="qa-hero-ico" viewBox="0 0 100 100"><use href="#i-qa"/></svg>
+    </div>
+    <div class="qa-layout">
+      <aside class="qa-cats">
+        ${QA_DATA.map(c=>`<button class="qa-cat ${c.id===qaCat?"active":""}" onclick="setQaCat('${c.id}')">
+          <span><svg class="qa-cat-ico" viewBox="0 0 100 100"><use href="#${c.icon}"/></svg>${c.label}</span><small>${c.items.length}</small></button>`).join("")}
+      </aside>
+      <div class="qa-panels">
+        ${active.items.map((it,i)=>`
+          <details class="qa-item" ${i===0?"open":""}>
+            <summary>
+              ${it.hot?`<span class="hot">高頻發問</span>`:""}
+              <span class="qa-q">${it.q}</span>
+              <span class="chev">▾</span>
+            </summary>
+            <div class="qa-body">
+              <div class="qa-mind"><span class="lbl">核心思維</span><p>${it.mindset}</p></div>
+              <div class="qa-ans"><span class="lbl">標準回應</span><p>${it.answer}</p></div>
+            </div>
+          </details>`).join("")}
+      </div>
+    </div>`;
+}
+function setQaCat(id){ qaCat=id; renderQA(); }
 
 function panelHTML(tab, s){
   if(tab==="lp") return lpHTML(s);
@@ -961,7 +1478,7 @@ function lpHTML(s){
     <div class="block b1">
       <div class="bhead">
         <svg class="bicon" viewBox="0 0 100 100"><use href="#i-speak"/></svg>
-        <div><span class="time">🕒 00–15 分鐘</span><h4>老師示範引導</h4></div>
+        <div><span class="time"><svg class="tag-ico" viewBox="0 0 100 100"><use href="#i-clock"/></svg>00–15 分鐘</span><h4>老師示範引導</h4></div>
       </div>
       <p>搭配 APP 自動朗讀翻頁，帶領全班一起「輸入」《${s.name}》的故事。</p>
       <ul>
@@ -973,7 +1490,7 @@ function lpHTML(s){
     <div class="block b2">
       <div class="bhead">
         <svg class="bicon" viewBox="0 0 100 100"><use href="#i-stage"/></svg>
-        <div><span class="time">🕒 15–30 分鐘</span><h4>學生全功能發表</h4></div>
+        <div><span class="time"><svg class="tag-ico" viewBox="0 0 100 100"><use href="#i-clock"/></svg>15–30 分鐘</span><h4>學生全功能發表</h4></div>
       </div>
       <p>學生上台，自行切換《${s.name}》的 APP 場景並拖曳角色物件，同時開口說出完整故事。</p>
       <ul>
@@ -986,7 +1503,7 @@ function lpHTML(s){
     <div class="block b3">
       <div class="bhead">
         <svg class="bicon" viewBox="0 0 100 100"><use href="#i-paint"/></svg>
-        <div><span class="time">🕒 30–40 分鐘</span><h4>圖像沉澱與歸檔</h4></div>
+        <div><span class="time"><svg class="tag-ico" viewBox="0 0 100 100"><use href="#i-clock"/></svg>30–40 分鐘</span><h4>圖像沉澱與歸檔</h4></div>
       </div>
       <p>畫畫時間，並將 A4 畫紙收錄進《${s.name}》的專屬故事資料夾。</p>
       <ul>
@@ -999,22 +1516,34 @@ function lpHTML(s){
 }
 
 function tmHTML(s){
+  const C = (typeof STORYCONTENT!=="undefined" && STORYCONTENT[s.id]) ? STORYCONTENT[s.id] : null;
+  const tm = C && C.tm ? C.tm : null;
+  const sceneTxt = tm
+    ? `《${s.name}》建議分為三個場景：<b>①開場</b>——${tm.scenes[0]}；<b>②衝突</b>——${tm.scenes[1]}；<b>③結局</b>——${tm.scenes[2]}。於轉折處提醒學生切換。`
+    : `《${s.name}》建議分為「開場 → 衝突 → 結局」三個主要場景，於劇情轉折處提醒學生切換。`;
+  const objTxt = tm
+    ? `本集主要角色與道具：${tm.objects}。引導學生依<b>出場順序</b>拖曳進場，強調先後與位置。`
+    : `引導學生拖曳主角與關鍵道具進場，強調物件出現的先後順序與位置。`;
+  const climaxTxt = tm
+    ? `高潮片段——${tm.climax}——此處放慢操作節奏，讓學生一邊拖曳一邊完整敘述。`
+    : `高潮片段可放慢操作節奏，讓學生一邊拖曳一邊完整敘述。`;
   const items = [
-    ["#i-scenes","場景切換","《"+s.name+"》建議分為「開場 → 衝突 → 結局」三個主要場景，於劇情轉折處提醒學生切換。"],
-    ["#i-hand","物件拖曳","引導學生拖曳主角與關鍵道具進場，強調物件出現的先後順序與位置。"],
-    ["#i-clock","節奏提示","高潮片段可放慢操作節奏，讓學生一邊拖曳一邊完整敘述。"],
+    ["#i-scenes","場景切換",sceneTxt],
+    ["#i-hand","物件拖曳",objTxt],
+    ["#i-clock","節奏提示",climaxTxt],
   ];
   return `
   <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-app"/></svg>APP 操作指導</h3>
-  <p class="lead">提示本集的場景切換點與重要物件拖曳建議，協助老師掌握操作節奏。</p>
+  <p class="lead">《${s.name}》專屬的場景切換點與物件拖曳建議，協助老師掌握操作節奏。</p>
   <ul class="hintlist">
     ${items.map(it=>`<li><span class="ico"><svg viewBox="0 0 100 100"><use href="${it[0]}"/></svg></span><div><b>${it[1]}</b><br>${it[2]}</div></li>`).join("")}
   </ul>
-  <p class="note">※ 以上為示範內容，實際切換點與物件位置請依 APP 分鏡微調。</p>`;
+  <p class="note">※ 場景與物件依故事內容規劃，實際切換點請依 APP 分鏡微調。</p>`;
 }
 
 function qaHTML(s){
-  const qs = [
+  const C = (typeof STORYCONTENT!=="undefined" && STORYCONTENT[s.id]) ? STORYCONTENT[s.id] : null;
+  const qs = (C && C.questions && C.questions.length) ? C.questions : [
     "故事裡最先出現的角色是誰？他正在做什麼呢？",
     "接下來發生了什麼，讓大家覺得緊張的事情？",
     "主角遇到困難的時候，心裡可能在想些什麼？",
@@ -1023,24 +1552,58 @@ function qaHTML(s){
   ];
   return `
   <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-bulb"/></svg>引導練習題</h3>
-  <p class="lead">當學生一時詞窮、卡住不知道怎麼往下說時，老師專用的提示口袋問題。</p>
+  <p class="lead">針對《${s.name}》設計的口袋提問。當學生卡住、不知道怎麼往下說時，老師可以用這些問題引導他。</p>
   <ul class="hintlist qa">
     ${qs.map((q,i)=>`<li><span class="pill">Q${i+1}</span><div>${q}</div></li>`).join("")}
   </ul>
   <p class="note">※ 依學生程度自由挑選，鼓勵孩子用完整句子回答。</p>`;
 }
 
+/* 學習單設定：把檔案放進與本網頁同一層的 worksheets 資料夾，
+   以「故事編號」命名（例：spring-7.pdf）。若用橫向圖片，把 WS_EXT 改成 "png" 或 "jpg" 即可。 */
+const WS_DIR = "worksheets/";
+const WS_EXT = "pdf";
 function wsHTML(s){
   return `
   <h3><svg class="h3-ico" viewBox="0 0 100 100"><use href="#i-sheet"/></svg>學習單下載</h3>
-  <p class="lead">《${s.name}》A4 規格統一圖紙，供 30–40 分鐘圖像沉澱時間使用。</p>
+  <p class="lead">《${s.name}》A4 橫向規格統一圖紙，供 30–40 分鐘圖像沉澱時間使用。</p>
   <div class="ws-box">
-    <div class="sheet"><svg viewBox="0 0 100 100"><use href="#i-paint"/></svg><span>A4 · ${s.name}</span></div>
-    <p>一鍵下載後印出，孩子畫完即可收錄進專屬故事資料夾。</p>
-    <button class="btn primary" onclick="downloadWS('${s.name}')">
+    <div class="sheet land"><svg viewBox="0 0 100 100"><use href="#i-paint"/></svg><span>A4 橫向 · ${s.name}</span></div>
+    <p>下載後印出，孩子畫完即可收錄進專屬故事資料夾。</p>
+    <button class="btn primary" onclick="startWSDownload('${s.id}','${s.name.replace(/'/g,"\\'")}')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
       下載 A4 學習單</button>
   </div>`;
+}
+
+/* 點下載：跳出手繪風彈窗，並實際下載一份示範檔（之後放入 worksheets 即為正式檔） */
+function startWSDownload(id, name){
+  try{
+    const body = `《${name}》A4 橫向學習單（示範檔）\n\n`
+      + `這是故事屋的學習單佔位檔案。\n`
+      + `把正式的 A4 橫向學習單放進網頁同層的 worksheets 資料夾、\n`
+      + `以故事編號「${id}」命名後，這裡就會下載正式版。\n`;
+    const blob = new Blob([body], {type:"text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = name + "-學習單（示範）.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+  }catch(e){}
+  openModal(`
+    <div class="modal-card cray">
+      <button class="modal-x" onclick="closeModal()" aria-label="關閉">×</button>
+      <div class="modal-illo">
+        <svg class="doo d1" viewBox="0 0 100 100"><use href="#i-star"/></svg>
+        <svg class="doo d2" viewBox="0 0 100 100"><use href="#i-star"/></svg>
+        <svg class="illo-main" viewBox="0 0 100 100"><use href="#i-sheet"/></svg>
+        <svg class="doo d3" viewBox="0 0 100 100"><use href="#i-paint"/></svg>
+      </div>
+      <h3>開始下載囉！</h3>
+      <p>《${name}》的 <b>A4 橫向學習單</b> 正在下載，<br>稍等一下就會出現在你的下載資料夾。</p>
+      <p class="modal-note">目前下載的是示範檔；把正式學習單放進 worksheets 資料夾後，這裡就會換成正式版。</p>
+      <button class="btn primary big" onclick="closeModal()">好，我知道了！</button>
+    </div>`);
 }
 
 function downloadWS(name){ toast(`《${name}》學習單（A4）準備下載中…`); }
@@ -1080,6 +1643,24 @@ function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600);
+}
+
+function openModal(html){
+  const root=document.getElementById("modalRoot");
+  root.innerHTML=html; root.classList.add("show");
+}
+function closeModal(){
+  const root=document.getElementById("modalRoot");
+  root.classList.remove("show");
+  setTimeout(()=>{ if(!root.classList.contains("show")) root.innerHTML=""; },220);
+}
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+const toTopBtn=document.getElementById("toTop");
+if(toTopBtn){
+  const onScroll=()=>{ toTopBtn.classList.toggle("show", window.scrollY>360); };
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
 }
 
 window.addEventListener("hashchange", render);
